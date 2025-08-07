@@ -1,0 +1,24 @@
+{
+  "name": "simple-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx tsx src/main.ts",
+    "reset": "npx tsx src/reset.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@prisma/client": "^6.13.0",
+    "npx": "^10.2.2",
+    "prisma": "^6.13.0",
+    "tsc": "^2.0.4"
+  },
+  "devDependencies": {
+    "@types/node": "^24.2.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.9.2"
+  }
+}
