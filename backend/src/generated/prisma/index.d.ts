@@ -14,6 +14,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
+ * Model User
+ * 
+ */
+export type User = $Result.DefaultSelection<Prisma.$UserPayload>
+/**
  * Model Brand
  * 
  */
@@ -58,6 +63,21 @@ export type ProductStock = $Result.DefaultSelection<Prisma.$ProductStockPayload>
  * 
  */
 export type DataSync = $Result.DefaultSelection<Prisma.$DataSyncPayload>
+/**
+ * Model PriceHistory
+ * 
+ */
+export type PriceHistory = $Result.DefaultSelection<Prisma.$PriceHistoryPayload>
+/**
+ * Model StockHistory
+ * 
+ */
+export type StockHistory = $Result.DefaultSelection<Prisma.$StockHistoryPayload>
+/**
+ * Model CategoryHistory
+ * 
+ */
+export type CategoryHistory = $Result.DefaultSelection<Prisma.$CategoryHistoryPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -66,8 +86,8 @@ export type DataSync = $Result.DefaultSelection<Prisma.$DataSyncPayload>
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Brands
- * const brands = await prisma.brand.findMany()
+ * // Fetch zero or more Users
+ * const users = await prisma.user.findMany()
  * ```
  *
  *
@@ -87,8 +107,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Brands
-   * const brands = await prisma.brand.findMany()
+   * // Fetch zero or more Users
+   * const users = await prisma.user.findMany()
    * ```
    *
    *
@@ -185,6 +205,16 @@ export class PrismaClient<
   }>>
 
       /**
+   * `prisma.user`: Exposes CRUD operations for the **User** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Users
+    * const users = await prisma.user.findMany()
+    * ```
+    */
+  get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.brand`: Exposes CRUD operations for the **Brand** model.
     * Example usage:
     * ```ts
@@ -273,6 +303,36 @@ export class PrismaClient<
     * ```
     */
   get dataSync(): Prisma.DataSyncDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.priceHistory`: Exposes CRUD operations for the **PriceHistory** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PriceHistories
+    * const priceHistories = await prisma.priceHistory.findMany()
+    * ```
+    */
+  get priceHistory(): Prisma.PriceHistoryDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.stockHistory`: Exposes CRUD operations for the **StockHistory** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more StockHistories
+    * const stockHistories = await prisma.stockHistory.findMany()
+    * ```
+    */
+  get stockHistory(): Prisma.StockHistoryDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.categoryHistory`: Exposes CRUD operations for the **CategoryHistory** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CategoryHistories
+    * const categoryHistories = await prisma.categoryHistory.findMany()
+    * ```
+    */
+  get categoryHistory(): Prisma.CategoryHistoryDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -713,6 +773,7 @@ export namespace Prisma {
 
 
   export const ModelName: {
+    User: 'User',
     Brand: 'Brand',
     MainCategory: 'MainCategory',
     SubCategory: 'SubCategory',
@@ -721,7 +782,10 @@ export namespace Prisma {
     ProductSize: 'ProductSize',
     ProductImage: 'ProductImage',
     ProductStock: 'ProductStock',
-    DataSync: 'DataSync'
+    DataSync: 'DataSync',
+    PriceHistory: 'PriceHistory',
+    StockHistory: 'StockHistory',
+    CategoryHistory: 'CategoryHistory'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -740,10 +804,76 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "brand" | "mainCategory" | "subCategory" | "product" | "productColor" | "productSize" | "productImage" | "productStock" | "dataSync"
+      modelProps: "user" | "brand" | "mainCategory" | "subCategory" | "product" | "productColor" | "productSize" | "productImage" | "productStock" | "dataSync" | "priceHistory" | "stockHistory" | "categoryHistory"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
+      User: {
+        payload: Prisma.$UserPayload<ExtArgs>
+        fields: Prisma.UserFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
+          }
+          findFirst: {
+            args: Prisma.UserFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
+          }
+          findMany: {
+            args: Prisma.UserFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
+          }
+          create: {
+            args: Prisma.UserCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
+          }
+          createMany: {
+            args: Prisma.UserCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.UserDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
+          }
+          update: {
+            args: Prisma.UserUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.UserUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>
+          }
+          aggregate: {
+            args: Prisma.UserAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUser>
+          }
+          groupBy: {
+            args: Prisma.UserGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserCountArgs<ExtArgs>
+            result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
       Brand: {
         payload: Prisma.$BrandPayload<ExtArgs>
         fields: Prisma.BrandFieldRefs
@@ -1338,6 +1468,204 @@ export namespace Prisma {
           }
         }
       }
+      PriceHistory: {
+        payload: Prisma.$PriceHistoryPayload<ExtArgs>
+        fields: Prisma.PriceHistoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PriceHistoryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PriceHistoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PriceHistoryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PriceHistoryPayload>
+          }
+          findFirst: {
+            args: Prisma.PriceHistoryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PriceHistoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PriceHistoryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PriceHistoryPayload>
+          }
+          findMany: {
+            args: Prisma.PriceHistoryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PriceHistoryPayload>[]
+          }
+          create: {
+            args: Prisma.PriceHistoryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PriceHistoryPayload>
+          }
+          createMany: {
+            args: Prisma.PriceHistoryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.PriceHistoryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PriceHistoryPayload>
+          }
+          update: {
+            args: Prisma.PriceHistoryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PriceHistoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.PriceHistoryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PriceHistoryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PriceHistoryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PriceHistoryPayload>
+          }
+          aggregate: {
+            args: Prisma.PriceHistoryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePriceHistory>
+          }
+          groupBy: {
+            args: Prisma.PriceHistoryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PriceHistoryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PriceHistoryCountArgs<ExtArgs>
+            result: $Utils.Optional<PriceHistoryCountAggregateOutputType> | number
+          }
+        }
+      }
+      StockHistory: {
+        payload: Prisma.$StockHistoryPayload<ExtArgs>
+        fields: Prisma.StockHistoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.StockHistoryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StockHistoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.StockHistoryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StockHistoryPayload>
+          }
+          findFirst: {
+            args: Prisma.StockHistoryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StockHistoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.StockHistoryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StockHistoryPayload>
+          }
+          findMany: {
+            args: Prisma.StockHistoryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StockHistoryPayload>[]
+          }
+          create: {
+            args: Prisma.StockHistoryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StockHistoryPayload>
+          }
+          createMany: {
+            args: Prisma.StockHistoryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.StockHistoryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StockHistoryPayload>
+          }
+          update: {
+            args: Prisma.StockHistoryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StockHistoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.StockHistoryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.StockHistoryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.StockHistoryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StockHistoryPayload>
+          }
+          aggregate: {
+            args: Prisma.StockHistoryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStockHistory>
+          }
+          groupBy: {
+            args: Prisma.StockHistoryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<StockHistoryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.StockHistoryCountArgs<ExtArgs>
+            result: $Utils.Optional<StockHistoryCountAggregateOutputType> | number
+          }
+        }
+      }
+      CategoryHistory: {
+        payload: Prisma.$CategoryHistoryPayload<ExtArgs>
+        fields: Prisma.CategoryHistoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CategoryHistoryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryHistoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CategoryHistoryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryHistoryPayload>
+          }
+          findFirst: {
+            args: Prisma.CategoryHistoryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryHistoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CategoryHistoryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryHistoryPayload>
+          }
+          findMany: {
+            args: Prisma.CategoryHistoryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryHistoryPayload>[]
+          }
+          create: {
+            args: Prisma.CategoryHistoryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryHistoryPayload>
+          }
+          createMany: {
+            args: Prisma.CategoryHistoryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.CategoryHistoryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryHistoryPayload>
+          }
+          update: {
+            args: Prisma.CategoryHistoryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryHistoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.CategoryHistoryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CategoryHistoryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.CategoryHistoryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryHistoryPayload>
+          }
+          aggregate: {
+            args: Prisma.CategoryHistoryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCategoryHistory>
+          }
+          groupBy: {
+            args: Prisma.CategoryHistoryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CategoryHistoryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CategoryHistoryCountArgs<ExtArgs>
+            result: $Utils.Optional<CategoryHistoryCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1430,6 +1758,7 @@ export namespace Prisma {
     omit?: Prisma.GlobalOmitConfig
   }
   export type GlobalOmitConfig = {
+    user?: UserOmit
     brand?: BrandOmit
     mainCategory?: MainCategoryOmit
     subCategory?: SubCategoryOmit
@@ -1439,6 +1768,9 @@ export namespace Prisma {
     productImage?: ProductImageOmit
     productStock?: ProductStockOmit
     dataSync?: DataSyncOmit
+    priceHistory?: PriceHistoryOmit
+    stockHistory?: StockHistoryOmit
+    categoryHistory?: CategoryHistoryOmit
   }
 
   /* Types for Logging */
@@ -1611,11 +1943,13 @@ export namespace Prisma {
   export type SubCategoryCountOutputType = {
     subcategories: number
     products: number
+    history: number
   }
 
   export type SubCategoryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     subcategories?: boolean | SubCategoryCountOutputTypeCountSubcategoriesArgs
     products?: boolean | SubCategoryCountOutputTypeCountProductsArgs
+    history?: boolean | SubCategoryCountOutputTypeCountHistoryArgs
   }
 
   // Custom InputTypes
@@ -1643,6 +1977,13 @@ export namespace Prisma {
     where?: ProductWhereInput
   }
 
+  /**
+   * SubCategoryCountOutputType without action
+   */
+  export type SubCategoryCountOutputTypeCountHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CategoryHistoryWhereInput
+  }
+
 
   /**
    * Count Type ProductCountOutputType
@@ -1654,6 +1995,8 @@ export namespace Prisma {
     sizes: number
     stock: number
     subCategories: number
+    priceHistory: number
+    stockHistory: number
   }
 
   export type ProductCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1662,6 +2005,8 @@ export namespace Prisma {
     sizes?: boolean | ProductCountOutputTypeCountSizesArgs
     stock?: boolean | ProductCountOutputTypeCountStockArgs
     subCategories?: boolean | ProductCountOutputTypeCountSubCategoriesArgs
+    priceHistory?: boolean | ProductCountOutputTypeCountPriceHistoryArgs
+    stockHistory?: boolean | ProductCountOutputTypeCountStockHistoryArgs
   }
 
   // Custom InputTypes
@@ -1710,6 +2055,20 @@ export namespace Prisma {
     where?: SubCategoryWhereInput
   }
 
+  /**
+   * ProductCountOutputType without action
+   */
+  export type ProductCountOutputTypeCountPriceHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PriceHistoryWhereInput
+  }
+
+  /**
+   * ProductCountOutputType without action
+   */
+  export type ProductCountOutputTypeCountStockHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StockHistoryWhereInput
+  }
+
 
   /**
    * Count Type ProductColorCountOutputType
@@ -1719,12 +2078,16 @@ export namespace Prisma {
     images: number
     sizes: number
     stock: number
+    priceHistory: number
+    stockHistory: number
   }
 
   export type ProductColorCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     images?: boolean | ProductColorCountOutputTypeCountImagesArgs
     sizes?: boolean | ProductColorCountOutputTypeCountSizesArgs
     stock?: boolean | ProductColorCountOutputTypeCountStockArgs
+    priceHistory?: boolean | ProductColorCountOutputTypeCountPriceHistoryArgs
+    stockHistory?: boolean | ProductColorCountOutputTypeCountStockHistoryArgs
   }
 
   // Custom InputTypes
@@ -1759,10 +2122,962 @@ export namespace Prisma {
     where?: ProductStockWhereInput
   }
 
+  /**
+   * ProductColorCountOutputType without action
+   */
+  export type ProductColorCountOutputTypeCountPriceHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PriceHistoryWhereInput
+  }
+
+  /**
+   * ProductColorCountOutputType without action
+   */
+  export type ProductColorCountOutputTypeCountStockHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StockHistoryWhereInput
+  }
+
 
   /**
    * Models
    */
+
+  /**
+   * Model User
+   */
+
+  export type AggregateUser = {
+    _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
+    _min: UserMinAggregateOutputType | null
+    _max: UserMaxAggregateOutputType | null
+  }
+
+  export type UserAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type UserSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type UserMinAggregateOutputType = {
+    id: number | null
+    email: string | null
+    passwordHash: string | null
+    name: string | null
+    role: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserMaxAggregateOutputType = {
+    id: number | null
+    email: string | null
+    passwordHash: string | null
+    name: string | null
+    role: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserCountAggregateOutputType = {
+    id: number
+    email: number
+    passwordHash: number
+    name: number
+    role: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type UserAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type UserSumAggregateInputType = {
+    id?: true
+  }
+
+  export type UserMinAggregateInputType = {
+    id?: true
+    email?: true
+    passwordHash?: true
+    name?: true
+    role?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserMaxAggregateInputType = {
+    id?: true
+    email?: true
+    passwordHash?: true
+    name?: true
+    role?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserCountAggregateInputType = {
+    id?: true
+    email?: true
+    passwordHash?: true
+    name?: true
+    role?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type UserAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which User to aggregate.
+     */
+    where?: UserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Users to fetch.
+     */
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Users.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Users
+    **/
+    _count?: true | UserCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UserAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserMaxAggregateInputType
+  }
+
+  export type GetUserAggregateType<T extends UserAggregateArgs> = {
+        [P in keyof T & keyof AggregateUser]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUser[P]>
+      : GetScalarType<T[P], AggregateUser[P]>
+  }
+
+
+
+
+  export type UserGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithAggregationInput | UserOrderByWithAggregationInput[]
+    by: UserScalarFieldEnum[] | UserScalarFieldEnum
+    having?: UserScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserCountAggregateInputType | true
+    _avg?: UserAvgAggregateInputType
+    _sum?: UserSumAggregateInputType
+    _min?: UserMinAggregateInputType
+    _max?: UserMaxAggregateInputType
+  }
+
+  export type UserGroupByOutputType = {
+    id: number
+    email: string
+    passwordHash: string
+    name: string | null
+    role: string
+    createdAt: Date
+    updatedAt: Date
+    _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
+    _min: UserMinAggregateOutputType | null
+    _max: UserMaxAggregateOutputType | null
+  }
+
+  type GetUserGroupByPayload<T extends UserGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserGroupByOutputType[P]>
+            : GetScalarType<T[P], UserGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    email?: boolean
+    passwordHash?: boolean
+    name?: boolean
+    role?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["user"]>
+
+
+
+  export type UserSelectScalar = {
+    id?: boolean
+    email?: boolean
+    passwordHash?: boolean
+    name?: boolean
+    role?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "passwordHash" | "name" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+
+  export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "User"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      email: string
+      passwordHash: string
+      name: string | null
+      role: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["user"]>
+    composites: {}
+  }
+
+  type UserGetPayload<S extends boolean | null | undefined | UserDefaultArgs> = $Result.GetResult<Prisma.$UserPayload, S>
+
+  type UserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserCountAggregateInputType | true
+    }
+
+  export interface UserDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['User'], meta: { name: 'User' } }
+    /**
+     * Find zero or one User that matches the filter.
+     * @param {UserFindUniqueArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserFindUniqueArgs>(args: SelectSubset<T, UserFindUniqueArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one User that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserFindUniqueOrThrowArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserFindUniqueOrThrowArgs>(args: SelectSubset<T, UserFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first User that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserFindFirstArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserFindFirstArgs>(args?: SelectSubset<T, UserFindFirstArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first User that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserFindFirstOrThrowArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserFindFirstOrThrowArgs>(args?: SelectSubset<T, UserFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Users that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Users
+     * const users = await prisma.user.findMany()
+     * 
+     * // Get first 10 Users
+     * const users = await prisma.user.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userWithIdOnly = await prisma.user.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserFindManyArgs>(args?: SelectSubset<T, UserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a User.
+     * @param {UserCreateArgs} args - Arguments to create a User.
+     * @example
+     * // Create one User
+     * const User = await prisma.user.create({
+     *   data: {
+     *     // ... data to create a User
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserCreateArgs>(args: SelectSubset<T, UserCreateArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Users.
+     * @param {UserCreateManyArgs} args - Arguments to create many Users.
+     * @example
+     * // Create many Users
+     * const user = await prisma.user.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserCreateManyArgs>(args?: SelectSubset<T, UserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a User.
+     * @param {UserDeleteArgs} args - Arguments to delete one User.
+     * @example
+     * // Delete one User
+     * const User = await prisma.user.delete({
+     *   where: {
+     *     // ... filter to delete one User
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserDeleteArgs>(args: SelectSubset<T, UserDeleteArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one User.
+     * @param {UserUpdateArgs} args - Arguments to update one User.
+     * @example
+     * // Update one User
+     * const user = await prisma.user.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserUpdateArgs>(args: SelectSubset<T, UserUpdateArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Users.
+     * @param {UserDeleteManyArgs} args - Arguments to filter Users to delete.
+     * @example
+     * // Delete a few Users
+     * const { count } = await prisma.user.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserDeleteManyArgs>(args?: SelectSubset<T, UserDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Users.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Users
+     * const user = await prisma.user.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserUpdateManyArgs>(args: SelectSubset<T, UserUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one User.
+     * @param {UserUpsertArgs} args - Arguments to update or create a User.
+     * @example
+     * // Update or create a User
+     * const user = await prisma.user.upsert({
+     *   create: {
+     *     // ... data to create a User
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the User we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserUpsertArgs>(args: SelectSubset<T, UserUpsertArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Users.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserCountArgs} args - Arguments to filter Users to count.
+     * @example
+     * // Count the number of Users
+     * const count = await prisma.user.count({
+     *   where: {
+     *     // ... the filter for the Users we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserCountArgs>(
+      args?: Subset<T, UserCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a User.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserAggregateArgs>(args: Subset<T, UserAggregateArgs>): Prisma.PrismaPromise<GetUserAggregateType<T>>
+
+    /**
+     * Group by User.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserGroupByArgs['orderBy'] }
+        : { orderBy?: UserGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the User model
+   */
+  readonly fields: UserFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for User.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the User model
+   */
+  interface UserFieldRefs {
+    readonly id: FieldRef<"User", 'Int'>
+    readonly email: FieldRef<"User", 'String'>
+    readonly passwordHash: FieldRef<"User", 'String'>
+    readonly name: FieldRef<"User", 'String'>
+    readonly role: FieldRef<"User", 'String'>
+    readonly createdAt: FieldRef<"User", 'DateTime'>
+    readonly updatedAt: FieldRef<"User", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * User findUnique
+   */
+  export type UserFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Filter, which User to fetch.
+     */
+    where: UserWhereUniqueInput
+  }
+
+  /**
+   * User findUniqueOrThrow
+   */
+  export type UserFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Filter, which User to fetch.
+     */
+    where: UserWhereUniqueInput
+  }
+
+  /**
+   * User findFirst
+   */
+  export type UserFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Filter, which User to fetch.
+     */
+    where?: UserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Users to fetch.
+     */
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Users.
+     */
+    cursor?: UserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Users.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Users.
+     */
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * User findFirstOrThrow
+   */
+  export type UserFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Filter, which User to fetch.
+     */
+    where?: UserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Users to fetch.
+     */
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Users.
+     */
+    cursor?: UserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Users.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Users.
+     */
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * User findMany
+   */
+  export type UserFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Filter, which Users to fetch.
+     */
+    where?: UserWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Users to fetch.
+     */
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Users.
+     */
+    cursor?: UserWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Users from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Users.
+     */
+    skip?: number
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * User create
+   */
+  export type UserCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * The data needed to create a User.
+     */
+    data: XOR<UserCreateInput, UserUncheckedCreateInput>
+  }
+
+  /**
+   * User createMany
+   */
+  export type UserCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Users.
+     */
+    data: UserCreateManyInput | UserCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * User update
+   */
+  export type UserUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * The data needed to update a User.
+     */
+    data: XOR<UserUpdateInput, UserUncheckedUpdateInput>
+    /**
+     * Choose, which User to update.
+     */
+    where: UserWhereUniqueInput
+  }
+
+  /**
+   * User updateMany
+   */
+  export type UserUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Users.
+     */
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyInput>
+    /**
+     * Filter which Users to update
+     */
+    where?: UserWhereInput
+    /**
+     * Limit how many Users to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * User upsert
+   */
+  export type UserUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * The filter to search for the User to update in case it exists.
+     */
+    where: UserWhereUniqueInput
+    /**
+     * In case the User found by the `where` argument doesn't exist, create a new User with this data.
+     */
+    create: XOR<UserCreateInput, UserUncheckedCreateInput>
+    /**
+     * In case the User was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserUpdateInput, UserUncheckedUpdateInput>
+  }
+
+  /**
+   * User delete
+   */
+  export type UserDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Filter which User to delete.
+     */
+    where: UserWhereUniqueInput
+  }
+
+  /**
+   * User deleteMany
+   */
+  export type UserDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Users to delete
+     */
+    where?: UserWhereInput
+    /**
+     * Limit how many Users to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * User without action
+   */
+  export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+  }
+
 
   /**
    * Model Brand
@@ -4022,6 +5337,7 @@ export namespace Prisma {
     parentSubCategory?: boolean | SubCategory$parentSubCategoryArgs<ExtArgs>
     subcategories?: boolean | SubCategory$subcategoriesArgs<ExtArgs>
     products?: boolean | SubCategory$productsArgs<ExtArgs>
+    history?: boolean | SubCategory$historyArgs<ExtArgs>
     _count?: boolean | SubCategoryCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["subCategory"]>
 
@@ -4048,6 +5364,7 @@ export namespace Prisma {
     parentSubCategory?: boolean | SubCategory$parentSubCategoryArgs<ExtArgs>
     subcategories?: boolean | SubCategory$subcategoriesArgs<ExtArgs>
     products?: boolean | SubCategory$productsArgs<ExtArgs>
+    history?: boolean | SubCategory$historyArgs<ExtArgs>
     _count?: boolean | SubCategoryCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -4058,6 +5375,7 @@ export namespace Prisma {
       parentSubCategory: Prisma.$SubCategoryPayload<ExtArgs> | null
       subcategories: Prisma.$SubCategoryPayload<ExtArgs>[]
       products: Prisma.$ProductPayload<ExtArgs>[]
+      history: Prisma.$CategoryHistoryPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       categoryId: number
@@ -4416,6 +5734,7 @@ export namespace Prisma {
     parentSubCategory<T extends SubCategory$parentSubCategoryArgs<ExtArgs> = {}>(args?: Subset<T, SubCategory$parentSubCategoryArgs<ExtArgs>>): Prisma__SubCategoryClient<$Result.GetResult<Prisma.$SubCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     subcategories<T extends SubCategory$subcategoriesArgs<ExtArgs> = {}>(args?: Subset<T, SubCategory$subcategoriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubCategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     products<T extends SubCategory$productsArgs<ExtArgs> = {}>(args?: Subset<T, SubCategory$productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    history<T extends SubCategory$historyArgs<ExtArgs> = {}>(args?: Subset<T, SubCategory$historyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoryHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4886,6 +6205,30 @@ export namespace Prisma {
   }
 
   /**
+   * SubCategory.history
+   */
+  export type SubCategory$historyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CategoryHistory
+     */
+    select?: CategoryHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CategoryHistory
+     */
+    omit?: CategoryHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryHistoryInclude<ExtArgs> | null
+    where?: CategoryHistoryWhereInput
+    orderBy?: CategoryHistoryOrderByWithRelationInput | CategoryHistoryOrderByWithRelationInput[]
+    cursor?: CategoryHistoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CategoryHistoryScalarFieldEnum | CategoryHistoryScalarFieldEnum[]
+  }
+
+  /**
    * SubCategory without action
    */
   export type SubCategoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5140,6 +6483,8 @@ export namespace Prisma {
     sizes?: boolean | Product$sizesArgs<ExtArgs>
     stock?: boolean | Product$stockArgs<ExtArgs>
     subCategories?: boolean | Product$subCategoriesArgs<ExtArgs>
+    priceHistory?: boolean | Product$priceHistoryArgs<ExtArgs>
+    stockHistory?: boolean | Product$stockHistoryArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
 
@@ -5164,6 +6509,8 @@ export namespace Prisma {
     sizes?: boolean | Product$sizesArgs<ExtArgs>
     stock?: boolean | Product$stockArgs<ExtArgs>
     subCategories?: boolean | Product$subCategoriesArgs<ExtArgs>
+    priceHistory?: boolean | Product$priceHistoryArgs<ExtArgs>
+    stockHistory?: boolean | Product$stockHistoryArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -5176,6 +6523,8 @@ export namespace Prisma {
       sizes: Prisma.$ProductSizePayload<ExtArgs>[]
       stock: Prisma.$ProductStockPayload<ExtArgs>[]
       subCategories: Prisma.$SubCategoryPayload<ExtArgs>[]
+      priceHistory: Prisma.$PriceHistoryPayload<ExtArgs>[]
+      stockHistory: Prisma.$StockHistoryPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -5532,6 +6881,8 @@ export namespace Prisma {
     sizes<T extends Product$sizesArgs<ExtArgs> = {}>(args?: Subset<T, Product$sizesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductSizePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     stock<T extends Product$stockArgs<ExtArgs> = {}>(args?: Subset<T, Product$stockArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductStockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     subCategories<T extends Product$subCategoriesArgs<ExtArgs> = {}>(args?: Subset<T, Product$subCategoriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubCategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    priceHistory<T extends Product$priceHistoryArgs<ExtArgs> = {}>(args?: Subset<T, Product$priceHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PriceHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    stockHistory<T extends Product$stockHistoryArgs<ExtArgs> = {}>(args?: Subset<T, Product$stockHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6032,6 +7383,54 @@ export namespace Prisma {
   }
 
   /**
+   * Product.priceHistory
+   */
+  export type Product$priceHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PriceHistory
+     */
+    select?: PriceHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PriceHistory
+     */
+    omit?: PriceHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PriceHistoryInclude<ExtArgs> | null
+    where?: PriceHistoryWhereInput
+    orderBy?: PriceHistoryOrderByWithRelationInput | PriceHistoryOrderByWithRelationInput[]
+    cursor?: PriceHistoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PriceHistoryScalarFieldEnum | PriceHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * Product.stockHistory
+   */
+  export type Product$stockHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StockHistory
+     */
+    select?: StockHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StockHistory
+     */
+    omit?: StockHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockHistoryInclude<ExtArgs> | null
+    where?: StockHistoryWhereInput
+    orderBy?: StockHistoryOrderByWithRelationInput | StockHistoryOrderByWithRelationInput[]
+    cursor?: StockHistoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StockHistoryScalarFieldEnum | StockHistoryScalarFieldEnum[]
+  }
+
+  /**
    * Product without action
    */
   export type ProductDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6276,6 +7675,8 @@ export namespace Prisma {
     images?: boolean | ProductColor$imagesArgs<ExtArgs>
     sizes?: boolean | ProductColor$sizesArgs<ExtArgs>
     stock?: boolean | ProductColor$stockArgs<ExtArgs>
+    priceHistory?: boolean | ProductColor$priceHistoryArgs<ExtArgs>
+    stockHistory?: boolean | ProductColor$stockHistoryArgs<ExtArgs>
     _count?: boolean | ProductColorCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["productColor"]>
 
@@ -6297,6 +7698,8 @@ export namespace Prisma {
     images?: boolean | ProductColor$imagesArgs<ExtArgs>
     sizes?: boolean | ProductColor$sizesArgs<ExtArgs>
     stock?: boolean | ProductColor$stockArgs<ExtArgs>
+    priceHistory?: boolean | ProductColor$priceHistoryArgs<ExtArgs>
+    stockHistory?: boolean | ProductColor$stockHistoryArgs<ExtArgs>
     _count?: boolean | ProductColorCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -6307,6 +7710,8 @@ export namespace Prisma {
       images: Prisma.$ProductImagePayload<ExtArgs>[]
       sizes: Prisma.$ProductSizePayload<ExtArgs>[]
       stock: Prisma.$ProductStockPayload<ExtArgs>[]
+      priceHistory: Prisma.$PriceHistoryPayload<ExtArgs>[]
+      stockHistory: Prisma.$StockHistoryPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -6660,6 +8065,8 @@ export namespace Prisma {
     images<T extends ProductColor$imagesArgs<ExtArgs> = {}>(args?: Subset<T, ProductColor$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sizes<T extends ProductColor$sizesArgs<ExtArgs> = {}>(args?: Subset<T, ProductColor$sizesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductSizePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     stock<T extends ProductColor$stockArgs<ExtArgs> = {}>(args?: Subset<T, ProductColor$stockArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductStockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    priceHistory<T extends ProductColor$priceHistoryArgs<ExtArgs> = {}>(args?: Subset<T, ProductColor$priceHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PriceHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    stockHistory<T extends ProductColor$stockHistoryArgs<ExtArgs> = {}>(args?: Subset<T, ProductColor$stockHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7108,6 +8515,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ProductStockScalarFieldEnum | ProductStockScalarFieldEnum[]
+  }
+
+  /**
+   * ProductColor.priceHistory
+   */
+  export type ProductColor$priceHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PriceHistory
+     */
+    select?: PriceHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PriceHistory
+     */
+    omit?: PriceHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PriceHistoryInclude<ExtArgs> | null
+    where?: PriceHistoryWhereInput
+    orderBy?: PriceHistoryOrderByWithRelationInput | PriceHistoryOrderByWithRelationInput[]
+    cursor?: PriceHistoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PriceHistoryScalarFieldEnum | PriceHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * ProductColor.stockHistory
+   */
+  export type ProductColor$stockHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StockHistory
+     */
+    select?: StockHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StockHistory
+     */
+    omit?: StockHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockHistoryInclude<ExtArgs> | null
+    where?: StockHistoryWhereInput
+    orderBy?: StockHistoryOrderByWithRelationInput | StockHistoryOrderByWithRelationInput[]
+    cursor?: StockHistoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StockHistoryScalarFieldEnum | StockHistoryScalarFieldEnum[]
   }
 
   /**
@@ -11207,6 +12662,2976 @@ export namespace Prisma {
 
 
   /**
+   * Model PriceHistory
+   */
+
+  export type AggregatePriceHistory = {
+    _count: PriceHistoryCountAggregateOutputType | null
+    _avg: PriceHistoryAvgAggregateOutputType | null
+    _sum: PriceHistorySumAggregateOutputType | null
+    _min: PriceHistoryMinAggregateOutputType | null
+    _max: PriceHistoryMaxAggregateOutputType | null
+  }
+
+  export type PriceHistoryAvgAggregateOutputType = {
+    id: number | null
+    productId: number | null
+    price: number | null
+    colorId: number | null
+  }
+
+  export type PriceHistorySumAggregateOutputType = {
+    id: number | null
+    productId: number | null
+    price: number | null
+    colorId: number | null
+  }
+
+  export type PriceHistoryMinAggregateOutputType = {
+    id: number | null
+    productId: number | null
+    price: number | null
+    colorId: number | null
+    timestamp: Date | null
+  }
+
+  export type PriceHistoryMaxAggregateOutputType = {
+    id: number | null
+    productId: number | null
+    price: number | null
+    colorId: number | null
+    timestamp: Date | null
+  }
+
+  export type PriceHistoryCountAggregateOutputType = {
+    id: number
+    productId: number
+    price: number
+    colorId: number
+    timestamp: number
+    _all: number
+  }
+
+
+  export type PriceHistoryAvgAggregateInputType = {
+    id?: true
+    productId?: true
+    price?: true
+    colorId?: true
+  }
+
+  export type PriceHistorySumAggregateInputType = {
+    id?: true
+    productId?: true
+    price?: true
+    colorId?: true
+  }
+
+  export type PriceHistoryMinAggregateInputType = {
+    id?: true
+    productId?: true
+    price?: true
+    colorId?: true
+    timestamp?: true
+  }
+
+  export type PriceHistoryMaxAggregateInputType = {
+    id?: true
+    productId?: true
+    price?: true
+    colorId?: true
+    timestamp?: true
+  }
+
+  export type PriceHistoryCountAggregateInputType = {
+    id?: true
+    productId?: true
+    price?: true
+    colorId?: true
+    timestamp?: true
+    _all?: true
+  }
+
+  export type PriceHistoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PriceHistory to aggregate.
+     */
+    where?: PriceHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PriceHistories to fetch.
+     */
+    orderBy?: PriceHistoryOrderByWithRelationInput | PriceHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PriceHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PriceHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PriceHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PriceHistories
+    **/
+    _count?: true | PriceHistoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PriceHistoryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PriceHistorySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PriceHistoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PriceHistoryMaxAggregateInputType
+  }
+
+  export type GetPriceHistoryAggregateType<T extends PriceHistoryAggregateArgs> = {
+        [P in keyof T & keyof AggregatePriceHistory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePriceHistory[P]>
+      : GetScalarType<T[P], AggregatePriceHistory[P]>
+  }
+
+
+
+
+  export type PriceHistoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PriceHistoryWhereInput
+    orderBy?: PriceHistoryOrderByWithAggregationInput | PriceHistoryOrderByWithAggregationInput[]
+    by: PriceHistoryScalarFieldEnum[] | PriceHistoryScalarFieldEnum
+    having?: PriceHistoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PriceHistoryCountAggregateInputType | true
+    _avg?: PriceHistoryAvgAggregateInputType
+    _sum?: PriceHistorySumAggregateInputType
+    _min?: PriceHistoryMinAggregateInputType
+    _max?: PriceHistoryMaxAggregateInputType
+  }
+
+  export type PriceHistoryGroupByOutputType = {
+    id: number
+    productId: number
+    price: number
+    colorId: number | null
+    timestamp: Date
+    _count: PriceHistoryCountAggregateOutputType | null
+    _avg: PriceHistoryAvgAggregateOutputType | null
+    _sum: PriceHistorySumAggregateOutputType | null
+    _min: PriceHistoryMinAggregateOutputType | null
+    _max: PriceHistoryMaxAggregateOutputType | null
+  }
+
+  type GetPriceHistoryGroupByPayload<T extends PriceHistoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PriceHistoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PriceHistoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PriceHistoryGroupByOutputType[P]>
+            : GetScalarType<T[P], PriceHistoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PriceHistorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    productId?: boolean
+    price?: boolean
+    colorId?: boolean
+    timestamp?: boolean
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+    color?: boolean | PriceHistory$colorArgs<ExtArgs>
+  }, ExtArgs["result"]["priceHistory"]>
+
+
+
+  export type PriceHistorySelectScalar = {
+    id?: boolean
+    productId?: boolean
+    price?: boolean
+    colorId?: boolean
+    timestamp?: boolean
+  }
+
+  export type PriceHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "productId" | "price" | "colorId" | "timestamp", ExtArgs["result"]["priceHistory"]>
+  export type PriceHistoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+    color?: boolean | PriceHistory$colorArgs<ExtArgs>
+  }
+
+  export type $PriceHistoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PriceHistory"
+    objects: {
+      product: Prisma.$ProductPayload<ExtArgs>
+      color: Prisma.$ProductColorPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      productId: number
+      price: number
+      colorId: number | null
+      timestamp: Date
+    }, ExtArgs["result"]["priceHistory"]>
+    composites: {}
+  }
+
+  type PriceHistoryGetPayload<S extends boolean | null | undefined | PriceHistoryDefaultArgs> = $Result.GetResult<Prisma.$PriceHistoryPayload, S>
+
+  type PriceHistoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PriceHistoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PriceHistoryCountAggregateInputType | true
+    }
+
+  export interface PriceHistoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PriceHistory'], meta: { name: 'PriceHistory' } }
+    /**
+     * Find zero or one PriceHistory that matches the filter.
+     * @param {PriceHistoryFindUniqueArgs} args - Arguments to find a PriceHistory
+     * @example
+     * // Get one PriceHistory
+     * const priceHistory = await prisma.priceHistory.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PriceHistoryFindUniqueArgs>(args: SelectSubset<T, PriceHistoryFindUniqueArgs<ExtArgs>>): Prisma__PriceHistoryClient<$Result.GetResult<Prisma.$PriceHistoryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PriceHistory that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PriceHistoryFindUniqueOrThrowArgs} args - Arguments to find a PriceHistory
+     * @example
+     * // Get one PriceHistory
+     * const priceHistory = await prisma.priceHistory.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PriceHistoryFindUniqueOrThrowArgs>(args: SelectSubset<T, PriceHistoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PriceHistoryClient<$Result.GetResult<Prisma.$PriceHistoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PriceHistory that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PriceHistoryFindFirstArgs} args - Arguments to find a PriceHistory
+     * @example
+     * // Get one PriceHistory
+     * const priceHistory = await prisma.priceHistory.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PriceHistoryFindFirstArgs>(args?: SelectSubset<T, PriceHistoryFindFirstArgs<ExtArgs>>): Prisma__PriceHistoryClient<$Result.GetResult<Prisma.$PriceHistoryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PriceHistory that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PriceHistoryFindFirstOrThrowArgs} args - Arguments to find a PriceHistory
+     * @example
+     * // Get one PriceHistory
+     * const priceHistory = await prisma.priceHistory.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PriceHistoryFindFirstOrThrowArgs>(args?: SelectSubset<T, PriceHistoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__PriceHistoryClient<$Result.GetResult<Prisma.$PriceHistoryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PriceHistories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PriceHistoryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PriceHistories
+     * const priceHistories = await prisma.priceHistory.findMany()
+     * 
+     * // Get first 10 PriceHistories
+     * const priceHistories = await prisma.priceHistory.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const priceHistoryWithIdOnly = await prisma.priceHistory.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PriceHistoryFindManyArgs>(args?: SelectSubset<T, PriceHistoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PriceHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PriceHistory.
+     * @param {PriceHistoryCreateArgs} args - Arguments to create a PriceHistory.
+     * @example
+     * // Create one PriceHistory
+     * const PriceHistory = await prisma.priceHistory.create({
+     *   data: {
+     *     // ... data to create a PriceHistory
+     *   }
+     * })
+     * 
+     */
+    create<T extends PriceHistoryCreateArgs>(args: SelectSubset<T, PriceHistoryCreateArgs<ExtArgs>>): Prisma__PriceHistoryClient<$Result.GetResult<Prisma.$PriceHistoryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PriceHistories.
+     * @param {PriceHistoryCreateManyArgs} args - Arguments to create many PriceHistories.
+     * @example
+     * // Create many PriceHistories
+     * const priceHistory = await prisma.priceHistory.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PriceHistoryCreateManyArgs>(args?: SelectSubset<T, PriceHistoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a PriceHistory.
+     * @param {PriceHistoryDeleteArgs} args - Arguments to delete one PriceHistory.
+     * @example
+     * // Delete one PriceHistory
+     * const PriceHistory = await prisma.priceHistory.delete({
+     *   where: {
+     *     // ... filter to delete one PriceHistory
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PriceHistoryDeleteArgs>(args: SelectSubset<T, PriceHistoryDeleteArgs<ExtArgs>>): Prisma__PriceHistoryClient<$Result.GetResult<Prisma.$PriceHistoryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PriceHistory.
+     * @param {PriceHistoryUpdateArgs} args - Arguments to update one PriceHistory.
+     * @example
+     * // Update one PriceHistory
+     * const priceHistory = await prisma.priceHistory.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PriceHistoryUpdateArgs>(args: SelectSubset<T, PriceHistoryUpdateArgs<ExtArgs>>): Prisma__PriceHistoryClient<$Result.GetResult<Prisma.$PriceHistoryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PriceHistories.
+     * @param {PriceHistoryDeleteManyArgs} args - Arguments to filter PriceHistories to delete.
+     * @example
+     * // Delete a few PriceHistories
+     * const { count } = await prisma.priceHistory.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PriceHistoryDeleteManyArgs>(args?: SelectSubset<T, PriceHistoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PriceHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PriceHistoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PriceHistories
+     * const priceHistory = await prisma.priceHistory.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PriceHistoryUpdateManyArgs>(args: SelectSubset<T, PriceHistoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PriceHistory.
+     * @param {PriceHistoryUpsertArgs} args - Arguments to update or create a PriceHistory.
+     * @example
+     * // Update or create a PriceHistory
+     * const priceHistory = await prisma.priceHistory.upsert({
+     *   create: {
+     *     // ... data to create a PriceHistory
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PriceHistory we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PriceHistoryUpsertArgs>(args: SelectSubset<T, PriceHistoryUpsertArgs<ExtArgs>>): Prisma__PriceHistoryClient<$Result.GetResult<Prisma.$PriceHistoryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PriceHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PriceHistoryCountArgs} args - Arguments to filter PriceHistories to count.
+     * @example
+     * // Count the number of PriceHistories
+     * const count = await prisma.priceHistory.count({
+     *   where: {
+     *     // ... the filter for the PriceHistories we want to count
+     *   }
+     * })
+    **/
+    count<T extends PriceHistoryCountArgs>(
+      args?: Subset<T, PriceHistoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PriceHistoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PriceHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PriceHistoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PriceHistoryAggregateArgs>(args: Subset<T, PriceHistoryAggregateArgs>): Prisma.PrismaPromise<GetPriceHistoryAggregateType<T>>
+
+    /**
+     * Group by PriceHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PriceHistoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PriceHistoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PriceHistoryGroupByArgs['orderBy'] }
+        : { orderBy?: PriceHistoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PriceHistoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPriceHistoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PriceHistory model
+   */
+  readonly fields: PriceHistoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PriceHistory.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PriceHistoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    product<T extends ProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductDefaultArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    color<T extends PriceHistory$colorArgs<ExtArgs> = {}>(args?: Subset<T, PriceHistory$colorArgs<ExtArgs>>): Prisma__ProductColorClient<$Result.GetResult<Prisma.$ProductColorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PriceHistory model
+   */
+  interface PriceHistoryFieldRefs {
+    readonly id: FieldRef<"PriceHistory", 'Int'>
+    readonly productId: FieldRef<"PriceHistory", 'Int'>
+    readonly price: FieldRef<"PriceHistory", 'Int'>
+    readonly colorId: FieldRef<"PriceHistory", 'Int'>
+    readonly timestamp: FieldRef<"PriceHistory", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PriceHistory findUnique
+   */
+  export type PriceHistoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PriceHistory
+     */
+    select?: PriceHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PriceHistory
+     */
+    omit?: PriceHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PriceHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which PriceHistory to fetch.
+     */
+    where: PriceHistoryWhereUniqueInput
+  }
+
+  /**
+   * PriceHistory findUniqueOrThrow
+   */
+  export type PriceHistoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PriceHistory
+     */
+    select?: PriceHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PriceHistory
+     */
+    omit?: PriceHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PriceHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which PriceHistory to fetch.
+     */
+    where: PriceHistoryWhereUniqueInput
+  }
+
+  /**
+   * PriceHistory findFirst
+   */
+  export type PriceHistoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PriceHistory
+     */
+    select?: PriceHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PriceHistory
+     */
+    omit?: PriceHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PriceHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which PriceHistory to fetch.
+     */
+    where?: PriceHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PriceHistories to fetch.
+     */
+    orderBy?: PriceHistoryOrderByWithRelationInput | PriceHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PriceHistories.
+     */
+    cursor?: PriceHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PriceHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PriceHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PriceHistories.
+     */
+    distinct?: PriceHistoryScalarFieldEnum | PriceHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * PriceHistory findFirstOrThrow
+   */
+  export type PriceHistoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PriceHistory
+     */
+    select?: PriceHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PriceHistory
+     */
+    omit?: PriceHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PriceHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which PriceHistory to fetch.
+     */
+    where?: PriceHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PriceHistories to fetch.
+     */
+    orderBy?: PriceHistoryOrderByWithRelationInput | PriceHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PriceHistories.
+     */
+    cursor?: PriceHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PriceHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PriceHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PriceHistories.
+     */
+    distinct?: PriceHistoryScalarFieldEnum | PriceHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * PriceHistory findMany
+   */
+  export type PriceHistoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PriceHistory
+     */
+    select?: PriceHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PriceHistory
+     */
+    omit?: PriceHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PriceHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which PriceHistories to fetch.
+     */
+    where?: PriceHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PriceHistories to fetch.
+     */
+    orderBy?: PriceHistoryOrderByWithRelationInput | PriceHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PriceHistories.
+     */
+    cursor?: PriceHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PriceHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PriceHistories.
+     */
+    skip?: number
+    distinct?: PriceHistoryScalarFieldEnum | PriceHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * PriceHistory create
+   */
+  export type PriceHistoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PriceHistory
+     */
+    select?: PriceHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PriceHistory
+     */
+    omit?: PriceHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PriceHistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PriceHistory.
+     */
+    data: XOR<PriceHistoryCreateInput, PriceHistoryUncheckedCreateInput>
+  }
+
+  /**
+   * PriceHistory createMany
+   */
+  export type PriceHistoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PriceHistories.
+     */
+    data: PriceHistoryCreateManyInput | PriceHistoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PriceHistory update
+   */
+  export type PriceHistoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PriceHistory
+     */
+    select?: PriceHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PriceHistory
+     */
+    omit?: PriceHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PriceHistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PriceHistory.
+     */
+    data: XOR<PriceHistoryUpdateInput, PriceHistoryUncheckedUpdateInput>
+    /**
+     * Choose, which PriceHistory to update.
+     */
+    where: PriceHistoryWhereUniqueInput
+  }
+
+  /**
+   * PriceHistory updateMany
+   */
+  export type PriceHistoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PriceHistories.
+     */
+    data: XOR<PriceHistoryUpdateManyMutationInput, PriceHistoryUncheckedUpdateManyInput>
+    /**
+     * Filter which PriceHistories to update
+     */
+    where?: PriceHistoryWhereInput
+    /**
+     * Limit how many PriceHistories to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PriceHistory upsert
+   */
+  export type PriceHistoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PriceHistory
+     */
+    select?: PriceHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PriceHistory
+     */
+    omit?: PriceHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PriceHistoryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PriceHistory to update in case it exists.
+     */
+    where: PriceHistoryWhereUniqueInput
+    /**
+     * In case the PriceHistory found by the `where` argument doesn't exist, create a new PriceHistory with this data.
+     */
+    create: XOR<PriceHistoryCreateInput, PriceHistoryUncheckedCreateInput>
+    /**
+     * In case the PriceHistory was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PriceHistoryUpdateInput, PriceHistoryUncheckedUpdateInput>
+  }
+
+  /**
+   * PriceHistory delete
+   */
+  export type PriceHistoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PriceHistory
+     */
+    select?: PriceHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PriceHistory
+     */
+    omit?: PriceHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PriceHistoryInclude<ExtArgs> | null
+    /**
+     * Filter which PriceHistory to delete.
+     */
+    where: PriceHistoryWhereUniqueInput
+  }
+
+  /**
+   * PriceHistory deleteMany
+   */
+  export type PriceHistoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PriceHistories to delete
+     */
+    where?: PriceHistoryWhereInput
+    /**
+     * Limit how many PriceHistories to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PriceHistory.color
+   */
+  export type PriceHistory$colorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProductColor
+     */
+    select?: ProductColorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProductColor
+     */
+    omit?: ProductColorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductColorInclude<ExtArgs> | null
+    where?: ProductColorWhereInput
+  }
+
+  /**
+   * PriceHistory without action
+   */
+  export type PriceHistoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PriceHistory
+     */
+    select?: PriceHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PriceHistory
+     */
+    omit?: PriceHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PriceHistoryInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model StockHistory
+   */
+
+  export type AggregateStockHistory = {
+    _count: StockHistoryCountAggregateOutputType | null
+    _avg: StockHistoryAvgAggregateOutputType | null
+    _sum: StockHistorySumAggregateOutputType | null
+    _min: StockHistoryMinAggregateOutputType | null
+    _max: StockHistoryMaxAggregateOutputType | null
+  }
+
+  export type StockHistoryAvgAggregateOutputType = {
+    id: number | null
+    productId: number | null
+    sizeId: number | null
+    colorId: number | null
+  }
+
+  export type StockHistorySumAggregateOutputType = {
+    id: number | null
+    productId: number | null
+    sizeId: number | null
+    colorId: number | null
+  }
+
+  export type StockHistoryMinAggregateOutputType = {
+    id: number | null
+    productId: number | null
+    sizeId: number | null
+    colorId: number | null
+    available: boolean | null
+    timestamp: Date | null
+  }
+
+  export type StockHistoryMaxAggregateOutputType = {
+    id: number | null
+    productId: number | null
+    sizeId: number | null
+    colorId: number | null
+    available: boolean | null
+    timestamp: Date | null
+  }
+
+  export type StockHistoryCountAggregateOutputType = {
+    id: number
+    productId: number
+    sizeId: number
+    colorId: number
+    available: number
+    timestamp: number
+    _all: number
+  }
+
+
+  export type StockHistoryAvgAggregateInputType = {
+    id?: true
+    productId?: true
+    sizeId?: true
+    colorId?: true
+  }
+
+  export type StockHistorySumAggregateInputType = {
+    id?: true
+    productId?: true
+    sizeId?: true
+    colorId?: true
+  }
+
+  export type StockHistoryMinAggregateInputType = {
+    id?: true
+    productId?: true
+    sizeId?: true
+    colorId?: true
+    available?: true
+    timestamp?: true
+  }
+
+  export type StockHistoryMaxAggregateInputType = {
+    id?: true
+    productId?: true
+    sizeId?: true
+    colorId?: true
+    available?: true
+    timestamp?: true
+  }
+
+  export type StockHistoryCountAggregateInputType = {
+    id?: true
+    productId?: true
+    sizeId?: true
+    colorId?: true
+    available?: true
+    timestamp?: true
+    _all?: true
+  }
+
+  export type StockHistoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StockHistory to aggregate.
+     */
+    where?: StockHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StockHistories to fetch.
+     */
+    orderBy?: StockHistoryOrderByWithRelationInput | StockHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: StockHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StockHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StockHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned StockHistories
+    **/
+    _count?: true | StockHistoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: StockHistoryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: StockHistorySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StockHistoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StockHistoryMaxAggregateInputType
+  }
+
+  export type GetStockHistoryAggregateType<T extends StockHistoryAggregateArgs> = {
+        [P in keyof T & keyof AggregateStockHistory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStockHistory[P]>
+      : GetScalarType<T[P], AggregateStockHistory[P]>
+  }
+
+
+
+
+  export type StockHistoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StockHistoryWhereInput
+    orderBy?: StockHistoryOrderByWithAggregationInput | StockHistoryOrderByWithAggregationInput[]
+    by: StockHistoryScalarFieldEnum[] | StockHistoryScalarFieldEnum
+    having?: StockHistoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StockHistoryCountAggregateInputType | true
+    _avg?: StockHistoryAvgAggregateInputType
+    _sum?: StockHistorySumAggregateInputType
+    _min?: StockHistoryMinAggregateInputType
+    _max?: StockHistoryMaxAggregateInputType
+  }
+
+  export type StockHistoryGroupByOutputType = {
+    id: number
+    productId: number
+    sizeId: number
+    colorId: number | null
+    available: boolean
+    timestamp: Date
+    _count: StockHistoryCountAggregateOutputType | null
+    _avg: StockHistoryAvgAggregateOutputType | null
+    _sum: StockHistorySumAggregateOutputType | null
+    _min: StockHistoryMinAggregateOutputType | null
+    _max: StockHistoryMaxAggregateOutputType | null
+  }
+
+  type GetStockHistoryGroupByPayload<T extends StockHistoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StockHistoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StockHistoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StockHistoryGroupByOutputType[P]>
+            : GetScalarType<T[P], StockHistoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StockHistorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    productId?: boolean
+    sizeId?: boolean
+    colorId?: boolean
+    available?: boolean
+    timestamp?: boolean
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+    color?: boolean | StockHistory$colorArgs<ExtArgs>
+  }, ExtArgs["result"]["stockHistory"]>
+
+
+
+  export type StockHistorySelectScalar = {
+    id?: boolean
+    productId?: boolean
+    sizeId?: boolean
+    colorId?: boolean
+    available?: boolean
+    timestamp?: boolean
+  }
+
+  export type StockHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "productId" | "sizeId" | "colorId" | "available" | "timestamp", ExtArgs["result"]["stockHistory"]>
+  export type StockHistoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+    color?: boolean | StockHistory$colorArgs<ExtArgs>
+  }
+
+  export type $StockHistoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "StockHistory"
+    objects: {
+      product: Prisma.$ProductPayload<ExtArgs>
+      color: Prisma.$ProductColorPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      productId: number
+      sizeId: number
+      colorId: number | null
+      available: boolean
+      timestamp: Date
+    }, ExtArgs["result"]["stockHistory"]>
+    composites: {}
+  }
+
+  type StockHistoryGetPayload<S extends boolean | null | undefined | StockHistoryDefaultArgs> = $Result.GetResult<Prisma.$StockHistoryPayload, S>
+
+  type StockHistoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<StockHistoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: StockHistoryCountAggregateInputType | true
+    }
+
+  export interface StockHistoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['StockHistory'], meta: { name: 'StockHistory' } }
+    /**
+     * Find zero or one StockHistory that matches the filter.
+     * @param {StockHistoryFindUniqueArgs} args - Arguments to find a StockHistory
+     * @example
+     * // Get one StockHistory
+     * const stockHistory = await prisma.stockHistory.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends StockHistoryFindUniqueArgs>(args: SelectSubset<T, StockHistoryFindUniqueArgs<ExtArgs>>): Prisma__StockHistoryClient<$Result.GetResult<Prisma.$StockHistoryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one StockHistory that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {StockHistoryFindUniqueOrThrowArgs} args - Arguments to find a StockHistory
+     * @example
+     * // Get one StockHistory
+     * const stockHistory = await prisma.stockHistory.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends StockHistoryFindUniqueOrThrowArgs>(args: SelectSubset<T, StockHistoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StockHistoryClient<$Result.GetResult<Prisma.$StockHistoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first StockHistory that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StockHistoryFindFirstArgs} args - Arguments to find a StockHistory
+     * @example
+     * // Get one StockHistory
+     * const stockHistory = await prisma.stockHistory.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends StockHistoryFindFirstArgs>(args?: SelectSubset<T, StockHistoryFindFirstArgs<ExtArgs>>): Prisma__StockHistoryClient<$Result.GetResult<Prisma.$StockHistoryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first StockHistory that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StockHistoryFindFirstOrThrowArgs} args - Arguments to find a StockHistory
+     * @example
+     * // Get one StockHistory
+     * const stockHistory = await prisma.stockHistory.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends StockHistoryFindFirstOrThrowArgs>(args?: SelectSubset<T, StockHistoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__StockHistoryClient<$Result.GetResult<Prisma.$StockHistoryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more StockHistories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StockHistoryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all StockHistories
+     * const stockHistories = await prisma.stockHistory.findMany()
+     * 
+     * // Get first 10 StockHistories
+     * const stockHistories = await prisma.stockHistory.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const stockHistoryWithIdOnly = await prisma.stockHistory.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends StockHistoryFindManyArgs>(args?: SelectSubset<T, StockHistoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a StockHistory.
+     * @param {StockHistoryCreateArgs} args - Arguments to create a StockHistory.
+     * @example
+     * // Create one StockHistory
+     * const StockHistory = await prisma.stockHistory.create({
+     *   data: {
+     *     // ... data to create a StockHistory
+     *   }
+     * })
+     * 
+     */
+    create<T extends StockHistoryCreateArgs>(args: SelectSubset<T, StockHistoryCreateArgs<ExtArgs>>): Prisma__StockHistoryClient<$Result.GetResult<Prisma.$StockHistoryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many StockHistories.
+     * @param {StockHistoryCreateManyArgs} args - Arguments to create many StockHistories.
+     * @example
+     * // Create many StockHistories
+     * const stockHistory = await prisma.stockHistory.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends StockHistoryCreateManyArgs>(args?: SelectSubset<T, StockHistoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a StockHistory.
+     * @param {StockHistoryDeleteArgs} args - Arguments to delete one StockHistory.
+     * @example
+     * // Delete one StockHistory
+     * const StockHistory = await prisma.stockHistory.delete({
+     *   where: {
+     *     // ... filter to delete one StockHistory
+     *   }
+     * })
+     * 
+     */
+    delete<T extends StockHistoryDeleteArgs>(args: SelectSubset<T, StockHistoryDeleteArgs<ExtArgs>>): Prisma__StockHistoryClient<$Result.GetResult<Prisma.$StockHistoryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one StockHistory.
+     * @param {StockHistoryUpdateArgs} args - Arguments to update one StockHistory.
+     * @example
+     * // Update one StockHistory
+     * const stockHistory = await prisma.stockHistory.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends StockHistoryUpdateArgs>(args: SelectSubset<T, StockHistoryUpdateArgs<ExtArgs>>): Prisma__StockHistoryClient<$Result.GetResult<Prisma.$StockHistoryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more StockHistories.
+     * @param {StockHistoryDeleteManyArgs} args - Arguments to filter StockHistories to delete.
+     * @example
+     * // Delete a few StockHistories
+     * const { count } = await prisma.stockHistory.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends StockHistoryDeleteManyArgs>(args?: SelectSubset<T, StockHistoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more StockHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StockHistoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many StockHistories
+     * const stockHistory = await prisma.stockHistory.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends StockHistoryUpdateManyArgs>(args: SelectSubset<T, StockHistoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one StockHistory.
+     * @param {StockHistoryUpsertArgs} args - Arguments to update or create a StockHistory.
+     * @example
+     * // Update or create a StockHistory
+     * const stockHistory = await prisma.stockHistory.upsert({
+     *   create: {
+     *     // ... data to create a StockHistory
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the StockHistory we want to update
+     *   }
+     * })
+     */
+    upsert<T extends StockHistoryUpsertArgs>(args: SelectSubset<T, StockHistoryUpsertArgs<ExtArgs>>): Prisma__StockHistoryClient<$Result.GetResult<Prisma.$StockHistoryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of StockHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StockHistoryCountArgs} args - Arguments to filter StockHistories to count.
+     * @example
+     * // Count the number of StockHistories
+     * const count = await prisma.stockHistory.count({
+     *   where: {
+     *     // ... the filter for the StockHistories we want to count
+     *   }
+     * })
+    **/
+    count<T extends StockHistoryCountArgs>(
+      args?: Subset<T, StockHistoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StockHistoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a StockHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StockHistoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StockHistoryAggregateArgs>(args: Subset<T, StockHistoryAggregateArgs>): Prisma.PrismaPromise<GetStockHistoryAggregateType<T>>
+
+    /**
+     * Group by StockHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StockHistoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StockHistoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StockHistoryGroupByArgs['orderBy'] }
+        : { orderBy?: StockHistoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StockHistoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStockHistoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the StockHistory model
+   */
+  readonly fields: StockHistoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for StockHistory.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__StockHistoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    product<T extends ProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductDefaultArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    color<T extends StockHistory$colorArgs<ExtArgs> = {}>(args?: Subset<T, StockHistory$colorArgs<ExtArgs>>): Prisma__ProductColorClient<$Result.GetResult<Prisma.$ProductColorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the StockHistory model
+   */
+  interface StockHistoryFieldRefs {
+    readonly id: FieldRef<"StockHistory", 'Int'>
+    readonly productId: FieldRef<"StockHistory", 'Int'>
+    readonly sizeId: FieldRef<"StockHistory", 'Int'>
+    readonly colorId: FieldRef<"StockHistory", 'Int'>
+    readonly available: FieldRef<"StockHistory", 'Boolean'>
+    readonly timestamp: FieldRef<"StockHistory", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * StockHistory findUnique
+   */
+  export type StockHistoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StockHistory
+     */
+    select?: StockHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StockHistory
+     */
+    omit?: StockHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which StockHistory to fetch.
+     */
+    where: StockHistoryWhereUniqueInput
+  }
+
+  /**
+   * StockHistory findUniqueOrThrow
+   */
+  export type StockHistoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StockHistory
+     */
+    select?: StockHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StockHistory
+     */
+    omit?: StockHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which StockHistory to fetch.
+     */
+    where: StockHistoryWhereUniqueInput
+  }
+
+  /**
+   * StockHistory findFirst
+   */
+  export type StockHistoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StockHistory
+     */
+    select?: StockHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StockHistory
+     */
+    omit?: StockHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which StockHistory to fetch.
+     */
+    where?: StockHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StockHistories to fetch.
+     */
+    orderBy?: StockHistoryOrderByWithRelationInput | StockHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StockHistories.
+     */
+    cursor?: StockHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StockHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StockHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StockHistories.
+     */
+    distinct?: StockHistoryScalarFieldEnum | StockHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * StockHistory findFirstOrThrow
+   */
+  export type StockHistoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StockHistory
+     */
+    select?: StockHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StockHistory
+     */
+    omit?: StockHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which StockHistory to fetch.
+     */
+    where?: StockHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StockHistories to fetch.
+     */
+    orderBy?: StockHistoryOrderByWithRelationInput | StockHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for StockHistories.
+     */
+    cursor?: StockHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StockHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StockHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of StockHistories.
+     */
+    distinct?: StockHistoryScalarFieldEnum | StockHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * StockHistory findMany
+   */
+  export type StockHistoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StockHistory
+     */
+    select?: StockHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StockHistory
+     */
+    omit?: StockHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which StockHistories to fetch.
+     */
+    where?: StockHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of StockHistories to fetch.
+     */
+    orderBy?: StockHistoryOrderByWithRelationInput | StockHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing StockHistories.
+     */
+    cursor?: StockHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` StockHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` StockHistories.
+     */
+    skip?: number
+    distinct?: StockHistoryScalarFieldEnum | StockHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * StockHistory create
+   */
+  export type StockHistoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StockHistory
+     */
+    select?: StockHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StockHistory
+     */
+    omit?: StockHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockHistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a StockHistory.
+     */
+    data: XOR<StockHistoryCreateInput, StockHistoryUncheckedCreateInput>
+  }
+
+  /**
+   * StockHistory createMany
+   */
+  export type StockHistoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many StockHistories.
+     */
+    data: StockHistoryCreateManyInput | StockHistoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * StockHistory update
+   */
+  export type StockHistoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StockHistory
+     */
+    select?: StockHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StockHistory
+     */
+    omit?: StockHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockHistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a StockHistory.
+     */
+    data: XOR<StockHistoryUpdateInput, StockHistoryUncheckedUpdateInput>
+    /**
+     * Choose, which StockHistory to update.
+     */
+    where: StockHistoryWhereUniqueInput
+  }
+
+  /**
+   * StockHistory updateMany
+   */
+  export type StockHistoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update StockHistories.
+     */
+    data: XOR<StockHistoryUpdateManyMutationInput, StockHistoryUncheckedUpdateManyInput>
+    /**
+     * Filter which StockHistories to update
+     */
+    where?: StockHistoryWhereInput
+    /**
+     * Limit how many StockHistories to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * StockHistory upsert
+   */
+  export type StockHistoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StockHistory
+     */
+    select?: StockHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StockHistory
+     */
+    omit?: StockHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockHistoryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the StockHistory to update in case it exists.
+     */
+    where: StockHistoryWhereUniqueInput
+    /**
+     * In case the StockHistory found by the `where` argument doesn't exist, create a new StockHistory with this data.
+     */
+    create: XOR<StockHistoryCreateInput, StockHistoryUncheckedCreateInput>
+    /**
+     * In case the StockHistory was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<StockHistoryUpdateInput, StockHistoryUncheckedUpdateInput>
+  }
+
+  /**
+   * StockHistory delete
+   */
+  export type StockHistoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StockHistory
+     */
+    select?: StockHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StockHistory
+     */
+    omit?: StockHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockHistoryInclude<ExtArgs> | null
+    /**
+     * Filter which StockHistory to delete.
+     */
+    where: StockHistoryWhereUniqueInput
+  }
+
+  /**
+   * StockHistory deleteMany
+   */
+  export type StockHistoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which StockHistories to delete
+     */
+    where?: StockHistoryWhereInput
+    /**
+     * Limit how many StockHistories to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * StockHistory.color
+   */
+  export type StockHistory$colorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProductColor
+     */
+    select?: ProductColorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProductColor
+     */
+    omit?: ProductColorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductColorInclude<ExtArgs> | null
+    where?: ProductColorWhereInput
+  }
+
+  /**
+   * StockHistory without action
+   */
+  export type StockHistoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StockHistory
+     */
+    select?: StockHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StockHistory
+     */
+    omit?: StockHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StockHistoryInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CategoryHistory
+   */
+
+  export type AggregateCategoryHistory = {
+    _count: CategoryHistoryCountAggregateOutputType | null
+    _avg: CategoryHistoryAvgAggregateOutputType | null
+    _sum: CategoryHistorySumAggregateOutputType | null
+    _min: CategoryHistoryMinAggregateOutputType | null
+    _max: CategoryHistoryMaxAggregateOutputType | null
+  }
+
+  export type CategoryHistoryAvgAggregateOutputType = {
+    id: number | null
+    categoryId: number | null
+  }
+
+  export type CategoryHistorySumAggregateOutputType = {
+    id: number | null
+    categoryId: number | null
+  }
+
+  export type CategoryHistoryMinAggregateOutputType = {
+    id: number | null
+    categoryId: number | null
+    action: string | null
+    timestamp: Date | null
+  }
+
+  export type CategoryHistoryMaxAggregateOutputType = {
+    id: number | null
+    categoryId: number | null
+    action: string | null
+    timestamp: Date | null
+  }
+
+  export type CategoryHistoryCountAggregateOutputType = {
+    id: number
+    categoryId: number
+    action: number
+    changes: number
+    timestamp: number
+    _all: number
+  }
+
+
+  export type CategoryHistoryAvgAggregateInputType = {
+    id?: true
+    categoryId?: true
+  }
+
+  export type CategoryHistorySumAggregateInputType = {
+    id?: true
+    categoryId?: true
+  }
+
+  export type CategoryHistoryMinAggregateInputType = {
+    id?: true
+    categoryId?: true
+    action?: true
+    timestamp?: true
+  }
+
+  export type CategoryHistoryMaxAggregateInputType = {
+    id?: true
+    categoryId?: true
+    action?: true
+    timestamp?: true
+  }
+
+  export type CategoryHistoryCountAggregateInputType = {
+    id?: true
+    categoryId?: true
+    action?: true
+    changes?: true
+    timestamp?: true
+    _all?: true
+  }
+
+  export type CategoryHistoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CategoryHistory to aggregate.
+     */
+    where?: CategoryHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CategoryHistories to fetch.
+     */
+    orderBy?: CategoryHistoryOrderByWithRelationInput | CategoryHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CategoryHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CategoryHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CategoryHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CategoryHistories
+    **/
+    _count?: true | CategoryHistoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CategoryHistoryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CategoryHistorySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CategoryHistoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CategoryHistoryMaxAggregateInputType
+  }
+
+  export type GetCategoryHistoryAggregateType<T extends CategoryHistoryAggregateArgs> = {
+        [P in keyof T & keyof AggregateCategoryHistory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCategoryHistory[P]>
+      : GetScalarType<T[P], AggregateCategoryHistory[P]>
+  }
+
+
+
+
+  export type CategoryHistoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CategoryHistoryWhereInput
+    orderBy?: CategoryHistoryOrderByWithAggregationInput | CategoryHistoryOrderByWithAggregationInput[]
+    by: CategoryHistoryScalarFieldEnum[] | CategoryHistoryScalarFieldEnum
+    having?: CategoryHistoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CategoryHistoryCountAggregateInputType | true
+    _avg?: CategoryHistoryAvgAggregateInputType
+    _sum?: CategoryHistorySumAggregateInputType
+    _min?: CategoryHistoryMinAggregateInputType
+    _max?: CategoryHistoryMaxAggregateInputType
+  }
+
+  export type CategoryHistoryGroupByOutputType = {
+    id: number
+    categoryId: number
+    action: string
+    changes: JsonValue | null
+    timestamp: Date
+    _count: CategoryHistoryCountAggregateOutputType | null
+    _avg: CategoryHistoryAvgAggregateOutputType | null
+    _sum: CategoryHistorySumAggregateOutputType | null
+    _min: CategoryHistoryMinAggregateOutputType | null
+    _max: CategoryHistoryMaxAggregateOutputType | null
+  }
+
+  type GetCategoryHistoryGroupByPayload<T extends CategoryHistoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CategoryHistoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CategoryHistoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CategoryHistoryGroupByOutputType[P]>
+            : GetScalarType<T[P], CategoryHistoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CategoryHistorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    categoryId?: boolean
+    action?: boolean
+    changes?: boolean
+    timestamp?: boolean
+    category?: boolean | SubCategoryDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["categoryHistory"]>
+
+
+
+  export type CategoryHistorySelectScalar = {
+    id?: boolean
+    categoryId?: boolean
+    action?: boolean
+    changes?: boolean
+    timestamp?: boolean
+  }
+
+  export type CategoryHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "categoryId" | "action" | "changes" | "timestamp", ExtArgs["result"]["categoryHistory"]>
+  export type CategoryHistoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    category?: boolean | SubCategoryDefaultArgs<ExtArgs>
+  }
+
+  export type $CategoryHistoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CategoryHistory"
+    objects: {
+      category: Prisma.$SubCategoryPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      categoryId: number
+      action: string
+      changes: Prisma.JsonValue | null
+      timestamp: Date
+    }, ExtArgs["result"]["categoryHistory"]>
+    composites: {}
+  }
+
+  type CategoryHistoryGetPayload<S extends boolean | null | undefined | CategoryHistoryDefaultArgs> = $Result.GetResult<Prisma.$CategoryHistoryPayload, S>
+
+  type CategoryHistoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CategoryHistoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CategoryHistoryCountAggregateInputType | true
+    }
+
+  export interface CategoryHistoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CategoryHistory'], meta: { name: 'CategoryHistory' } }
+    /**
+     * Find zero or one CategoryHistory that matches the filter.
+     * @param {CategoryHistoryFindUniqueArgs} args - Arguments to find a CategoryHistory
+     * @example
+     * // Get one CategoryHistory
+     * const categoryHistory = await prisma.categoryHistory.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CategoryHistoryFindUniqueArgs>(args: SelectSubset<T, CategoryHistoryFindUniqueArgs<ExtArgs>>): Prisma__CategoryHistoryClient<$Result.GetResult<Prisma.$CategoryHistoryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CategoryHistory that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CategoryHistoryFindUniqueOrThrowArgs} args - Arguments to find a CategoryHistory
+     * @example
+     * // Get one CategoryHistory
+     * const categoryHistory = await prisma.categoryHistory.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CategoryHistoryFindUniqueOrThrowArgs>(args: SelectSubset<T, CategoryHistoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CategoryHistoryClient<$Result.GetResult<Prisma.$CategoryHistoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CategoryHistory that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoryHistoryFindFirstArgs} args - Arguments to find a CategoryHistory
+     * @example
+     * // Get one CategoryHistory
+     * const categoryHistory = await prisma.categoryHistory.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CategoryHistoryFindFirstArgs>(args?: SelectSubset<T, CategoryHistoryFindFirstArgs<ExtArgs>>): Prisma__CategoryHistoryClient<$Result.GetResult<Prisma.$CategoryHistoryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CategoryHistory that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoryHistoryFindFirstOrThrowArgs} args - Arguments to find a CategoryHistory
+     * @example
+     * // Get one CategoryHistory
+     * const categoryHistory = await prisma.categoryHistory.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CategoryHistoryFindFirstOrThrowArgs>(args?: SelectSubset<T, CategoryHistoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__CategoryHistoryClient<$Result.GetResult<Prisma.$CategoryHistoryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CategoryHistories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoryHistoryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CategoryHistories
+     * const categoryHistories = await prisma.categoryHistory.findMany()
+     * 
+     * // Get first 10 CategoryHistories
+     * const categoryHistories = await prisma.categoryHistory.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const categoryHistoryWithIdOnly = await prisma.categoryHistory.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CategoryHistoryFindManyArgs>(args?: SelectSubset<T, CategoryHistoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoryHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CategoryHistory.
+     * @param {CategoryHistoryCreateArgs} args - Arguments to create a CategoryHistory.
+     * @example
+     * // Create one CategoryHistory
+     * const CategoryHistory = await prisma.categoryHistory.create({
+     *   data: {
+     *     // ... data to create a CategoryHistory
+     *   }
+     * })
+     * 
+     */
+    create<T extends CategoryHistoryCreateArgs>(args: SelectSubset<T, CategoryHistoryCreateArgs<ExtArgs>>): Prisma__CategoryHistoryClient<$Result.GetResult<Prisma.$CategoryHistoryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CategoryHistories.
+     * @param {CategoryHistoryCreateManyArgs} args - Arguments to create many CategoryHistories.
+     * @example
+     * // Create many CategoryHistories
+     * const categoryHistory = await prisma.categoryHistory.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CategoryHistoryCreateManyArgs>(args?: SelectSubset<T, CategoryHistoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a CategoryHistory.
+     * @param {CategoryHistoryDeleteArgs} args - Arguments to delete one CategoryHistory.
+     * @example
+     * // Delete one CategoryHistory
+     * const CategoryHistory = await prisma.categoryHistory.delete({
+     *   where: {
+     *     // ... filter to delete one CategoryHistory
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CategoryHistoryDeleteArgs>(args: SelectSubset<T, CategoryHistoryDeleteArgs<ExtArgs>>): Prisma__CategoryHistoryClient<$Result.GetResult<Prisma.$CategoryHistoryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CategoryHistory.
+     * @param {CategoryHistoryUpdateArgs} args - Arguments to update one CategoryHistory.
+     * @example
+     * // Update one CategoryHistory
+     * const categoryHistory = await prisma.categoryHistory.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CategoryHistoryUpdateArgs>(args: SelectSubset<T, CategoryHistoryUpdateArgs<ExtArgs>>): Prisma__CategoryHistoryClient<$Result.GetResult<Prisma.$CategoryHistoryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CategoryHistories.
+     * @param {CategoryHistoryDeleteManyArgs} args - Arguments to filter CategoryHistories to delete.
+     * @example
+     * // Delete a few CategoryHistories
+     * const { count } = await prisma.categoryHistory.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CategoryHistoryDeleteManyArgs>(args?: SelectSubset<T, CategoryHistoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CategoryHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoryHistoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CategoryHistories
+     * const categoryHistory = await prisma.categoryHistory.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CategoryHistoryUpdateManyArgs>(args: SelectSubset<T, CategoryHistoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one CategoryHistory.
+     * @param {CategoryHistoryUpsertArgs} args - Arguments to update or create a CategoryHistory.
+     * @example
+     * // Update or create a CategoryHistory
+     * const categoryHistory = await prisma.categoryHistory.upsert({
+     *   create: {
+     *     // ... data to create a CategoryHistory
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CategoryHistory we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CategoryHistoryUpsertArgs>(args: SelectSubset<T, CategoryHistoryUpsertArgs<ExtArgs>>): Prisma__CategoryHistoryClient<$Result.GetResult<Prisma.$CategoryHistoryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CategoryHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoryHistoryCountArgs} args - Arguments to filter CategoryHistories to count.
+     * @example
+     * // Count the number of CategoryHistories
+     * const count = await prisma.categoryHistory.count({
+     *   where: {
+     *     // ... the filter for the CategoryHistories we want to count
+     *   }
+     * })
+    **/
+    count<T extends CategoryHistoryCountArgs>(
+      args?: Subset<T, CategoryHistoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CategoryHistoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CategoryHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoryHistoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CategoryHistoryAggregateArgs>(args: Subset<T, CategoryHistoryAggregateArgs>): Prisma.PrismaPromise<GetCategoryHistoryAggregateType<T>>
+
+    /**
+     * Group by CategoryHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoryHistoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CategoryHistoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CategoryHistoryGroupByArgs['orderBy'] }
+        : { orderBy?: CategoryHistoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CategoryHistoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCategoryHistoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CategoryHistory model
+   */
+  readonly fields: CategoryHistoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CategoryHistory.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CategoryHistoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    category<T extends SubCategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SubCategoryDefaultArgs<ExtArgs>>): Prisma__SubCategoryClient<$Result.GetResult<Prisma.$SubCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CategoryHistory model
+   */
+  interface CategoryHistoryFieldRefs {
+    readonly id: FieldRef<"CategoryHistory", 'Int'>
+    readonly categoryId: FieldRef<"CategoryHistory", 'Int'>
+    readonly action: FieldRef<"CategoryHistory", 'String'>
+    readonly changes: FieldRef<"CategoryHistory", 'Json'>
+    readonly timestamp: FieldRef<"CategoryHistory", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CategoryHistory findUnique
+   */
+  export type CategoryHistoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CategoryHistory
+     */
+    select?: CategoryHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CategoryHistory
+     */
+    omit?: CategoryHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which CategoryHistory to fetch.
+     */
+    where: CategoryHistoryWhereUniqueInput
+  }
+
+  /**
+   * CategoryHistory findUniqueOrThrow
+   */
+  export type CategoryHistoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CategoryHistory
+     */
+    select?: CategoryHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CategoryHistory
+     */
+    omit?: CategoryHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which CategoryHistory to fetch.
+     */
+    where: CategoryHistoryWhereUniqueInput
+  }
+
+  /**
+   * CategoryHistory findFirst
+   */
+  export type CategoryHistoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CategoryHistory
+     */
+    select?: CategoryHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CategoryHistory
+     */
+    omit?: CategoryHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which CategoryHistory to fetch.
+     */
+    where?: CategoryHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CategoryHistories to fetch.
+     */
+    orderBy?: CategoryHistoryOrderByWithRelationInput | CategoryHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CategoryHistories.
+     */
+    cursor?: CategoryHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CategoryHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CategoryHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CategoryHistories.
+     */
+    distinct?: CategoryHistoryScalarFieldEnum | CategoryHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * CategoryHistory findFirstOrThrow
+   */
+  export type CategoryHistoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CategoryHistory
+     */
+    select?: CategoryHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CategoryHistory
+     */
+    omit?: CategoryHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which CategoryHistory to fetch.
+     */
+    where?: CategoryHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CategoryHistories to fetch.
+     */
+    orderBy?: CategoryHistoryOrderByWithRelationInput | CategoryHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CategoryHistories.
+     */
+    cursor?: CategoryHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CategoryHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CategoryHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CategoryHistories.
+     */
+    distinct?: CategoryHistoryScalarFieldEnum | CategoryHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * CategoryHistory findMany
+   */
+  export type CategoryHistoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CategoryHistory
+     */
+    select?: CategoryHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CategoryHistory
+     */
+    omit?: CategoryHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which CategoryHistories to fetch.
+     */
+    where?: CategoryHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CategoryHistories to fetch.
+     */
+    orderBy?: CategoryHistoryOrderByWithRelationInput | CategoryHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CategoryHistories.
+     */
+    cursor?: CategoryHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CategoryHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CategoryHistories.
+     */
+    skip?: number
+    distinct?: CategoryHistoryScalarFieldEnum | CategoryHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * CategoryHistory create
+   */
+  export type CategoryHistoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CategoryHistory
+     */
+    select?: CategoryHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CategoryHistory
+     */
+    omit?: CategoryHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryHistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CategoryHistory.
+     */
+    data: XOR<CategoryHistoryCreateInput, CategoryHistoryUncheckedCreateInput>
+  }
+
+  /**
+   * CategoryHistory createMany
+   */
+  export type CategoryHistoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CategoryHistories.
+     */
+    data: CategoryHistoryCreateManyInput | CategoryHistoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CategoryHistory update
+   */
+  export type CategoryHistoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CategoryHistory
+     */
+    select?: CategoryHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CategoryHistory
+     */
+    omit?: CategoryHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryHistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CategoryHistory.
+     */
+    data: XOR<CategoryHistoryUpdateInput, CategoryHistoryUncheckedUpdateInput>
+    /**
+     * Choose, which CategoryHistory to update.
+     */
+    where: CategoryHistoryWhereUniqueInput
+  }
+
+  /**
+   * CategoryHistory updateMany
+   */
+  export type CategoryHistoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CategoryHistories.
+     */
+    data: XOR<CategoryHistoryUpdateManyMutationInput, CategoryHistoryUncheckedUpdateManyInput>
+    /**
+     * Filter which CategoryHistories to update
+     */
+    where?: CategoryHistoryWhereInput
+    /**
+     * Limit how many CategoryHistories to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CategoryHistory upsert
+   */
+  export type CategoryHistoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CategoryHistory
+     */
+    select?: CategoryHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CategoryHistory
+     */
+    omit?: CategoryHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryHistoryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CategoryHistory to update in case it exists.
+     */
+    where: CategoryHistoryWhereUniqueInput
+    /**
+     * In case the CategoryHistory found by the `where` argument doesn't exist, create a new CategoryHistory with this data.
+     */
+    create: XOR<CategoryHistoryCreateInput, CategoryHistoryUncheckedCreateInput>
+    /**
+     * In case the CategoryHistory was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CategoryHistoryUpdateInput, CategoryHistoryUncheckedUpdateInput>
+  }
+
+  /**
+   * CategoryHistory delete
+   */
+  export type CategoryHistoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CategoryHistory
+     */
+    select?: CategoryHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CategoryHistory
+     */
+    omit?: CategoryHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryHistoryInclude<ExtArgs> | null
+    /**
+     * Filter which CategoryHistory to delete.
+     */
+    where: CategoryHistoryWhereUniqueInput
+  }
+
+  /**
+   * CategoryHistory deleteMany
+   */
+  export type CategoryHistoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CategoryHistories to delete
+     */
+    where?: CategoryHistoryWhereInput
+    /**
+     * Limit how many CategoryHistories to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CategoryHistory without action
+   */
+  export type CategoryHistoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CategoryHistory
+     */
+    select?: CategoryHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CategoryHistory
+     */
+    omit?: CategoryHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryHistoryInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -11218,6 +15643,19 @@ export namespace Prisma {
   };
 
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+  export const UserScalarFieldEnum: {
+    id: 'id',
+    email: 'email',
+    passwordHash: 'passwordHash',
+    name: 'name',
+    role: 'role',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
   export const BrandScalarFieldEnum: {
@@ -11344,12 +15782,72 @@ export namespace Prisma {
   export type DataSyncScalarFieldEnum = (typeof DataSyncScalarFieldEnum)[keyof typeof DataSyncScalarFieldEnum]
 
 
+  export const PriceHistoryScalarFieldEnum: {
+    id: 'id',
+    productId: 'productId',
+    price: 'price',
+    colorId: 'colorId',
+    timestamp: 'timestamp'
+  };
+
+  export type PriceHistoryScalarFieldEnum = (typeof PriceHistoryScalarFieldEnum)[keyof typeof PriceHistoryScalarFieldEnum]
+
+
+  export const StockHistoryScalarFieldEnum: {
+    id: 'id',
+    productId: 'productId',
+    sizeId: 'sizeId',
+    colorId: 'colorId',
+    available: 'available',
+    timestamp: 'timestamp'
+  };
+
+  export type StockHistoryScalarFieldEnum = (typeof StockHistoryScalarFieldEnum)[keyof typeof StockHistoryScalarFieldEnum]
+
+
+  export const CategoryHistoryScalarFieldEnum: {
+    id: 'id',
+    categoryId: 'categoryId',
+    action: 'action',
+    changes: 'changes',
+    timestamp: 'timestamp'
+  };
+
+  export type CategoryHistoryScalarFieldEnum = (typeof CategoryHistoryScalarFieldEnum)[keyof typeof CategoryHistoryScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const UserOrderByRelevanceFieldEnum: {
+    email: 'email',
+    passwordHash: 'passwordHash',
+    name: 'name',
+    role: 'role'
+  };
+
+  export type UserOrderByRelevanceFieldEnum = (typeof UserOrderByRelevanceFieldEnum)[keyof typeof UserOrderByRelevanceFieldEnum]
 
 
   export const BrandOrderByRelevanceFieldEnum: {
@@ -11367,14 +15865,6 @@ export namespace Prisma {
   };
 
   export type MainCategoryOrderByRelevanceFieldEnum = (typeof MainCategoryOrderByRelevanceFieldEnum)[keyof typeof MainCategoryOrderByRelevanceFieldEnum]
-
-
-  export const NullsOrder: {
-    first: 'first',
-    last: 'last'
-  };
-
-  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   export const SubCategoryOrderByRelevanceFieldEnum: {
@@ -11442,9 +15932,40 @@ export namespace Prisma {
   export type DataSyncOrderByRelevanceFieldEnum = (typeof DataSyncOrderByRelevanceFieldEnum)[keyof typeof DataSyncOrderByRelevanceFieldEnum]
 
 
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
+
+
+  export const QueryMode: {
+    default: 'default',
+    insensitive: 'insensitive'
+  };
+
+  export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const CategoryHistoryOrderByRelevanceFieldEnum: {
+    action: 'action'
+  };
+
+  export type CategoryHistoryOrderByRelevanceFieldEnum = (typeof CategoryHistoryOrderByRelevanceFieldEnum)[keyof typeof CategoryHistoryOrderByRelevanceFieldEnum]
+
+
   /**
    * Field references
    */
+
+
+  /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
 
 
   /**
@@ -11462,16 +15983,23 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
+   * Reference to a field of type 'Boolean'
    */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
   /**
-   * Reference to a field of type 'Boolean'
+   * Reference to a field of type 'Json'
    */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -11484,6 +16012,71 @@ export namespace Prisma {
    * Deep Input Types
    */
 
+
+  export type UserWhereInput = {
+    AND?: UserWhereInput | UserWhereInput[]
+    OR?: UserWhereInput[]
+    NOT?: UserWhereInput | UserWhereInput[]
+    id?: IntFilter<"User"> | number
+    email?: StringFilter<"User"> | string
+    passwordHash?: StringFilter<"User"> | string
+    name?: StringNullableFilter<"User"> | string | null
+    role?: StringFilter<"User"> | string
+    createdAt?: DateTimeFilter<"User"> | Date | string
+    updatedAt?: DateTimeFilter<"User"> | Date | string
+  }
+
+  export type UserOrderByWithRelationInput = {
+    id?: SortOrder
+    email?: SortOrder
+    passwordHash?: SortOrder
+    name?: SortOrderInput | SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _relevance?: UserOrderByRelevanceInput
+  }
+
+  export type UserWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    email?: string
+    AND?: UserWhereInput | UserWhereInput[]
+    OR?: UserWhereInput[]
+    NOT?: UserWhereInput | UserWhereInput[]
+    passwordHash?: StringFilter<"User"> | string
+    name?: StringNullableFilter<"User"> | string | null
+    role?: StringFilter<"User"> | string
+    createdAt?: DateTimeFilter<"User"> | Date | string
+    updatedAt?: DateTimeFilter<"User"> | Date | string
+  }, "id" | "email">
+
+  export type UserOrderByWithAggregationInput = {
+    id?: SortOrder
+    email?: SortOrder
+    passwordHash?: SortOrder
+    name?: SortOrderInput | SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: UserCountOrderByAggregateInput
+    _avg?: UserAvgOrderByAggregateInput
+    _max?: UserMaxOrderByAggregateInput
+    _min?: UserMinOrderByAggregateInput
+    _sum?: UserSumOrderByAggregateInput
+  }
+
+  export type UserScalarWhereWithAggregatesInput = {
+    AND?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
+    OR?: UserScalarWhereWithAggregatesInput[]
+    NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"User"> | number
+    email?: StringWithAggregatesFilter<"User"> | string
+    passwordHash?: StringWithAggregatesFilter<"User"> | string
+    name?: StringNullableWithAggregatesFilter<"User"> | string | null
+    role?: StringWithAggregatesFilter<"User"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+  }
 
   export type BrandWhereInput = {
     AND?: BrandWhereInput | BrandWhereInput[]
@@ -11625,6 +16218,7 @@ export namespace Prisma {
     parentSubCategory?: XOR<SubCategoryNullableScalarRelationFilter, SubCategoryWhereInput> | null
     subcategories?: SubCategoryListRelationFilter
     products?: ProductListRelationFilter
+    history?: CategoryHistoryListRelationFilter
   }
 
   export type SubCategoryOrderByWithRelationInput = {
@@ -11644,6 +16238,7 @@ export namespace Prisma {
     parentSubCategory?: SubCategoryOrderByWithRelationInput
     subcategories?: SubCategoryOrderByRelationAggregateInput
     products?: ProductOrderByRelationAggregateInput
+    history?: CategoryHistoryOrderByRelationAggregateInput
     _relevance?: SubCategoryOrderByRelevanceInput
   }
 
@@ -11667,6 +16262,7 @@ export namespace Prisma {
     parentSubCategory?: XOR<SubCategoryNullableScalarRelationFilter, SubCategoryWhereInput> | null
     subcategories?: SubCategoryListRelationFilter
     products?: ProductListRelationFilter
+    history?: CategoryHistoryListRelationFilter
   }, "categoryId">
 
   export type SubCategoryOrderByWithAggregationInput = {
@@ -11725,6 +16321,8 @@ export namespace Prisma {
     sizes?: ProductSizeListRelationFilter
     stock?: ProductStockListRelationFilter
     subCategories?: SubCategoryListRelationFilter
+    priceHistory?: PriceHistoryListRelationFilter
+    stockHistory?: StockHistoryListRelationFilter
   }
 
   export type ProductOrderByWithRelationInput = {
@@ -11742,6 +16340,8 @@ export namespace Prisma {
     sizes?: ProductSizeOrderByRelationAggregateInput
     stock?: ProductStockOrderByRelationAggregateInput
     subCategories?: SubCategoryOrderByRelationAggregateInput
+    priceHistory?: PriceHistoryOrderByRelationAggregateInput
+    stockHistory?: StockHistoryOrderByRelationAggregateInput
     _relevance?: ProductOrderByRelevanceInput
   }
 
@@ -11763,6 +16363,8 @@ export namespace Prisma {
     sizes?: ProductSizeListRelationFilter
     stock?: ProductStockListRelationFilter
     subCategories?: SubCategoryListRelationFilter
+    priceHistory?: PriceHistoryListRelationFilter
+    stockHistory?: StockHistoryListRelationFilter
   }, "id" | "productId">
 
   export type ProductOrderByWithAggregationInput = {
@@ -11810,6 +16412,8 @@ export namespace Prisma {
     images?: ProductImageListRelationFilter
     sizes?: ProductSizeListRelationFilter
     stock?: ProductStockListRelationFilter
+    priceHistory?: PriceHistoryListRelationFilter
+    stockHistory?: StockHistoryListRelationFilter
   }
 
   export type ProductColorOrderByWithRelationInput = {
@@ -11824,6 +16428,8 @@ export namespace Prisma {
     images?: ProductImageOrderByRelationAggregateInput
     sizes?: ProductSizeOrderByRelationAggregateInput
     stock?: ProductStockOrderByRelationAggregateInput
+    priceHistory?: PriceHistoryOrderByRelationAggregateInput
+    stockHistory?: StockHistoryOrderByRelationAggregateInput
     _relevance?: ProductColorOrderByRelevanceInput
   }
 
@@ -11843,6 +16449,8 @@ export namespace Prisma {
     images?: ProductImageListRelationFilter
     sizes?: ProductSizeListRelationFilter
     stock?: ProductStockListRelationFilter
+    priceHistory?: PriceHistoryListRelationFilter
+    stockHistory?: StockHistoryListRelationFilter
   }, "id" | "productId_colorId">
 
   export type ProductColorOrderByWithAggregationInput = {
@@ -12176,6 +16784,256 @@ export namespace Prisma {
     timestamp?: DateTimeWithAggregatesFilter<"DataSync"> | Date | string
   }
 
+  export type PriceHistoryWhereInput = {
+    AND?: PriceHistoryWhereInput | PriceHistoryWhereInput[]
+    OR?: PriceHistoryWhereInput[]
+    NOT?: PriceHistoryWhereInput | PriceHistoryWhereInput[]
+    id?: IntFilter<"PriceHistory"> | number
+    productId?: IntFilter<"PriceHistory"> | number
+    price?: IntFilter<"PriceHistory"> | number
+    colorId?: IntNullableFilter<"PriceHistory"> | number | null
+    timestamp?: DateTimeFilter<"PriceHistory"> | Date | string
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
+    color?: XOR<ProductColorNullableScalarRelationFilter, ProductColorWhereInput> | null
+  }
+
+  export type PriceHistoryOrderByWithRelationInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    price?: SortOrder
+    colorId?: SortOrderInput | SortOrder
+    timestamp?: SortOrder
+    product?: ProductOrderByWithRelationInput
+    color?: ProductColorOrderByWithRelationInput
+  }
+
+  export type PriceHistoryWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: PriceHistoryWhereInput | PriceHistoryWhereInput[]
+    OR?: PriceHistoryWhereInput[]
+    NOT?: PriceHistoryWhereInput | PriceHistoryWhereInput[]
+    productId?: IntFilter<"PriceHistory"> | number
+    price?: IntFilter<"PriceHistory"> | number
+    colorId?: IntNullableFilter<"PriceHistory"> | number | null
+    timestamp?: DateTimeFilter<"PriceHistory"> | Date | string
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
+    color?: XOR<ProductColorNullableScalarRelationFilter, ProductColorWhereInput> | null
+  }, "id">
+
+  export type PriceHistoryOrderByWithAggregationInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    price?: SortOrder
+    colorId?: SortOrderInput | SortOrder
+    timestamp?: SortOrder
+    _count?: PriceHistoryCountOrderByAggregateInput
+    _avg?: PriceHistoryAvgOrderByAggregateInput
+    _max?: PriceHistoryMaxOrderByAggregateInput
+    _min?: PriceHistoryMinOrderByAggregateInput
+    _sum?: PriceHistorySumOrderByAggregateInput
+  }
+
+  export type PriceHistoryScalarWhereWithAggregatesInput = {
+    AND?: PriceHistoryScalarWhereWithAggregatesInput | PriceHistoryScalarWhereWithAggregatesInput[]
+    OR?: PriceHistoryScalarWhereWithAggregatesInput[]
+    NOT?: PriceHistoryScalarWhereWithAggregatesInput | PriceHistoryScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"PriceHistory"> | number
+    productId?: IntWithAggregatesFilter<"PriceHistory"> | number
+    price?: IntWithAggregatesFilter<"PriceHistory"> | number
+    colorId?: IntNullableWithAggregatesFilter<"PriceHistory"> | number | null
+    timestamp?: DateTimeWithAggregatesFilter<"PriceHistory"> | Date | string
+  }
+
+  export type StockHistoryWhereInput = {
+    AND?: StockHistoryWhereInput | StockHistoryWhereInput[]
+    OR?: StockHistoryWhereInput[]
+    NOT?: StockHistoryWhereInput | StockHistoryWhereInput[]
+    id?: IntFilter<"StockHistory"> | number
+    productId?: IntFilter<"StockHistory"> | number
+    sizeId?: IntFilter<"StockHistory"> | number
+    colorId?: IntNullableFilter<"StockHistory"> | number | null
+    available?: BoolFilter<"StockHistory"> | boolean
+    timestamp?: DateTimeFilter<"StockHistory"> | Date | string
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
+    color?: XOR<ProductColorNullableScalarRelationFilter, ProductColorWhereInput> | null
+  }
+
+  export type StockHistoryOrderByWithRelationInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    sizeId?: SortOrder
+    colorId?: SortOrderInput | SortOrder
+    available?: SortOrder
+    timestamp?: SortOrder
+    product?: ProductOrderByWithRelationInput
+    color?: ProductColorOrderByWithRelationInput
+  }
+
+  export type StockHistoryWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: StockHistoryWhereInput | StockHistoryWhereInput[]
+    OR?: StockHistoryWhereInput[]
+    NOT?: StockHistoryWhereInput | StockHistoryWhereInput[]
+    productId?: IntFilter<"StockHistory"> | number
+    sizeId?: IntFilter<"StockHistory"> | number
+    colorId?: IntNullableFilter<"StockHistory"> | number | null
+    available?: BoolFilter<"StockHistory"> | boolean
+    timestamp?: DateTimeFilter<"StockHistory"> | Date | string
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
+    color?: XOR<ProductColorNullableScalarRelationFilter, ProductColorWhereInput> | null
+  }, "id">
+
+  export type StockHistoryOrderByWithAggregationInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    sizeId?: SortOrder
+    colorId?: SortOrderInput | SortOrder
+    available?: SortOrder
+    timestamp?: SortOrder
+    _count?: StockHistoryCountOrderByAggregateInput
+    _avg?: StockHistoryAvgOrderByAggregateInput
+    _max?: StockHistoryMaxOrderByAggregateInput
+    _min?: StockHistoryMinOrderByAggregateInput
+    _sum?: StockHistorySumOrderByAggregateInput
+  }
+
+  export type StockHistoryScalarWhereWithAggregatesInput = {
+    AND?: StockHistoryScalarWhereWithAggregatesInput | StockHistoryScalarWhereWithAggregatesInput[]
+    OR?: StockHistoryScalarWhereWithAggregatesInput[]
+    NOT?: StockHistoryScalarWhereWithAggregatesInput | StockHistoryScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"StockHistory"> | number
+    productId?: IntWithAggregatesFilter<"StockHistory"> | number
+    sizeId?: IntWithAggregatesFilter<"StockHistory"> | number
+    colorId?: IntNullableWithAggregatesFilter<"StockHistory"> | number | null
+    available?: BoolWithAggregatesFilter<"StockHistory"> | boolean
+    timestamp?: DateTimeWithAggregatesFilter<"StockHistory"> | Date | string
+  }
+
+  export type CategoryHistoryWhereInput = {
+    AND?: CategoryHistoryWhereInput | CategoryHistoryWhereInput[]
+    OR?: CategoryHistoryWhereInput[]
+    NOT?: CategoryHistoryWhereInput | CategoryHistoryWhereInput[]
+    id?: IntFilter<"CategoryHistory"> | number
+    categoryId?: IntFilter<"CategoryHistory"> | number
+    action?: StringFilter<"CategoryHistory"> | string
+    changes?: JsonNullableFilter<"CategoryHistory">
+    timestamp?: DateTimeFilter<"CategoryHistory"> | Date | string
+    category?: XOR<SubCategoryScalarRelationFilter, SubCategoryWhereInput>
+  }
+
+  export type CategoryHistoryOrderByWithRelationInput = {
+    id?: SortOrder
+    categoryId?: SortOrder
+    action?: SortOrder
+    changes?: SortOrderInput | SortOrder
+    timestamp?: SortOrder
+    category?: SubCategoryOrderByWithRelationInput
+    _relevance?: CategoryHistoryOrderByRelevanceInput
+  }
+
+  export type CategoryHistoryWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: CategoryHistoryWhereInput | CategoryHistoryWhereInput[]
+    OR?: CategoryHistoryWhereInput[]
+    NOT?: CategoryHistoryWhereInput | CategoryHistoryWhereInput[]
+    categoryId?: IntFilter<"CategoryHistory"> | number
+    action?: StringFilter<"CategoryHistory"> | string
+    changes?: JsonNullableFilter<"CategoryHistory">
+    timestamp?: DateTimeFilter<"CategoryHistory"> | Date | string
+    category?: XOR<SubCategoryScalarRelationFilter, SubCategoryWhereInput>
+  }, "id">
+
+  export type CategoryHistoryOrderByWithAggregationInput = {
+    id?: SortOrder
+    categoryId?: SortOrder
+    action?: SortOrder
+    changes?: SortOrderInput | SortOrder
+    timestamp?: SortOrder
+    _count?: CategoryHistoryCountOrderByAggregateInput
+    _avg?: CategoryHistoryAvgOrderByAggregateInput
+    _max?: CategoryHistoryMaxOrderByAggregateInput
+    _min?: CategoryHistoryMinOrderByAggregateInput
+    _sum?: CategoryHistorySumOrderByAggregateInput
+  }
+
+  export type CategoryHistoryScalarWhereWithAggregatesInput = {
+    AND?: CategoryHistoryScalarWhereWithAggregatesInput | CategoryHistoryScalarWhereWithAggregatesInput[]
+    OR?: CategoryHistoryScalarWhereWithAggregatesInput[]
+    NOT?: CategoryHistoryScalarWhereWithAggregatesInput | CategoryHistoryScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"CategoryHistory"> | number
+    categoryId?: IntWithAggregatesFilter<"CategoryHistory"> | number
+    action?: StringWithAggregatesFilter<"CategoryHistory"> | string
+    changes?: JsonNullableWithAggregatesFilter<"CategoryHistory">
+    timestamp?: DateTimeWithAggregatesFilter<"CategoryHistory"> | Date | string
+  }
+
+  export type UserCreateInput = {
+    email: string
+    passwordHash: string
+    name?: string | null
+    role?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserUncheckedCreateInput = {
+    id?: number
+    email: string
+    passwordHash: string
+    name?: string | null
+    role?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserUpdateInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCreateManyInput = {
+    id?: number
+    email: string
+    passwordHash: string
+    name?: string | null
+    role?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserUpdateManyMutationInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type BrandCreateInput = {
     id: string
     name: string
@@ -12314,6 +17172,7 @@ export namespace Prisma {
     parentSubCategory?: SubCategoryCreateNestedOneWithoutSubcategoriesInput
     subcategories?: SubCategoryCreateNestedManyWithoutParentSubCategoryInput
     products?: ProductCreateNestedManyWithoutSubCategoriesInput
+    history?: CategoryHistoryCreateNestedManyWithoutCategoryInput
   }
 
   export type SubCategoryUncheckedCreateInput = {
@@ -12331,6 +17190,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     subcategories?: SubCategoryUncheckedCreateNestedManyWithoutParentSubCategoryInput
     products?: ProductUncheckedCreateNestedManyWithoutSubCategoriesInput
+    history?: CategoryHistoryUncheckedCreateNestedManyWithoutCategoryInput
   }
 
   export type SubCategoryUpdateInput = {
@@ -12348,6 +17208,7 @@ export namespace Prisma {
     parentSubCategory?: SubCategoryUpdateOneWithoutSubcategoriesNestedInput
     subcategories?: SubCategoryUpdateManyWithoutParentSubCategoryNestedInput
     products?: ProductUpdateManyWithoutSubCategoriesNestedInput
+    history?: CategoryHistoryUpdateManyWithoutCategoryNestedInput
   }
 
   export type SubCategoryUncheckedUpdateInput = {
@@ -12365,6 +17226,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subcategories?: SubCategoryUncheckedUpdateManyWithoutParentSubCategoryNestedInput
     products?: ProductUncheckedUpdateManyWithoutSubCategoriesNestedInput
+    history?: CategoryHistoryUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
   export type SubCategoryCreateManyInput = {
@@ -12423,6 +17285,8 @@ export namespace Prisma {
     sizes?: ProductSizeCreateNestedManyWithoutProductInput
     stock?: ProductStockCreateNestedManyWithoutProductInput
     subCategories?: SubCategoryCreateNestedManyWithoutProductsInput
+    priceHistory?: PriceHistoryCreateNestedManyWithoutProductInput
+    stockHistory?: StockHistoryCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateInput = {
@@ -12439,6 +17303,8 @@ export namespace Prisma {
     sizes?: ProductSizeUncheckedCreateNestedManyWithoutProductInput
     stock?: ProductStockUncheckedCreateNestedManyWithoutProductInput
     subCategories?: SubCategoryUncheckedCreateNestedManyWithoutProductsInput
+    priceHistory?: PriceHistoryUncheckedCreateNestedManyWithoutProductInput
+    stockHistory?: StockHistoryUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductUpdateInput = {
@@ -12454,6 +17320,8 @@ export namespace Prisma {
     sizes?: ProductSizeUpdateManyWithoutProductNestedInput
     stock?: ProductStockUpdateManyWithoutProductNestedInput
     subCategories?: SubCategoryUpdateManyWithoutProductsNestedInput
+    priceHistory?: PriceHistoryUpdateManyWithoutProductNestedInput
+    stockHistory?: StockHistoryUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateInput = {
@@ -12470,6 +17338,8 @@ export namespace Prisma {
     sizes?: ProductSizeUncheckedUpdateManyWithoutProductNestedInput
     stock?: ProductStockUncheckedUpdateManyWithoutProductNestedInput
     subCategories?: SubCategoryUncheckedUpdateManyWithoutProductsNestedInput
+    priceHistory?: PriceHistoryUncheckedUpdateManyWithoutProductNestedInput
+    stockHistory?: StockHistoryUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductCreateManyInput = {
@@ -12513,6 +17383,8 @@ export namespace Prisma {
     images?: ProductImageCreateNestedManyWithoutColorInput
     sizes?: ProductSizeCreateNestedManyWithoutColorInput
     stock?: ProductStockCreateNestedManyWithoutColorInput
+    priceHistory?: PriceHistoryCreateNestedManyWithoutColorInput
+    stockHistory?: StockHistoryCreateNestedManyWithoutColorInput
   }
 
   export type ProductColorUncheckedCreateInput = {
@@ -12526,6 +17398,8 @@ export namespace Prisma {
     images?: ProductImageUncheckedCreateNestedManyWithoutColorInput
     sizes?: ProductSizeUncheckedCreateNestedManyWithoutColorInput
     stock?: ProductStockUncheckedCreateNestedManyWithoutColorInput
+    priceHistory?: PriceHistoryUncheckedCreateNestedManyWithoutColorInput
+    stockHistory?: StockHistoryUncheckedCreateNestedManyWithoutColorInput
   }
 
   export type ProductColorUpdateInput = {
@@ -12538,6 +17412,8 @@ export namespace Prisma {
     images?: ProductImageUpdateManyWithoutColorNestedInput
     sizes?: ProductSizeUpdateManyWithoutColorNestedInput
     stock?: ProductStockUpdateManyWithoutColorNestedInput
+    priceHistory?: PriceHistoryUpdateManyWithoutColorNestedInput
+    stockHistory?: StockHistoryUpdateManyWithoutColorNestedInput
   }
 
   export type ProductColorUncheckedUpdateInput = {
@@ -12551,6 +17427,8 @@ export namespace Prisma {
     images?: ProductImageUncheckedUpdateManyWithoutColorNestedInput
     sizes?: ProductSizeUncheckedUpdateManyWithoutColorNestedInput
     stock?: ProductStockUncheckedUpdateManyWithoutColorNestedInput
+    priceHistory?: PriceHistoryUncheckedUpdateManyWithoutColorNestedInput
+    stockHistory?: StockHistoryUncheckedUpdateManyWithoutColorNestedInput
   }
 
   export type ProductColorCreateManyInput = {
@@ -12878,6 +17756,178 @@ export namespace Prisma {
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type PriceHistoryCreateInput = {
+    price: number
+    timestamp?: Date | string
+    product: ProductCreateNestedOneWithoutPriceHistoryInput
+    color?: ProductColorCreateNestedOneWithoutPriceHistoryInput
+  }
+
+  export type PriceHistoryUncheckedCreateInput = {
+    id?: number
+    productId: number
+    price: number
+    colorId?: number | null
+    timestamp?: Date | string
+  }
+
+  export type PriceHistoryUpdateInput = {
+    price?: IntFieldUpdateOperationsInput | number
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    product?: ProductUpdateOneRequiredWithoutPriceHistoryNestedInput
+    color?: ProductColorUpdateOneWithoutPriceHistoryNestedInput
+  }
+
+  export type PriceHistoryUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    productId?: IntFieldUpdateOperationsInput | number
+    price?: IntFieldUpdateOperationsInput | number
+    colorId?: NullableIntFieldUpdateOperationsInput | number | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PriceHistoryCreateManyInput = {
+    id?: number
+    productId: number
+    price: number
+    colorId?: number | null
+    timestamp?: Date | string
+  }
+
+  export type PriceHistoryUpdateManyMutationInput = {
+    price?: IntFieldUpdateOperationsInput | number
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PriceHistoryUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    productId?: IntFieldUpdateOperationsInput | number
+    price?: IntFieldUpdateOperationsInput | number
+    colorId?: NullableIntFieldUpdateOperationsInput | number | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StockHistoryCreateInput = {
+    sizeId: number
+    available: boolean
+    timestamp?: Date | string
+    product: ProductCreateNestedOneWithoutStockHistoryInput
+    color?: ProductColorCreateNestedOneWithoutStockHistoryInput
+  }
+
+  export type StockHistoryUncheckedCreateInput = {
+    id?: number
+    productId: number
+    sizeId: number
+    colorId?: number | null
+    available: boolean
+    timestamp?: Date | string
+  }
+
+  export type StockHistoryUpdateInput = {
+    sizeId?: IntFieldUpdateOperationsInput | number
+    available?: BoolFieldUpdateOperationsInput | boolean
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    product?: ProductUpdateOneRequiredWithoutStockHistoryNestedInput
+    color?: ProductColorUpdateOneWithoutStockHistoryNestedInput
+  }
+
+  export type StockHistoryUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    productId?: IntFieldUpdateOperationsInput | number
+    sizeId?: IntFieldUpdateOperationsInput | number
+    colorId?: NullableIntFieldUpdateOperationsInput | number | null
+    available?: BoolFieldUpdateOperationsInput | boolean
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StockHistoryCreateManyInput = {
+    id?: number
+    productId: number
+    sizeId: number
+    colorId?: number | null
+    available: boolean
+    timestamp?: Date | string
+  }
+
+  export type StockHistoryUpdateManyMutationInput = {
+    sizeId?: IntFieldUpdateOperationsInput | number
+    available?: BoolFieldUpdateOperationsInput | boolean
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StockHistoryUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    productId?: IntFieldUpdateOperationsInput | number
+    sizeId?: IntFieldUpdateOperationsInput | number
+    colorId?: NullableIntFieldUpdateOperationsInput | number | null
+    available?: BoolFieldUpdateOperationsInput | boolean
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CategoryHistoryCreateInput = {
+    action: string
+    changes?: NullableJsonNullValueInput | InputJsonValue
+    timestamp?: Date | string
+    category: SubCategoryCreateNestedOneWithoutHistoryInput
+  }
+
+  export type CategoryHistoryUncheckedCreateInput = {
+    id?: number
+    categoryId: number
+    action: string
+    changes?: NullableJsonNullValueInput | InputJsonValue
+    timestamp?: Date | string
+  }
+
+  export type CategoryHistoryUpdateInput = {
+    action?: StringFieldUpdateOperationsInput | string
+    changes?: NullableJsonNullValueInput | InputJsonValue
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: SubCategoryUpdateOneRequiredWithoutHistoryNestedInput
+  }
+
+  export type CategoryHistoryUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    categoryId?: IntFieldUpdateOperationsInput | number
+    action?: StringFieldUpdateOperationsInput | string
+    changes?: NullableJsonNullValueInput | InputJsonValue
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CategoryHistoryCreateManyInput = {
+    id?: number
+    categoryId: number
+    action: string
+    changes?: NullableJsonNullValueInput | InputJsonValue
+    timestamp?: Date | string
+  }
+
+  export type CategoryHistoryUpdateManyMutationInput = {
+    action?: StringFieldUpdateOperationsInput | string
+    changes?: NullableJsonNullValueInput | InputJsonValue
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CategoryHistoryUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    categoryId?: IntFieldUpdateOperationsInput | number
+    action?: StringFieldUpdateOperationsInput | string
+    changes?: NullableJsonNullValueInput | InputJsonValue
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[]
@@ -12893,6 +17943,21 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[]
@@ -12902,6 +17967,121 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type UserOrderByRelevanceInput = {
+    fields: UserOrderByRelevanceFieldEnum | UserOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type UserCountOrderByAggregateInput = {
+    id?: SortOrder
+    email?: SortOrder
+    passwordHash?: SortOrder
+    name?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type UserMaxOrderByAggregateInput = {
+    id?: SortOrder
+    email?: SortOrder
+    passwordHash?: SortOrder
+    name?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserMinOrderByAggregateInput = {
+    id?: SortOrder
+    email?: SortOrder
+    passwordHash?: SortOrder
+    name?: SortOrder
+    role?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type MainCategoryListRelationFilter = {
@@ -12946,49 +18126,6 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     timestamp?: SortOrder
-  }
-
-  export type StringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type BrandScalarRelationFilter = {
@@ -13052,22 +18189,6 @@ export namespace Prisma {
     level?: SortOrder
   }
 
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
   export type BoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -13094,9 +18215,14 @@ export namespace Prisma {
     isNot?: SubCategoryWhereInput | null
   }
 
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
+  export type CategoryHistoryListRelationFilter = {
+    every?: CategoryHistoryWhereInput
+    some?: CategoryHistoryWhereInput
+    none?: CategoryHistoryWhereInput
+  }
+
+  export type CategoryHistoryOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type SubCategoryOrderByRelevanceInput = {
@@ -13192,21 +18318,6 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type ProductColorListRelationFilter = {
     every?: ProductColorWhereInput
     some?: ProductColorWhereInput
@@ -13231,6 +18342,18 @@ export namespace Prisma {
     none?: ProductStockWhereInput
   }
 
+  export type PriceHistoryListRelationFilter = {
+    every?: PriceHistoryWhereInput
+    some?: PriceHistoryWhereInput
+    none?: PriceHistoryWhereInput
+  }
+
+  export type StockHistoryListRelationFilter = {
+    every?: StockHistoryWhereInput
+    some?: StockHistoryWhereInput
+    none?: StockHistoryWhereInput
+  }
+
   export type ProductColorOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -13244,6 +18367,14 @@ export namespace Prisma {
   }
 
   export type ProductStockOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PriceHistoryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type StockHistoryOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -13296,24 +18427,6 @@ export namespace Prisma {
     id?: SortOrder
     productId?: SortOrder
     price?: SortOrder
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type ProductScalarRelationFilter = {
@@ -13600,6 +18713,197 @@ export namespace Prisma {
     itemsCount?: SortOrder
   }
 
+  export type PriceHistoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    price?: SortOrder
+    colorId?: SortOrder
+    timestamp?: SortOrder
+  }
+
+  export type PriceHistoryAvgOrderByAggregateInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    price?: SortOrder
+    colorId?: SortOrder
+  }
+
+  export type PriceHistoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    price?: SortOrder
+    colorId?: SortOrder
+    timestamp?: SortOrder
+  }
+
+  export type PriceHistoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    price?: SortOrder
+    colorId?: SortOrder
+    timestamp?: SortOrder
+  }
+
+  export type PriceHistorySumOrderByAggregateInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    price?: SortOrder
+    colorId?: SortOrder
+  }
+
+  export type StockHistoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    sizeId?: SortOrder
+    colorId?: SortOrder
+    available?: SortOrder
+    timestamp?: SortOrder
+  }
+
+  export type StockHistoryAvgOrderByAggregateInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    sizeId?: SortOrder
+    colorId?: SortOrder
+  }
+
+  export type StockHistoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    sizeId?: SortOrder
+    colorId?: SortOrder
+    available?: SortOrder
+    timestamp?: SortOrder
+  }
+
+  export type StockHistoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    sizeId?: SortOrder
+    colorId?: SortOrder
+    available?: SortOrder
+    timestamp?: SortOrder
+  }
+
+  export type StockHistorySumOrderByAggregateInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    sizeId?: SortOrder
+    colorId?: SortOrder
+  }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue
+    lte?: InputJsonValue
+    gt?: InputJsonValue
+    gte?: InputJsonValue
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type SubCategoryScalarRelationFilter = {
+    is?: SubCategoryWhereInput
+    isNot?: SubCategoryWhereInput
+  }
+
+  export type CategoryHistoryOrderByRelevanceInput = {
+    fields: CategoryHistoryOrderByRelevanceFieldEnum | CategoryHistoryOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type CategoryHistoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    categoryId?: SortOrder
+    action?: SortOrder
+    changes?: SortOrder
+    timestamp?: SortOrder
+  }
+
+  export type CategoryHistoryAvgOrderByAggregateInput = {
+    id?: SortOrder
+    categoryId?: SortOrder
+  }
+
+  export type CategoryHistoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    categoryId?: SortOrder
+    action?: SortOrder
+    timestamp?: SortOrder
+  }
+
+  export type CategoryHistoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    categoryId?: SortOrder
+    action?: SortOrder
+    timestamp?: SortOrder
+  }
+
+  export type CategoryHistorySumOrderByAggregateInput = {
+    id?: SortOrder
+    categoryId?: SortOrder
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue
+    lte?: InputJsonValue
+    gt?: InputJsonValue
+    gte?: InputJsonValue
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type MainCategoryCreateNestedManyWithoutBrandInput = {
     create?: XOR<MainCategoryCreateWithoutBrandInput, MainCategoryUncheckedCreateWithoutBrandInput> | MainCategoryCreateWithoutBrandInput[] | MainCategoryUncheckedCreateWithoutBrandInput[]
     connectOrCreate?: MainCategoryCreateOrConnectWithoutBrandInput | MainCategoryCreateOrConnectWithoutBrandInput[]
@@ -13626,14 +18930,6 @@ export namespace Prisma {
     connectOrCreate?: ProductCreateOrConnectWithoutBrandInput | ProductCreateOrConnectWithoutBrandInput[]
     createMany?: ProductCreateManyBrandInputEnvelope
     connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
-  }
-
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
   }
 
   export type MainCategoryUpdateManyWithoutBrandNestedInput = {
@@ -13712,14 +19008,6 @@ export namespace Prisma {
     connect?: SubCategoryWhereUniqueInput | SubCategoryWhereUniqueInput[]
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type BrandUpdateOneRequiredWithoutMainCategoriesNestedInput = {
     create?: XOR<BrandCreateWithoutMainCategoriesInput, BrandUncheckedCreateWithoutMainCategoriesInput>
     connectOrCreate?: BrandCreateOrConnectWithoutMainCategoriesInput
@@ -13781,6 +19069,13 @@ export namespace Prisma {
     connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
   }
 
+  export type CategoryHistoryCreateNestedManyWithoutCategoryInput = {
+    create?: XOR<CategoryHistoryCreateWithoutCategoryInput, CategoryHistoryUncheckedCreateWithoutCategoryInput> | CategoryHistoryCreateWithoutCategoryInput[] | CategoryHistoryUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: CategoryHistoryCreateOrConnectWithoutCategoryInput | CategoryHistoryCreateOrConnectWithoutCategoryInput[]
+    createMany?: CategoryHistoryCreateManyCategoryInputEnvelope
+    connect?: CategoryHistoryWhereUniqueInput | CategoryHistoryWhereUniqueInput[]
+  }
+
   export type SubCategoryUncheckedCreateNestedManyWithoutParentSubCategoryInput = {
     create?: XOR<SubCategoryCreateWithoutParentSubCategoryInput, SubCategoryUncheckedCreateWithoutParentSubCategoryInput> | SubCategoryCreateWithoutParentSubCategoryInput[] | SubCategoryUncheckedCreateWithoutParentSubCategoryInput[]
     connectOrCreate?: SubCategoryCreateOrConnectWithoutParentSubCategoryInput | SubCategoryCreateOrConnectWithoutParentSubCategoryInput[]
@@ -13792,6 +19087,13 @@ export namespace Prisma {
     create?: XOR<ProductCreateWithoutSubCategoriesInput, ProductUncheckedCreateWithoutSubCategoriesInput> | ProductCreateWithoutSubCategoriesInput[] | ProductUncheckedCreateWithoutSubCategoriesInput[]
     connectOrCreate?: ProductCreateOrConnectWithoutSubCategoriesInput | ProductCreateOrConnectWithoutSubCategoriesInput[]
     connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+  }
+
+  export type CategoryHistoryUncheckedCreateNestedManyWithoutCategoryInput = {
+    create?: XOR<CategoryHistoryCreateWithoutCategoryInput, CategoryHistoryUncheckedCreateWithoutCategoryInput> | CategoryHistoryCreateWithoutCategoryInput[] | CategoryHistoryUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: CategoryHistoryCreateOrConnectWithoutCategoryInput | CategoryHistoryCreateOrConnectWithoutCategoryInput[]
+    createMany?: CategoryHistoryCreateManyCategoryInputEnvelope
+    connect?: CategoryHistoryWhereUniqueInput | CategoryHistoryWhereUniqueInput[]
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -13853,6 +19155,20 @@ export namespace Prisma {
     deleteMany?: ProductScalarWhereInput | ProductScalarWhereInput[]
   }
 
+  export type CategoryHistoryUpdateManyWithoutCategoryNestedInput = {
+    create?: XOR<CategoryHistoryCreateWithoutCategoryInput, CategoryHistoryUncheckedCreateWithoutCategoryInput> | CategoryHistoryCreateWithoutCategoryInput[] | CategoryHistoryUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: CategoryHistoryCreateOrConnectWithoutCategoryInput | CategoryHistoryCreateOrConnectWithoutCategoryInput[]
+    upsert?: CategoryHistoryUpsertWithWhereUniqueWithoutCategoryInput | CategoryHistoryUpsertWithWhereUniqueWithoutCategoryInput[]
+    createMany?: CategoryHistoryCreateManyCategoryInputEnvelope
+    set?: CategoryHistoryWhereUniqueInput | CategoryHistoryWhereUniqueInput[]
+    disconnect?: CategoryHistoryWhereUniqueInput | CategoryHistoryWhereUniqueInput[]
+    delete?: CategoryHistoryWhereUniqueInput | CategoryHistoryWhereUniqueInput[]
+    connect?: CategoryHistoryWhereUniqueInput | CategoryHistoryWhereUniqueInput[]
+    update?: CategoryHistoryUpdateWithWhereUniqueWithoutCategoryInput | CategoryHistoryUpdateWithWhereUniqueWithoutCategoryInput[]
+    updateMany?: CategoryHistoryUpdateManyWithWhereWithoutCategoryInput | CategoryHistoryUpdateManyWithWhereWithoutCategoryInput[]
+    deleteMany?: CategoryHistoryScalarWhereInput | CategoryHistoryScalarWhereInput[]
+  }
+
   export type SubCategoryUncheckedUpdateManyWithoutParentSubCategoryNestedInput = {
     create?: XOR<SubCategoryCreateWithoutParentSubCategoryInput, SubCategoryUncheckedCreateWithoutParentSubCategoryInput> | SubCategoryCreateWithoutParentSubCategoryInput[] | SubCategoryUncheckedCreateWithoutParentSubCategoryInput[]
     connectOrCreate?: SubCategoryCreateOrConnectWithoutParentSubCategoryInput | SubCategoryCreateOrConnectWithoutParentSubCategoryInput[]
@@ -13878,6 +19194,20 @@ export namespace Prisma {
     update?: ProductUpdateWithWhereUniqueWithoutSubCategoriesInput | ProductUpdateWithWhereUniqueWithoutSubCategoriesInput[]
     updateMany?: ProductUpdateManyWithWhereWithoutSubCategoriesInput | ProductUpdateManyWithWhereWithoutSubCategoriesInput[]
     deleteMany?: ProductScalarWhereInput | ProductScalarWhereInput[]
+  }
+
+  export type CategoryHistoryUncheckedUpdateManyWithoutCategoryNestedInput = {
+    create?: XOR<CategoryHistoryCreateWithoutCategoryInput, CategoryHistoryUncheckedCreateWithoutCategoryInput> | CategoryHistoryCreateWithoutCategoryInput[] | CategoryHistoryUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: CategoryHistoryCreateOrConnectWithoutCategoryInput | CategoryHistoryCreateOrConnectWithoutCategoryInput[]
+    upsert?: CategoryHistoryUpsertWithWhereUniqueWithoutCategoryInput | CategoryHistoryUpsertWithWhereUniqueWithoutCategoryInput[]
+    createMany?: CategoryHistoryCreateManyCategoryInputEnvelope
+    set?: CategoryHistoryWhereUniqueInput | CategoryHistoryWhereUniqueInput[]
+    disconnect?: CategoryHistoryWhereUniqueInput | CategoryHistoryWhereUniqueInput[]
+    delete?: CategoryHistoryWhereUniqueInput | CategoryHistoryWhereUniqueInput[]
+    connect?: CategoryHistoryWhereUniqueInput | CategoryHistoryWhereUniqueInput[]
+    update?: CategoryHistoryUpdateWithWhereUniqueWithoutCategoryInput | CategoryHistoryUpdateWithWhereUniqueWithoutCategoryInput[]
+    updateMany?: CategoryHistoryUpdateManyWithWhereWithoutCategoryInput | CategoryHistoryUpdateManyWithWhereWithoutCategoryInput[]
+    deleteMany?: CategoryHistoryScalarWhereInput | CategoryHistoryScalarWhereInput[]
   }
 
   export type BrandCreateNestedOneWithoutProductsInput = {
@@ -13920,6 +19250,20 @@ export namespace Prisma {
     connect?: SubCategoryWhereUniqueInput | SubCategoryWhereUniqueInput[]
   }
 
+  export type PriceHistoryCreateNestedManyWithoutProductInput = {
+    create?: XOR<PriceHistoryCreateWithoutProductInput, PriceHistoryUncheckedCreateWithoutProductInput> | PriceHistoryCreateWithoutProductInput[] | PriceHistoryUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: PriceHistoryCreateOrConnectWithoutProductInput | PriceHistoryCreateOrConnectWithoutProductInput[]
+    createMany?: PriceHistoryCreateManyProductInputEnvelope
+    connect?: PriceHistoryWhereUniqueInput | PriceHistoryWhereUniqueInput[]
+  }
+
+  export type StockHistoryCreateNestedManyWithoutProductInput = {
+    create?: XOR<StockHistoryCreateWithoutProductInput, StockHistoryUncheckedCreateWithoutProductInput> | StockHistoryCreateWithoutProductInput[] | StockHistoryUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: StockHistoryCreateOrConnectWithoutProductInput | StockHistoryCreateOrConnectWithoutProductInput[]
+    createMany?: StockHistoryCreateManyProductInputEnvelope
+    connect?: StockHistoryWhereUniqueInput | StockHistoryWhereUniqueInput[]
+  }
+
   export type ProductColorUncheckedCreateNestedManyWithoutProductInput = {
     create?: XOR<ProductColorCreateWithoutProductInput, ProductColorUncheckedCreateWithoutProductInput> | ProductColorCreateWithoutProductInput[] | ProductColorUncheckedCreateWithoutProductInput[]
     connectOrCreate?: ProductColorCreateOrConnectWithoutProductInput | ProductColorCreateOrConnectWithoutProductInput[]
@@ -13954,8 +19298,18 @@ export namespace Prisma {
     connect?: SubCategoryWhereUniqueInput | SubCategoryWhereUniqueInput[]
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
+  export type PriceHistoryUncheckedCreateNestedManyWithoutProductInput = {
+    create?: XOR<PriceHistoryCreateWithoutProductInput, PriceHistoryUncheckedCreateWithoutProductInput> | PriceHistoryCreateWithoutProductInput[] | PriceHistoryUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: PriceHistoryCreateOrConnectWithoutProductInput | PriceHistoryCreateOrConnectWithoutProductInput[]
+    createMany?: PriceHistoryCreateManyProductInputEnvelope
+    connect?: PriceHistoryWhereUniqueInput | PriceHistoryWhereUniqueInput[]
+  }
+
+  export type StockHistoryUncheckedCreateNestedManyWithoutProductInput = {
+    create?: XOR<StockHistoryCreateWithoutProductInput, StockHistoryUncheckedCreateWithoutProductInput> | StockHistoryCreateWithoutProductInput[] | StockHistoryUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: StockHistoryCreateOrConnectWithoutProductInput | StockHistoryCreateOrConnectWithoutProductInput[]
+    createMany?: StockHistoryCreateManyProductInputEnvelope
+    connect?: StockHistoryWhereUniqueInput | StockHistoryWhereUniqueInput[]
   }
 
   export type BrandUpdateOneRequiredWithoutProductsNestedInput = {
@@ -14035,6 +19389,34 @@ export namespace Prisma {
     deleteMany?: SubCategoryScalarWhereInput | SubCategoryScalarWhereInput[]
   }
 
+  export type PriceHistoryUpdateManyWithoutProductNestedInput = {
+    create?: XOR<PriceHistoryCreateWithoutProductInput, PriceHistoryUncheckedCreateWithoutProductInput> | PriceHistoryCreateWithoutProductInput[] | PriceHistoryUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: PriceHistoryCreateOrConnectWithoutProductInput | PriceHistoryCreateOrConnectWithoutProductInput[]
+    upsert?: PriceHistoryUpsertWithWhereUniqueWithoutProductInput | PriceHistoryUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: PriceHistoryCreateManyProductInputEnvelope
+    set?: PriceHistoryWhereUniqueInput | PriceHistoryWhereUniqueInput[]
+    disconnect?: PriceHistoryWhereUniqueInput | PriceHistoryWhereUniqueInput[]
+    delete?: PriceHistoryWhereUniqueInput | PriceHistoryWhereUniqueInput[]
+    connect?: PriceHistoryWhereUniqueInput | PriceHistoryWhereUniqueInput[]
+    update?: PriceHistoryUpdateWithWhereUniqueWithoutProductInput | PriceHistoryUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: PriceHistoryUpdateManyWithWhereWithoutProductInput | PriceHistoryUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: PriceHistoryScalarWhereInput | PriceHistoryScalarWhereInput[]
+  }
+
+  export type StockHistoryUpdateManyWithoutProductNestedInput = {
+    create?: XOR<StockHistoryCreateWithoutProductInput, StockHistoryUncheckedCreateWithoutProductInput> | StockHistoryCreateWithoutProductInput[] | StockHistoryUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: StockHistoryCreateOrConnectWithoutProductInput | StockHistoryCreateOrConnectWithoutProductInput[]
+    upsert?: StockHistoryUpsertWithWhereUniqueWithoutProductInput | StockHistoryUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: StockHistoryCreateManyProductInputEnvelope
+    set?: StockHistoryWhereUniqueInput | StockHistoryWhereUniqueInput[]
+    disconnect?: StockHistoryWhereUniqueInput | StockHistoryWhereUniqueInput[]
+    delete?: StockHistoryWhereUniqueInput | StockHistoryWhereUniqueInput[]
+    connect?: StockHistoryWhereUniqueInput | StockHistoryWhereUniqueInput[]
+    update?: StockHistoryUpdateWithWhereUniqueWithoutProductInput | StockHistoryUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: StockHistoryUpdateManyWithWhereWithoutProductInput | StockHistoryUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: StockHistoryScalarWhereInput | StockHistoryScalarWhereInput[]
+  }
+
   export type ProductColorUncheckedUpdateManyWithoutProductNestedInput = {
     create?: XOR<ProductColorCreateWithoutProductInput, ProductColorUncheckedCreateWithoutProductInput> | ProductColorCreateWithoutProductInput[] | ProductColorUncheckedCreateWithoutProductInput[]
     connectOrCreate?: ProductColorCreateOrConnectWithoutProductInput | ProductColorCreateOrConnectWithoutProductInput[]
@@ -14104,6 +19486,34 @@ export namespace Prisma {
     deleteMany?: SubCategoryScalarWhereInput | SubCategoryScalarWhereInput[]
   }
 
+  export type PriceHistoryUncheckedUpdateManyWithoutProductNestedInput = {
+    create?: XOR<PriceHistoryCreateWithoutProductInput, PriceHistoryUncheckedCreateWithoutProductInput> | PriceHistoryCreateWithoutProductInput[] | PriceHistoryUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: PriceHistoryCreateOrConnectWithoutProductInput | PriceHistoryCreateOrConnectWithoutProductInput[]
+    upsert?: PriceHistoryUpsertWithWhereUniqueWithoutProductInput | PriceHistoryUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: PriceHistoryCreateManyProductInputEnvelope
+    set?: PriceHistoryWhereUniqueInput | PriceHistoryWhereUniqueInput[]
+    disconnect?: PriceHistoryWhereUniqueInput | PriceHistoryWhereUniqueInput[]
+    delete?: PriceHistoryWhereUniqueInput | PriceHistoryWhereUniqueInput[]
+    connect?: PriceHistoryWhereUniqueInput | PriceHistoryWhereUniqueInput[]
+    update?: PriceHistoryUpdateWithWhereUniqueWithoutProductInput | PriceHistoryUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: PriceHistoryUpdateManyWithWhereWithoutProductInput | PriceHistoryUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: PriceHistoryScalarWhereInput | PriceHistoryScalarWhereInput[]
+  }
+
+  export type StockHistoryUncheckedUpdateManyWithoutProductNestedInput = {
+    create?: XOR<StockHistoryCreateWithoutProductInput, StockHistoryUncheckedCreateWithoutProductInput> | StockHistoryCreateWithoutProductInput[] | StockHistoryUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: StockHistoryCreateOrConnectWithoutProductInput | StockHistoryCreateOrConnectWithoutProductInput[]
+    upsert?: StockHistoryUpsertWithWhereUniqueWithoutProductInput | StockHistoryUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: StockHistoryCreateManyProductInputEnvelope
+    set?: StockHistoryWhereUniqueInput | StockHistoryWhereUniqueInput[]
+    disconnect?: StockHistoryWhereUniqueInput | StockHistoryWhereUniqueInput[]
+    delete?: StockHistoryWhereUniqueInput | StockHistoryWhereUniqueInput[]
+    connect?: StockHistoryWhereUniqueInput | StockHistoryWhereUniqueInput[]
+    update?: StockHistoryUpdateWithWhereUniqueWithoutProductInput | StockHistoryUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: StockHistoryUpdateManyWithWhereWithoutProductInput | StockHistoryUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: StockHistoryScalarWhereInput | StockHistoryScalarWhereInput[]
+  }
+
   export type ProductCreateNestedOneWithoutColorsInput = {
     create?: XOR<ProductCreateWithoutColorsInput, ProductUncheckedCreateWithoutColorsInput>
     connectOrCreate?: ProductCreateOrConnectWithoutColorsInput
@@ -14131,6 +19541,20 @@ export namespace Prisma {
     connect?: ProductStockWhereUniqueInput | ProductStockWhereUniqueInput[]
   }
 
+  export type PriceHistoryCreateNestedManyWithoutColorInput = {
+    create?: XOR<PriceHistoryCreateWithoutColorInput, PriceHistoryUncheckedCreateWithoutColorInput> | PriceHistoryCreateWithoutColorInput[] | PriceHistoryUncheckedCreateWithoutColorInput[]
+    connectOrCreate?: PriceHistoryCreateOrConnectWithoutColorInput | PriceHistoryCreateOrConnectWithoutColorInput[]
+    createMany?: PriceHistoryCreateManyColorInputEnvelope
+    connect?: PriceHistoryWhereUniqueInput | PriceHistoryWhereUniqueInput[]
+  }
+
+  export type StockHistoryCreateNestedManyWithoutColorInput = {
+    create?: XOR<StockHistoryCreateWithoutColorInput, StockHistoryUncheckedCreateWithoutColorInput> | StockHistoryCreateWithoutColorInput[] | StockHistoryUncheckedCreateWithoutColorInput[]
+    connectOrCreate?: StockHistoryCreateOrConnectWithoutColorInput | StockHistoryCreateOrConnectWithoutColorInput[]
+    createMany?: StockHistoryCreateManyColorInputEnvelope
+    connect?: StockHistoryWhereUniqueInput | StockHistoryWhereUniqueInput[]
+  }
+
   export type ProductImageUncheckedCreateNestedManyWithoutColorInput = {
     create?: XOR<ProductImageCreateWithoutColorInput, ProductImageUncheckedCreateWithoutColorInput> | ProductImageCreateWithoutColorInput[] | ProductImageUncheckedCreateWithoutColorInput[]
     connectOrCreate?: ProductImageCreateOrConnectWithoutColorInput | ProductImageCreateOrConnectWithoutColorInput[]
@@ -14150,6 +19574,20 @@ export namespace Prisma {
     connectOrCreate?: ProductStockCreateOrConnectWithoutColorInput | ProductStockCreateOrConnectWithoutColorInput[]
     createMany?: ProductStockCreateManyColorInputEnvelope
     connect?: ProductStockWhereUniqueInput | ProductStockWhereUniqueInput[]
+  }
+
+  export type PriceHistoryUncheckedCreateNestedManyWithoutColorInput = {
+    create?: XOR<PriceHistoryCreateWithoutColorInput, PriceHistoryUncheckedCreateWithoutColorInput> | PriceHistoryCreateWithoutColorInput[] | PriceHistoryUncheckedCreateWithoutColorInput[]
+    connectOrCreate?: PriceHistoryCreateOrConnectWithoutColorInput | PriceHistoryCreateOrConnectWithoutColorInput[]
+    createMany?: PriceHistoryCreateManyColorInputEnvelope
+    connect?: PriceHistoryWhereUniqueInput | PriceHistoryWhereUniqueInput[]
+  }
+
+  export type StockHistoryUncheckedCreateNestedManyWithoutColorInput = {
+    create?: XOR<StockHistoryCreateWithoutColorInput, StockHistoryUncheckedCreateWithoutColorInput> | StockHistoryCreateWithoutColorInput[] | StockHistoryUncheckedCreateWithoutColorInput[]
+    connectOrCreate?: StockHistoryCreateOrConnectWithoutColorInput | StockHistoryCreateOrConnectWithoutColorInput[]
+    createMany?: StockHistoryCreateManyColorInputEnvelope
+    connect?: StockHistoryWhereUniqueInput | StockHistoryWhereUniqueInput[]
   }
 
   export type ProductUpdateOneRequiredWithoutColorsNestedInput = {
@@ -14202,6 +19640,34 @@ export namespace Prisma {
     deleteMany?: ProductStockScalarWhereInput | ProductStockScalarWhereInput[]
   }
 
+  export type PriceHistoryUpdateManyWithoutColorNestedInput = {
+    create?: XOR<PriceHistoryCreateWithoutColorInput, PriceHistoryUncheckedCreateWithoutColorInput> | PriceHistoryCreateWithoutColorInput[] | PriceHistoryUncheckedCreateWithoutColorInput[]
+    connectOrCreate?: PriceHistoryCreateOrConnectWithoutColorInput | PriceHistoryCreateOrConnectWithoutColorInput[]
+    upsert?: PriceHistoryUpsertWithWhereUniqueWithoutColorInput | PriceHistoryUpsertWithWhereUniqueWithoutColorInput[]
+    createMany?: PriceHistoryCreateManyColorInputEnvelope
+    set?: PriceHistoryWhereUniqueInput | PriceHistoryWhereUniqueInput[]
+    disconnect?: PriceHistoryWhereUniqueInput | PriceHistoryWhereUniqueInput[]
+    delete?: PriceHistoryWhereUniqueInput | PriceHistoryWhereUniqueInput[]
+    connect?: PriceHistoryWhereUniqueInput | PriceHistoryWhereUniqueInput[]
+    update?: PriceHistoryUpdateWithWhereUniqueWithoutColorInput | PriceHistoryUpdateWithWhereUniqueWithoutColorInput[]
+    updateMany?: PriceHistoryUpdateManyWithWhereWithoutColorInput | PriceHistoryUpdateManyWithWhereWithoutColorInput[]
+    deleteMany?: PriceHistoryScalarWhereInput | PriceHistoryScalarWhereInput[]
+  }
+
+  export type StockHistoryUpdateManyWithoutColorNestedInput = {
+    create?: XOR<StockHistoryCreateWithoutColorInput, StockHistoryUncheckedCreateWithoutColorInput> | StockHistoryCreateWithoutColorInput[] | StockHistoryUncheckedCreateWithoutColorInput[]
+    connectOrCreate?: StockHistoryCreateOrConnectWithoutColorInput | StockHistoryCreateOrConnectWithoutColorInput[]
+    upsert?: StockHistoryUpsertWithWhereUniqueWithoutColorInput | StockHistoryUpsertWithWhereUniqueWithoutColorInput[]
+    createMany?: StockHistoryCreateManyColorInputEnvelope
+    set?: StockHistoryWhereUniqueInput | StockHistoryWhereUniqueInput[]
+    disconnect?: StockHistoryWhereUniqueInput | StockHistoryWhereUniqueInput[]
+    delete?: StockHistoryWhereUniqueInput | StockHistoryWhereUniqueInput[]
+    connect?: StockHistoryWhereUniqueInput | StockHistoryWhereUniqueInput[]
+    update?: StockHistoryUpdateWithWhereUniqueWithoutColorInput | StockHistoryUpdateWithWhereUniqueWithoutColorInput[]
+    updateMany?: StockHistoryUpdateManyWithWhereWithoutColorInput | StockHistoryUpdateManyWithWhereWithoutColorInput[]
+    deleteMany?: StockHistoryScalarWhereInput | StockHistoryScalarWhereInput[]
+  }
+
   export type ProductImageUncheckedUpdateManyWithoutColorNestedInput = {
     create?: XOR<ProductImageCreateWithoutColorInput, ProductImageUncheckedCreateWithoutColorInput> | ProductImageCreateWithoutColorInput[] | ProductImageUncheckedCreateWithoutColorInput[]
     connectOrCreate?: ProductImageCreateOrConnectWithoutColorInput | ProductImageCreateOrConnectWithoutColorInput[]
@@ -14242,6 +19708,34 @@ export namespace Prisma {
     update?: ProductStockUpdateWithWhereUniqueWithoutColorInput | ProductStockUpdateWithWhereUniqueWithoutColorInput[]
     updateMany?: ProductStockUpdateManyWithWhereWithoutColorInput | ProductStockUpdateManyWithWhereWithoutColorInput[]
     deleteMany?: ProductStockScalarWhereInput | ProductStockScalarWhereInput[]
+  }
+
+  export type PriceHistoryUncheckedUpdateManyWithoutColorNestedInput = {
+    create?: XOR<PriceHistoryCreateWithoutColorInput, PriceHistoryUncheckedCreateWithoutColorInput> | PriceHistoryCreateWithoutColorInput[] | PriceHistoryUncheckedCreateWithoutColorInput[]
+    connectOrCreate?: PriceHistoryCreateOrConnectWithoutColorInput | PriceHistoryCreateOrConnectWithoutColorInput[]
+    upsert?: PriceHistoryUpsertWithWhereUniqueWithoutColorInput | PriceHistoryUpsertWithWhereUniqueWithoutColorInput[]
+    createMany?: PriceHistoryCreateManyColorInputEnvelope
+    set?: PriceHistoryWhereUniqueInput | PriceHistoryWhereUniqueInput[]
+    disconnect?: PriceHistoryWhereUniqueInput | PriceHistoryWhereUniqueInput[]
+    delete?: PriceHistoryWhereUniqueInput | PriceHistoryWhereUniqueInput[]
+    connect?: PriceHistoryWhereUniqueInput | PriceHistoryWhereUniqueInput[]
+    update?: PriceHistoryUpdateWithWhereUniqueWithoutColorInput | PriceHistoryUpdateWithWhereUniqueWithoutColorInput[]
+    updateMany?: PriceHistoryUpdateManyWithWhereWithoutColorInput | PriceHistoryUpdateManyWithWhereWithoutColorInput[]
+    deleteMany?: PriceHistoryScalarWhereInput | PriceHistoryScalarWhereInput[]
+  }
+
+  export type StockHistoryUncheckedUpdateManyWithoutColorNestedInput = {
+    create?: XOR<StockHistoryCreateWithoutColorInput, StockHistoryUncheckedCreateWithoutColorInput> | StockHistoryCreateWithoutColorInput[] | StockHistoryUncheckedCreateWithoutColorInput[]
+    connectOrCreate?: StockHistoryCreateOrConnectWithoutColorInput | StockHistoryCreateOrConnectWithoutColorInput[]
+    upsert?: StockHistoryUpsertWithWhereUniqueWithoutColorInput | StockHistoryUpsertWithWhereUniqueWithoutColorInput[]
+    createMany?: StockHistoryCreateManyColorInputEnvelope
+    set?: StockHistoryWhereUniqueInput | StockHistoryWhereUniqueInput[]
+    disconnect?: StockHistoryWhereUniqueInput | StockHistoryWhereUniqueInput[]
+    delete?: StockHistoryWhereUniqueInput | StockHistoryWhereUniqueInput[]
+    connect?: StockHistoryWhereUniqueInput | StockHistoryWhereUniqueInput[]
+    update?: StockHistoryUpdateWithWhereUniqueWithoutColorInput | StockHistoryUpdateWithWhereUniqueWithoutColorInput[]
+    updateMany?: StockHistoryUpdateManyWithWhereWithoutColorInput | StockHistoryUpdateManyWithWhereWithoutColorInput[]
+    deleteMany?: StockHistoryScalarWhereInput | StockHistoryScalarWhereInput[]
   }
 
   export type ProductCreateNestedOneWithoutSizesInput = {
@@ -14334,6 +19828,91 @@ export namespace Prisma {
     update?: XOR<XOR<ProductColorUpdateToOneWithWhereWithoutStockInput, ProductColorUpdateWithoutStockInput>, ProductColorUncheckedUpdateWithoutStockInput>
   }
 
+  export type ProductCreateNestedOneWithoutPriceHistoryInput = {
+    create?: XOR<ProductCreateWithoutPriceHistoryInput, ProductUncheckedCreateWithoutPriceHistoryInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutPriceHistoryInput
+    connect?: ProductWhereUniqueInput
+  }
+
+  export type ProductColorCreateNestedOneWithoutPriceHistoryInput = {
+    create?: XOR<ProductColorCreateWithoutPriceHistoryInput, ProductColorUncheckedCreateWithoutPriceHistoryInput>
+    connectOrCreate?: ProductColorCreateOrConnectWithoutPriceHistoryInput
+    connect?: ProductColorWhereUniqueInput
+  }
+
+  export type ProductUpdateOneRequiredWithoutPriceHistoryNestedInput = {
+    create?: XOR<ProductCreateWithoutPriceHistoryInput, ProductUncheckedCreateWithoutPriceHistoryInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutPriceHistoryInput
+    upsert?: ProductUpsertWithoutPriceHistoryInput
+    connect?: ProductWhereUniqueInput
+    update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutPriceHistoryInput, ProductUpdateWithoutPriceHistoryInput>, ProductUncheckedUpdateWithoutPriceHistoryInput>
+  }
+
+  export type ProductColorUpdateOneWithoutPriceHistoryNestedInput = {
+    create?: XOR<ProductColorCreateWithoutPriceHistoryInput, ProductColorUncheckedCreateWithoutPriceHistoryInput>
+    connectOrCreate?: ProductColorCreateOrConnectWithoutPriceHistoryInput
+    upsert?: ProductColorUpsertWithoutPriceHistoryInput
+    disconnect?: ProductColorWhereInput | boolean
+    delete?: ProductColorWhereInput | boolean
+    connect?: ProductColorWhereUniqueInput
+    update?: XOR<XOR<ProductColorUpdateToOneWithWhereWithoutPriceHistoryInput, ProductColorUpdateWithoutPriceHistoryInput>, ProductColorUncheckedUpdateWithoutPriceHistoryInput>
+  }
+
+  export type ProductCreateNestedOneWithoutStockHistoryInput = {
+    create?: XOR<ProductCreateWithoutStockHistoryInput, ProductUncheckedCreateWithoutStockHistoryInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutStockHistoryInput
+    connect?: ProductWhereUniqueInput
+  }
+
+  export type ProductColorCreateNestedOneWithoutStockHistoryInput = {
+    create?: XOR<ProductColorCreateWithoutStockHistoryInput, ProductColorUncheckedCreateWithoutStockHistoryInput>
+    connectOrCreate?: ProductColorCreateOrConnectWithoutStockHistoryInput
+    connect?: ProductColorWhereUniqueInput
+  }
+
+  export type ProductUpdateOneRequiredWithoutStockHistoryNestedInput = {
+    create?: XOR<ProductCreateWithoutStockHistoryInput, ProductUncheckedCreateWithoutStockHistoryInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutStockHistoryInput
+    upsert?: ProductUpsertWithoutStockHistoryInput
+    connect?: ProductWhereUniqueInput
+    update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutStockHistoryInput, ProductUpdateWithoutStockHistoryInput>, ProductUncheckedUpdateWithoutStockHistoryInput>
+  }
+
+  export type ProductColorUpdateOneWithoutStockHistoryNestedInput = {
+    create?: XOR<ProductColorCreateWithoutStockHistoryInput, ProductColorUncheckedCreateWithoutStockHistoryInput>
+    connectOrCreate?: ProductColorCreateOrConnectWithoutStockHistoryInput
+    upsert?: ProductColorUpsertWithoutStockHistoryInput
+    disconnect?: ProductColorWhereInput | boolean
+    delete?: ProductColorWhereInput | boolean
+    connect?: ProductColorWhereUniqueInput
+    update?: XOR<XOR<ProductColorUpdateToOneWithWhereWithoutStockHistoryInput, ProductColorUpdateWithoutStockHistoryInput>, ProductColorUncheckedUpdateWithoutStockHistoryInput>
+  }
+
+  export type SubCategoryCreateNestedOneWithoutHistoryInput = {
+    create?: XOR<SubCategoryCreateWithoutHistoryInput, SubCategoryUncheckedCreateWithoutHistoryInput>
+    connectOrCreate?: SubCategoryCreateOrConnectWithoutHistoryInput
+    connect?: SubCategoryWhereUniqueInput
+  }
+
+  export type SubCategoryUpdateOneRequiredWithoutHistoryNestedInput = {
+    create?: XOR<SubCategoryCreateWithoutHistoryInput, SubCategoryUncheckedCreateWithoutHistoryInput>
+    connectOrCreate?: SubCategoryCreateOrConnectWithoutHistoryInput
+    upsert?: SubCategoryUpsertWithoutHistoryInput
+    connect?: SubCategoryWhereUniqueInput
+    update?: XOR<XOR<SubCategoryUpdateToOneWithWhereWithoutHistoryInput, SubCategoryUpdateWithoutHistoryInput>, SubCategoryUncheckedUpdateWithoutHistoryInput>
+  }
+
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[]
@@ -14349,6 +19928,21 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[]
@@ -14358,49 +19952,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type NestedIntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -14430,9 +19981,40 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
+  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedIntNullableFilter<$PrismaModel = never> = {
@@ -14444,6 +20026,25 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -14480,38 +20081,28 @@ export namespace Prisma {
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
 
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue
+    lte?: InputJsonValue
+    gt?: InputJsonValue
+    gte?: InputJsonValue
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type MainCategoryCreateWithoutBrandInput = {
@@ -14556,6 +20147,8 @@ export namespace Prisma {
     sizes?: ProductSizeCreateNestedManyWithoutProductInput
     stock?: ProductStockCreateNestedManyWithoutProductInput
     subCategories?: SubCategoryCreateNestedManyWithoutProductsInput
+    priceHistory?: PriceHistoryCreateNestedManyWithoutProductInput
+    stockHistory?: StockHistoryCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutBrandInput = {
@@ -14571,6 +20164,8 @@ export namespace Prisma {
     sizes?: ProductSizeUncheckedCreateNestedManyWithoutProductInput
     stock?: ProductStockUncheckedCreateNestedManyWithoutProductInput
     subCategories?: SubCategoryUncheckedCreateNestedManyWithoutProductsInput
+    priceHistory?: PriceHistoryUncheckedCreateNestedManyWithoutProductInput
+    stockHistory?: StockHistoryUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutBrandInput = {
@@ -14675,6 +20270,7 @@ export namespace Prisma {
     parentSubCategory?: SubCategoryCreateNestedOneWithoutSubcategoriesInput
     subcategories?: SubCategoryCreateNestedManyWithoutParentSubCategoryInput
     products?: ProductCreateNestedManyWithoutSubCategoriesInput
+    history?: CategoryHistoryCreateNestedManyWithoutCategoryInput
   }
 
   export type SubCategoryUncheckedCreateWithoutParentCategoryInput = {
@@ -14691,6 +20287,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     subcategories?: SubCategoryUncheckedCreateNestedManyWithoutParentSubCategoryInput
     products?: ProductUncheckedCreateNestedManyWithoutSubCategoriesInput
+    history?: CategoryHistoryUncheckedCreateNestedManyWithoutCategoryInput
   }
 
   export type SubCategoryCreateOrConnectWithoutParentCategoryInput = {
@@ -14801,6 +20398,7 @@ export namespace Prisma {
     parentCategory?: MainCategoryCreateNestedOneWithoutSubcategoriesInput
     parentSubCategory?: SubCategoryCreateNestedOneWithoutSubcategoriesInput
     products?: ProductCreateNestedManyWithoutSubCategoriesInput
+    history?: CategoryHistoryCreateNestedManyWithoutCategoryInput
   }
 
   export type SubCategoryUncheckedCreateWithoutSubcategoriesInput = {
@@ -14817,6 +20415,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: ProductUncheckedCreateNestedManyWithoutSubCategoriesInput
+    history?: CategoryHistoryUncheckedCreateNestedManyWithoutCategoryInput
   }
 
   export type SubCategoryCreateOrConnectWithoutSubcategoriesInput = {
@@ -14838,6 +20437,7 @@ export namespace Prisma {
     parentCategory?: MainCategoryCreateNestedOneWithoutSubcategoriesInput
     subcategories?: SubCategoryCreateNestedManyWithoutParentSubCategoryInput
     products?: ProductCreateNestedManyWithoutSubCategoriesInput
+    history?: CategoryHistoryCreateNestedManyWithoutCategoryInput
   }
 
   export type SubCategoryUncheckedCreateWithoutParentSubCategoryInput = {
@@ -14854,6 +20454,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     subcategories?: SubCategoryUncheckedCreateNestedManyWithoutParentSubCategoryInput
     products?: ProductUncheckedCreateNestedManyWithoutSubCategoriesInput
+    history?: CategoryHistoryUncheckedCreateNestedManyWithoutCategoryInput
   }
 
   export type SubCategoryCreateOrConnectWithoutParentSubCategoryInput = {
@@ -14878,6 +20479,8 @@ export namespace Prisma {
     images?: ProductImageCreateNestedManyWithoutProductInput
     sizes?: ProductSizeCreateNestedManyWithoutProductInput
     stock?: ProductStockCreateNestedManyWithoutProductInput
+    priceHistory?: PriceHistoryCreateNestedManyWithoutProductInput
+    stockHistory?: StockHistoryCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutSubCategoriesInput = {
@@ -14893,11 +20496,36 @@ export namespace Prisma {
     images?: ProductImageUncheckedCreateNestedManyWithoutProductInput
     sizes?: ProductSizeUncheckedCreateNestedManyWithoutProductInput
     stock?: ProductStockUncheckedCreateNestedManyWithoutProductInput
+    priceHistory?: PriceHistoryUncheckedCreateNestedManyWithoutProductInput
+    stockHistory?: StockHistoryUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutSubCategoriesInput = {
     where: ProductWhereUniqueInput
     create: XOR<ProductCreateWithoutSubCategoriesInput, ProductUncheckedCreateWithoutSubCategoriesInput>
+  }
+
+  export type CategoryHistoryCreateWithoutCategoryInput = {
+    action: string
+    changes?: NullableJsonNullValueInput | InputJsonValue
+    timestamp?: Date | string
+  }
+
+  export type CategoryHistoryUncheckedCreateWithoutCategoryInput = {
+    id?: number
+    action: string
+    changes?: NullableJsonNullValueInput | InputJsonValue
+    timestamp?: Date | string
+  }
+
+  export type CategoryHistoryCreateOrConnectWithoutCategoryInput = {
+    where: CategoryHistoryWhereUniqueInput
+    create: XOR<CategoryHistoryCreateWithoutCategoryInput, CategoryHistoryUncheckedCreateWithoutCategoryInput>
+  }
+
+  export type CategoryHistoryCreateManyCategoryInputEnvelope = {
+    data: CategoryHistoryCreateManyCategoryInput | CategoryHistoryCreateManyCategoryInput[]
+    skipDuplicates?: boolean
   }
 
   export type MainCategoryUpsertWithoutSubcategoriesInput = {
@@ -14956,6 +20584,7 @@ export namespace Prisma {
     parentCategory?: MainCategoryUpdateOneWithoutSubcategoriesNestedInput
     parentSubCategory?: SubCategoryUpdateOneWithoutSubcategoriesNestedInput
     products?: ProductUpdateManyWithoutSubCategoriesNestedInput
+    history?: CategoryHistoryUpdateManyWithoutCategoryNestedInput
   }
 
   export type SubCategoryUncheckedUpdateWithoutSubcategoriesInput = {
@@ -14972,6 +20601,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: ProductUncheckedUpdateManyWithoutSubCategoriesNestedInput
+    history?: CategoryHistoryUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
   export type SubCategoryUpsertWithWhereUniqueWithoutParentSubCategoryInput = {
@@ -15006,6 +20636,33 @@ export namespace Prisma {
     data: XOR<ProductUpdateManyMutationInput, ProductUncheckedUpdateManyWithoutSubCategoriesInput>
   }
 
+  export type CategoryHistoryUpsertWithWhereUniqueWithoutCategoryInput = {
+    where: CategoryHistoryWhereUniqueInput
+    update: XOR<CategoryHistoryUpdateWithoutCategoryInput, CategoryHistoryUncheckedUpdateWithoutCategoryInput>
+    create: XOR<CategoryHistoryCreateWithoutCategoryInput, CategoryHistoryUncheckedCreateWithoutCategoryInput>
+  }
+
+  export type CategoryHistoryUpdateWithWhereUniqueWithoutCategoryInput = {
+    where: CategoryHistoryWhereUniqueInput
+    data: XOR<CategoryHistoryUpdateWithoutCategoryInput, CategoryHistoryUncheckedUpdateWithoutCategoryInput>
+  }
+
+  export type CategoryHistoryUpdateManyWithWhereWithoutCategoryInput = {
+    where: CategoryHistoryScalarWhereInput
+    data: XOR<CategoryHistoryUpdateManyMutationInput, CategoryHistoryUncheckedUpdateManyWithoutCategoryInput>
+  }
+
+  export type CategoryHistoryScalarWhereInput = {
+    AND?: CategoryHistoryScalarWhereInput | CategoryHistoryScalarWhereInput[]
+    OR?: CategoryHistoryScalarWhereInput[]
+    NOT?: CategoryHistoryScalarWhereInput | CategoryHistoryScalarWhereInput[]
+    id?: IntFilter<"CategoryHistory"> | number
+    categoryId?: IntFilter<"CategoryHistory"> | number
+    action?: StringFilter<"CategoryHistory"> | string
+    changes?: JsonNullableFilter<"CategoryHistory">
+    timestamp?: DateTimeFilter<"CategoryHistory"> | Date | string
+  }
+
   export type BrandCreateWithoutProductsInput = {
     id: string
     name: string
@@ -15034,6 +20691,8 @@ export namespace Prisma {
     images?: ProductImageCreateNestedManyWithoutColorInput
     sizes?: ProductSizeCreateNestedManyWithoutColorInput
     stock?: ProductStockCreateNestedManyWithoutColorInput
+    priceHistory?: PriceHistoryCreateNestedManyWithoutColorInput
+    stockHistory?: StockHistoryCreateNestedManyWithoutColorInput
   }
 
   export type ProductColorUncheckedCreateWithoutProductInput = {
@@ -15046,6 +20705,8 @@ export namespace Prisma {
     images?: ProductImageUncheckedCreateNestedManyWithoutColorInput
     sizes?: ProductSizeUncheckedCreateNestedManyWithoutColorInput
     stock?: ProductStockUncheckedCreateNestedManyWithoutColorInput
+    priceHistory?: PriceHistoryUncheckedCreateNestedManyWithoutColorInput
+    stockHistory?: StockHistoryUncheckedCreateNestedManyWithoutColorInput
   }
 
   export type ProductColorCreateOrConnectWithoutProductInput = {
@@ -15165,6 +20826,7 @@ export namespace Prisma {
     parentCategory?: MainCategoryCreateNestedOneWithoutSubcategoriesInput
     parentSubCategory?: SubCategoryCreateNestedOneWithoutSubcategoriesInput
     subcategories?: SubCategoryCreateNestedManyWithoutParentSubCategoryInput
+    history?: CategoryHistoryCreateNestedManyWithoutCategoryInput
   }
 
   export type SubCategoryUncheckedCreateWithoutProductsInput = {
@@ -15181,11 +20843,60 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     subcategories?: SubCategoryUncheckedCreateNestedManyWithoutParentSubCategoryInput
+    history?: CategoryHistoryUncheckedCreateNestedManyWithoutCategoryInput
   }
 
   export type SubCategoryCreateOrConnectWithoutProductsInput = {
     where: SubCategoryWhereUniqueInput
     create: XOR<SubCategoryCreateWithoutProductsInput, SubCategoryUncheckedCreateWithoutProductsInput>
+  }
+
+  export type PriceHistoryCreateWithoutProductInput = {
+    price: number
+    timestamp?: Date | string
+    color?: ProductColorCreateNestedOneWithoutPriceHistoryInput
+  }
+
+  export type PriceHistoryUncheckedCreateWithoutProductInput = {
+    id?: number
+    price: number
+    colorId?: number | null
+    timestamp?: Date | string
+  }
+
+  export type PriceHistoryCreateOrConnectWithoutProductInput = {
+    where: PriceHistoryWhereUniqueInput
+    create: XOR<PriceHistoryCreateWithoutProductInput, PriceHistoryUncheckedCreateWithoutProductInput>
+  }
+
+  export type PriceHistoryCreateManyProductInputEnvelope = {
+    data: PriceHistoryCreateManyProductInput | PriceHistoryCreateManyProductInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type StockHistoryCreateWithoutProductInput = {
+    sizeId: number
+    available: boolean
+    timestamp?: Date | string
+    color?: ProductColorCreateNestedOneWithoutStockHistoryInput
+  }
+
+  export type StockHistoryUncheckedCreateWithoutProductInput = {
+    id?: number
+    sizeId: number
+    colorId?: number | null
+    available: boolean
+    timestamp?: Date | string
+  }
+
+  export type StockHistoryCreateOrConnectWithoutProductInput = {
+    where: StockHistoryWhereUniqueInput
+    create: XOR<StockHistoryCreateWithoutProductInput, StockHistoryUncheckedCreateWithoutProductInput>
+  }
+
+  export type StockHistoryCreateManyProductInputEnvelope = {
+    data: StockHistoryCreateManyProductInput | StockHistoryCreateManyProductInput[]
+    skipDuplicates?: boolean
   }
 
   export type BrandUpsertWithoutProductsInput = {
@@ -15351,6 +21062,61 @@ export namespace Prisma {
     data: XOR<SubCategoryUpdateManyMutationInput, SubCategoryUncheckedUpdateManyWithoutProductsInput>
   }
 
+  export type PriceHistoryUpsertWithWhereUniqueWithoutProductInput = {
+    where: PriceHistoryWhereUniqueInput
+    update: XOR<PriceHistoryUpdateWithoutProductInput, PriceHistoryUncheckedUpdateWithoutProductInput>
+    create: XOR<PriceHistoryCreateWithoutProductInput, PriceHistoryUncheckedCreateWithoutProductInput>
+  }
+
+  export type PriceHistoryUpdateWithWhereUniqueWithoutProductInput = {
+    where: PriceHistoryWhereUniqueInput
+    data: XOR<PriceHistoryUpdateWithoutProductInput, PriceHistoryUncheckedUpdateWithoutProductInput>
+  }
+
+  export type PriceHistoryUpdateManyWithWhereWithoutProductInput = {
+    where: PriceHistoryScalarWhereInput
+    data: XOR<PriceHistoryUpdateManyMutationInput, PriceHistoryUncheckedUpdateManyWithoutProductInput>
+  }
+
+  export type PriceHistoryScalarWhereInput = {
+    AND?: PriceHistoryScalarWhereInput | PriceHistoryScalarWhereInput[]
+    OR?: PriceHistoryScalarWhereInput[]
+    NOT?: PriceHistoryScalarWhereInput | PriceHistoryScalarWhereInput[]
+    id?: IntFilter<"PriceHistory"> | number
+    productId?: IntFilter<"PriceHistory"> | number
+    price?: IntFilter<"PriceHistory"> | number
+    colorId?: IntNullableFilter<"PriceHistory"> | number | null
+    timestamp?: DateTimeFilter<"PriceHistory"> | Date | string
+  }
+
+  export type StockHistoryUpsertWithWhereUniqueWithoutProductInput = {
+    where: StockHistoryWhereUniqueInput
+    update: XOR<StockHistoryUpdateWithoutProductInput, StockHistoryUncheckedUpdateWithoutProductInput>
+    create: XOR<StockHistoryCreateWithoutProductInput, StockHistoryUncheckedCreateWithoutProductInput>
+  }
+
+  export type StockHistoryUpdateWithWhereUniqueWithoutProductInput = {
+    where: StockHistoryWhereUniqueInput
+    data: XOR<StockHistoryUpdateWithoutProductInput, StockHistoryUncheckedUpdateWithoutProductInput>
+  }
+
+  export type StockHistoryUpdateManyWithWhereWithoutProductInput = {
+    where: StockHistoryScalarWhereInput
+    data: XOR<StockHistoryUpdateManyMutationInput, StockHistoryUncheckedUpdateManyWithoutProductInput>
+  }
+
+  export type StockHistoryScalarWhereInput = {
+    AND?: StockHistoryScalarWhereInput | StockHistoryScalarWhereInput[]
+    OR?: StockHistoryScalarWhereInput[]
+    NOT?: StockHistoryScalarWhereInput | StockHistoryScalarWhereInput[]
+    id?: IntFilter<"StockHistory"> | number
+    productId?: IntFilter<"StockHistory"> | number
+    sizeId?: IntFilter<"StockHistory"> | number
+    colorId?: IntNullableFilter<"StockHistory"> | number | null
+    available?: BoolFilter<"StockHistory"> | boolean
+    timestamp?: DateTimeFilter<"StockHistory"> | Date | string
+  }
+
   export type ProductCreateWithoutColorsInput = {
     productId: number
     name: string
@@ -15363,6 +21129,8 @@ export namespace Prisma {
     sizes?: ProductSizeCreateNestedManyWithoutProductInput
     stock?: ProductStockCreateNestedManyWithoutProductInput
     subCategories?: SubCategoryCreateNestedManyWithoutProductsInput
+    priceHistory?: PriceHistoryCreateNestedManyWithoutProductInput
+    stockHistory?: StockHistoryCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutColorsInput = {
@@ -15378,6 +21146,8 @@ export namespace Prisma {
     sizes?: ProductSizeUncheckedCreateNestedManyWithoutProductInput
     stock?: ProductStockUncheckedCreateNestedManyWithoutProductInput
     subCategories?: SubCategoryUncheckedCreateNestedManyWithoutProductsInput
+    priceHistory?: PriceHistoryUncheckedCreateNestedManyWithoutProductInput
+    stockHistory?: StockHistoryUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutColorsInput = {
@@ -15478,6 +21248,54 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type PriceHistoryCreateWithoutColorInput = {
+    price: number
+    timestamp?: Date | string
+    product: ProductCreateNestedOneWithoutPriceHistoryInput
+  }
+
+  export type PriceHistoryUncheckedCreateWithoutColorInput = {
+    id?: number
+    productId: number
+    price: number
+    timestamp?: Date | string
+  }
+
+  export type PriceHistoryCreateOrConnectWithoutColorInput = {
+    where: PriceHistoryWhereUniqueInput
+    create: XOR<PriceHistoryCreateWithoutColorInput, PriceHistoryUncheckedCreateWithoutColorInput>
+  }
+
+  export type PriceHistoryCreateManyColorInputEnvelope = {
+    data: PriceHistoryCreateManyColorInput | PriceHistoryCreateManyColorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type StockHistoryCreateWithoutColorInput = {
+    sizeId: number
+    available: boolean
+    timestamp?: Date | string
+    product: ProductCreateNestedOneWithoutStockHistoryInput
+  }
+
+  export type StockHistoryUncheckedCreateWithoutColorInput = {
+    id?: number
+    productId: number
+    sizeId: number
+    available: boolean
+    timestamp?: Date | string
+  }
+
+  export type StockHistoryCreateOrConnectWithoutColorInput = {
+    where: StockHistoryWhereUniqueInput
+    create: XOR<StockHistoryCreateWithoutColorInput, StockHistoryUncheckedCreateWithoutColorInput>
+  }
+
+  export type StockHistoryCreateManyColorInputEnvelope = {
+    data: StockHistoryCreateManyColorInput | StockHistoryCreateManyColorInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ProductUpsertWithoutColorsInput = {
     update: XOR<ProductUpdateWithoutColorsInput, ProductUncheckedUpdateWithoutColorsInput>
     create: XOR<ProductCreateWithoutColorsInput, ProductUncheckedCreateWithoutColorsInput>
@@ -15501,6 +21319,8 @@ export namespace Prisma {
     sizes?: ProductSizeUpdateManyWithoutProductNestedInput
     stock?: ProductStockUpdateManyWithoutProductNestedInput
     subCategories?: SubCategoryUpdateManyWithoutProductsNestedInput
+    priceHistory?: PriceHistoryUpdateManyWithoutProductNestedInput
+    stockHistory?: StockHistoryUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutColorsInput = {
@@ -15516,6 +21336,8 @@ export namespace Prisma {
     sizes?: ProductSizeUncheckedUpdateManyWithoutProductNestedInput
     stock?: ProductStockUncheckedUpdateManyWithoutProductNestedInput
     subCategories?: SubCategoryUncheckedUpdateManyWithoutProductsNestedInput
+    priceHistory?: PriceHistoryUncheckedUpdateManyWithoutProductNestedInput
+    stockHistory?: StockHistoryUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductImageUpsertWithWhereUniqueWithoutColorInput = {
@@ -15566,6 +21388,38 @@ export namespace Prisma {
     data: XOR<ProductStockUpdateManyMutationInput, ProductStockUncheckedUpdateManyWithoutColorInput>
   }
 
+  export type PriceHistoryUpsertWithWhereUniqueWithoutColorInput = {
+    where: PriceHistoryWhereUniqueInput
+    update: XOR<PriceHistoryUpdateWithoutColorInput, PriceHistoryUncheckedUpdateWithoutColorInput>
+    create: XOR<PriceHistoryCreateWithoutColorInput, PriceHistoryUncheckedCreateWithoutColorInput>
+  }
+
+  export type PriceHistoryUpdateWithWhereUniqueWithoutColorInput = {
+    where: PriceHistoryWhereUniqueInput
+    data: XOR<PriceHistoryUpdateWithoutColorInput, PriceHistoryUncheckedUpdateWithoutColorInput>
+  }
+
+  export type PriceHistoryUpdateManyWithWhereWithoutColorInput = {
+    where: PriceHistoryScalarWhereInput
+    data: XOR<PriceHistoryUpdateManyMutationInput, PriceHistoryUncheckedUpdateManyWithoutColorInput>
+  }
+
+  export type StockHistoryUpsertWithWhereUniqueWithoutColorInput = {
+    where: StockHistoryWhereUniqueInput
+    update: XOR<StockHistoryUpdateWithoutColorInput, StockHistoryUncheckedUpdateWithoutColorInput>
+    create: XOR<StockHistoryCreateWithoutColorInput, StockHistoryUncheckedCreateWithoutColorInput>
+  }
+
+  export type StockHistoryUpdateWithWhereUniqueWithoutColorInput = {
+    where: StockHistoryWhereUniqueInput
+    data: XOR<StockHistoryUpdateWithoutColorInput, StockHistoryUncheckedUpdateWithoutColorInput>
+  }
+
+  export type StockHistoryUpdateManyWithWhereWithoutColorInput = {
+    where: StockHistoryScalarWhereInput
+    data: XOR<StockHistoryUpdateManyMutationInput, StockHistoryUncheckedUpdateManyWithoutColorInput>
+  }
+
   export type ProductCreateWithoutSizesInput = {
     productId: number
     name: string
@@ -15578,6 +21432,8 @@ export namespace Prisma {
     images?: ProductImageCreateNestedManyWithoutProductInput
     stock?: ProductStockCreateNestedManyWithoutProductInput
     subCategories?: SubCategoryCreateNestedManyWithoutProductsInput
+    priceHistory?: PriceHistoryCreateNestedManyWithoutProductInput
+    stockHistory?: StockHistoryCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutSizesInput = {
@@ -15593,6 +21449,8 @@ export namespace Prisma {
     images?: ProductImageUncheckedCreateNestedManyWithoutProductInput
     stock?: ProductStockUncheckedCreateNestedManyWithoutProductInput
     subCategories?: SubCategoryUncheckedCreateNestedManyWithoutProductsInput
+    priceHistory?: PriceHistoryUncheckedCreateNestedManyWithoutProductInput
+    stockHistory?: StockHistoryUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutSizesInput = {
@@ -15609,6 +21467,8 @@ export namespace Prisma {
     product: ProductCreateNestedOneWithoutColorsInput
     images?: ProductImageCreateNestedManyWithoutColorInput
     stock?: ProductStockCreateNestedManyWithoutColorInput
+    priceHistory?: PriceHistoryCreateNestedManyWithoutColorInput
+    stockHistory?: StockHistoryCreateNestedManyWithoutColorInput
   }
 
   export type ProductColorUncheckedCreateWithoutSizesInput = {
@@ -15621,6 +21481,8 @@ export namespace Prisma {
     productId: number
     images?: ProductImageUncheckedCreateNestedManyWithoutColorInput
     stock?: ProductStockUncheckedCreateNestedManyWithoutColorInput
+    priceHistory?: PriceHistoryUncheckedCreateNestedManyWithoutColorInput
+    stockHistory?: StockHistoryUncheckedCreateNestedManyWithoutColorInput
   }
 
   export type ProductColorCreateOrConnectWithoutSizesInput = {
@@ -15651,6 +21513,8 @@ export namespace Prisma {
     images?: ProductImageUpdateManyWithoutProductNestedInput
     stock?: ProductStockUpdateManyWithoutProductNestedInput
     subCategories?: SubCategoryUpdateManyWithoutProductsNestedInput
+    priceHistory?: PriceHistoryUpdateManyWithoutProductNestedInput
+    stockHistory?: StockHistoryUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutSizesInput = {
@@ -15666,6 +21530,8 @@ export namespace Prisma {
     images?: ProductImageUncheckedUpdateManyWithoutProductNestedInput
     stock?: ProductStockUncheckedUpdateManyWithoutProductNestedInput
     subCategories?: SubCategoryUncheckedUpdateManyWithoutProductsNestedInput
+    priceHistory?: PriceHistoryUncheckedUpdateManyWithoutProductNestedInput
+    stockHistory?: StockHistoryUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductColorUpsertWithoutSizesInput = {
@@ -15688,6 +21554,8 @@ export namespace Prisma {
     product?: ProductUpdateOneRequiredWithoutColorsNestedInput
     images?: ProductImageUpdateManyWithoutColorNestedInput
     stock?: ProductStockUpdateManyWithoutColorNestedInput
+    priceHistory?: PriceHistoryUpdateManyWithoutColorNestedInput
+    stockHistory?: StockHistoryUpdateManyWithoutColorNestedInput
   }
 
   export type ProductColorUncheckedUpdateWithoutSizesInput = {
@@ -15700,6 +21568,8 @@ export namespace Prisma {
     productId?: IntFieldUpdateOperationsInput | number
     images?: ProductImageUncheckedUpdateManyWithoutColorNestedInput
     stock?: ProductStockUncheckedUpdateManyWithoutColorNestedInput
+    priceHistory?: PriceHistoryUncheckedUpdateManyWithoutColorNestedInput
+    stockHistory?: StockHistoryUncheckedUpdateManyWithoutColorNestedInput
   }
 
   export type ProductCreateWithoutImagesInput = {
@@ -15714,6 +21584,8 @@ export namespace Prisma {
     sizes?: ProductSizeCreateNestedManyWithoutProductInput
     stock?: ProductStockCreateNestedManyWithoutProductInput
     subCategories?: SubCategoryCreateNestedManyWithoutProductsInput
+    priceHistory?: PriceHistoryCreateNestedManyWithoutProductInput
+    stockHistory?: StockHistoryCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutImagesInput = {
@@ -15729,6 +21601,8 @@ export namespace Prisma {
     sizes?: ProductSizeUncheckedCreateNestedManyWithoutProductInput
     stock?: ProductStockUncheckedCreateNestedManyWithoutProductInput
     subCategories?: SubCategoryUncheckedCreateNestedManyWithoutProductsInput
+    priceHistory?: PriceHistoryUncheckedCreateNestedManyWithoutProductInput
+    stockHistory?: StockHistoryUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutImagesInput = {
@@ -15745,6 +21619,8 @@ export namespace Prisma {
     product: ProductCreateNestedOneWithoutColorsInput
     sizes?: ProductSizeCreateNestedManyWithoutColorInput
     stock?: ProductStockCreateNestedManyWithoutColorInput
+    priceHistory?: PriceHistoryCreateNestedManyWithoutColorInput
+    stockHistory?: StockHistoryCreateNestedManyWithoutColorInput
   }
 
   export type ProductColorUncheckedCreateWithoutImagesInput = {
@@ -15757,6 +21633,8 @@ export namespace Prisma {
     productId: number
     sizes?: ProductSizeUncheckedCreateNestedManyWithoutColorInput
     stock?: ProductStockUncheckedCreateNestedManyWithoutColorInput
+    priceHistory?: PriceHistoryUncheckedCreateNestedManyWithoutColorInput
+    stockHistory?: StockHistoryUncheckedCreateNestedManyWithoutColorInput
   }
 
   export type ProductColorCreateOrConnectWithoutImagesInput = {
@@ -15787,6 +21665,8 @@ export namespace Prisma {
     sizes?: ProductSizeUpdateManyWithoutProductNestedInput
     stock?: ProductStockUpdateManyWithoutProductNestedInput
     subCategories?: SubCategoryUpdateManyWithoutProductsNestedInput
+    priceHistory?: PriceHistoryUpdateManyWithoutProductNestedInput
+    stockHistory?: StockHistoryUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutImagesInput = {
@@ -15802,6 +21682,8 @@ export namespace Prisma {
     sizes?: ProductSizeUncheckedUpdateManyWithoutProductNestedInput
     stock?: ProductStockUncheckedUpdateManyWithoutProductNestedInput
     subCategories?: SubCategoryUncheckedUpdateManyWithoutProductsNestedInput
+    priceHistory?: PriceHistoryUncheckedUpdateManyWithoutProductNestedInput
+    stockHistory?: StockHistoryUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductColorUpsertWithoutImagesInput = {
@@ -15824,6 +21706,8 @@ export namespace Prisma {
     product?: ProductUpdateOneRequiredWithoutColorsNestedInput
     sizes?: ProductSizeUpdateManyWithoutColorNestedInput
     stock?: ProductStockUpdateManyWithoutColorNestedInput
+    priceHistory?: PriceHistoryUpdateManyWithoutColorNestedInput
+    stockHistory?: StockHistoryUpdateManyWithoutColorNestedInput
   }
 
   export type ProductColorUncheckedUpdateWithoutImagesInput = {
@@ -15836,6 +21720,8 @@ export namespace Prisma {
     productId?: IntFieldUpdateOperationsInput | number
     sizes?: ProductSizeUncheckedUpdateManyWithoutColorNestedInput
     stock?: ProductStockUncheckedUpdateManyWithoutColorNestedInput
+    priceHistory?: PriceHistoryUncheckedUpdateManyWithoutColorNestedInput
+    stockHistory?: StockHistoryUncheckedUpdateManyWithoutColorNestedInput
   }
 
   export type ProductCreateWithoutStockInput = {
@@ -15850,6 +21736,8 @@ export namespace Prisma {
     images?: ProductImageCreateNestedManyWithoutProductInput
     sizes?: ProductSizeCreateNestedManyWithoutProductInput
     subCategories?: SubCategoryCreateNestedManyWithoutProductsInput
+    priceHistory?: PriceHistoryCreateNestedManyWithoutProductInput
+    stockHistory?: StockHistoryCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutStockInput = {
@@ -15865,6 +21753,8 @@ export namespace Prisma {
     images?: ProductImageUncheckedCreateNestedManyWithoutProductInput
     sizes?: ProductSizeUncheckedCreateNestedManyWithoutProductInput
     subCategories?: SubCategoryUncheckedCreateNestedManyWithoutProductsInput
+    priceHistory?: PriceHistoryUncheckedCreateNestedManyWithoutProductInput
+    stockHistory?: StockHistoryUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutStockInput = {
@@ -15881,6 +21771,8 @@ export namespace Prisma {
     product: ProductCreateNestedOneWithoutColorsInput
     images?: ProductImageCreateNestedManyWithoutColorInput
     sizes?: ProductSizeCreateNestedManyWithoutColorInput
+    priceHistory?: PriceHistoryCreateNestedManyWithoutColorInput
+    stockHistory?: StockHistoryCreateNestedManyWithoutColorInput
   }
 
   export type ProductColorUncheckedCreateWithoutStockInput = {
@@ -15893,6 +21785,8 @@ export namespace Prisma {
     productId: number
     images?: ProductImageUncheckedCreateNestedManyWithoutColorInput
     sizes?: ProductSizeUncheckedCreateNestedManyWithoutColorInput
+    priceHistory?: PriceHistoryUncheckedCreateNestedManyWithoutColorInput
+    stockHistory?: StockHistoryUncheckedCreateNestedManyWithoutColorInput
   }
 
   export type ProductColorCreateOrConnectWithoutStockInput = {
@@ -15923,6 +21817,8 @@ export namespace Prisma {
     images?: ProductImageUpdateManyWithoutProductNestedInput
     sizes?: ProductSizeUpdateManyWithoutProductNestedInput
     subCategories?: SubCategoryUpdateManyWithoutProductsNestedInput
+    priceHistory?: PriceHistoryUpdateManyWithoutProductNestedInput
+    stockHistory?: StockHistoryUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutStockInput = {
@@ -15938,6 +21834,8 @@ export namespace Prisma {
     images?: ProductImageUncheckedUpdateManyWithoutProductNestedInput
     sizes?: ProductSizeUncheckedUpdateManyWithoutProductNestedInput
     subCategories?: SubCategoryUncheckedUpdateManyWithoutProductsNestedInput
+    priceHistory?: PriceHistoryUncheckedUpdateManyWithoutProductNestedInput
+    stockHistory?: StockHistoryUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductColorUpsertWithoutStockInput = {
@@ -15960,6 +21858,8 @@ export namespace Prisma {
     product?: ProductUpdateOneRequiredWithoutColorsNestedInput
     images?: ProductImageUpdateManyWithoutColorNestedInput
     sizes?: ProductSizeUpdateManyWithoutColorNestedInput
+    priceHistory?: PriceHistoryUpdateManyWithoutColorNestedInput
+    stockHistory?: StockHistoryUpdateManyWithoutColorNestedInput
   }
 
   export type ProductColorUncheckedUpdateWithoutStockInput = {
@@ -15972,6 +21872,396 @@ export namespace Prisma {
     productId?: IntFieldUpdateOperationsInput | number
     images?: ProductImageUncheckedUpdateManyWithoutColorNestedInput
     sizes?: ProductSizeUncheckedUpdateManyWithoutColorNestedInput
+    priceHistory?: PriceHistoryUncheckedUpdateManyWithoutColorNestedInput
+    stockHistory?: StockHistoryUncheckedUpdateManyWithoutColorNestedInput
+  }
+
+  export type ProductCreateWithoutPriceHistoryInput = {
+    productId: number
+    name: string
+    price?: number | null
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    brand: BrandCreateNestedOneWithoutProductsInput
+    colors?: ProductColorCreateNestedManyWithoutProductInput
+    images?: ProductImageCreateNestedManyWithoutProductInput
+    sizes?: ProductSizeCreateNestedManyWithoutProductInput
+    stock?: ProductStockCreateNestedManyWithoutProductInput
+    subCategories?: SubCategoryCreateNestedManyWithoutProductsInput
+    stockHistory?: StockHistoryCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductUncheckedCreateWithoutPriceHistoryInput = {
+    id?: number
+    brandName: string
+    productId: number
+    name: string
+    price?: number | null
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    colors?: ProductColorUncheckedCreateNestedManyWithoutProductInput
+    images?: ProductImageUncheckedCreateNestedManyWithoutProductInput
+    sizes?: ProductSizeUncheckedCreateNestedManyWithoutProductInput
+    stock?: ProductStockUncheckedCreateNestedManyWithoutProductInput
+    subCategories?: SubCategoryUncheckedCreateNestedManyWithoutProductsInput
+    stockHistory?: StockHistoryUncheckedCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductCreateOrConnectWithoutPriceHistoryInput = {
+    where: ProductWhereUniqueInput
+    create: XOR<ProductCreateWithoutPriceHistoryInput, ProductUncheckedCreateWithoutPriceHistoryInput>
+  }
+
+  export type ProductColorCreateWithoutPriceHistoryInput = {
+    colorId: string
+    name: string
+    hexCode?: string | null
+    price?: number | null
+    description?: string | null
+    product: ProductCreateNestedOneWithoutColorsInput
+    images?: ProductImageCreateNestedManyWithoutColorInput
+    sizes?: ProductSizeCreateNestedManyWithoutColorInput
+    stock?: ProductStockCreateNestedManyWithoutColorInput
+    stockHistory?: StockHistoryCreateNestedManyWithoutColorInput
+  }
+
+  export type ProductColorUncheckedCreateWithoutPriceHistoryInput = {
+    id?: number
+    colorId: string
+    name: string
+    hexCode?: string | null
+    price?: number | null
+    description?: string | null
+    productId: number
+    images?: ProductImageUncheckedCreateNestedManyWithoutColorInput
+    sizes?: ProductSizeUncheckedCreateNestedManyWithoutColorInput
+    stock?: ProductStockUncheckedCreateNestedManyWithoutColorInput
+    stockHistory?: StockHistoryUncheckedCreateNestedManyWithoutColorInput
+  }
+
+  export type ProductColorCreateOrConnectWithoutPriceHistoryInput = {
+    where: ProductColorWhereUniqueInput
+    create: XOR<ProductColorCreateWithoutPriceHistoryInput, ProductColorUncheckedCreateWithoutPriceHistoryInput>
+  }
+
+  export type ProductUpsertWithoutPriceHistoryInput = {
+    update: XOR<ProductUpdateWithoutPriceHistoryInput, ProductUncheckedUpdateWithoutPriceHistoryInput>
+    create: XOR<ProductCreateWithoutPriceHistoryInput, ProductUncheckedCreateWithoutPriceHistoryInput>
+    where?: ProductWhereInput
+  }
+
+  export type ProductUpdateToOneWithWhereWithoutPriceHistoryInput = {
+    where?: ProductWhereInput
+    data: XOR<ProductUpdateWithoutPriceHistoryInput, ProductUncheckedUpdateWithoutPriceHistoryInput>
+  }
+
+  export type ProductUpdateWithoutPriceHistoryInput = {
+    productId?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    price?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    brand?: BrandUpdateOneRequiredWithoutProductsNestedInput
+    colors?: ProductColorUpdateManyWithoutProductNestedInput
+    images?: ProductImageUpdateManyWithoutProductNestedInput
+    sizes?: ProductSizeUpdateManyWithoutProductNestedInput
+    stock?: ProductStockUpdateManyWithoutProductNestedInput
+    subCategories?: SubCategoryUpdateManyWithoutProductsNestedInput
+    stockHistory?: StockHistoryUpdateManyWithoutProductNestedInput
+  }
+
+  export type ProductUncheckedUpdateWithoutPriceHistoryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    brandName?: StringFieldUpdateOperationsInput | string
+    productId?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    price?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    colors?: ProductColorUncheckedUpdateManyWithoutProductNestedInput
+    images?: ProductImageUncheckedUpdateManyWithoutProductNestedInput
+    sizes?: ProductSizeUncheckedUpdateManyWithoutProductNestedInput
+    stock?: ProductStockUncheckedUpdateManyWithoutProductNestedInput
+    subCategories?: SubCategoryUncheckedUpdateManyWithoutProductsNestedInput
+    stockHistory?: StockHistoryUncheckedUpdateManyWithoutProductNestedInput
+  }
+
+  export type ProductColorUpsertWithoutPriceHistoryInput = {
+    update: XOR<ProductColorUpdateWithoutPriceHistoryInput, ProductColorUncheckedUpdateWithoutPriceHistoryInput>
+    create: XOR<ProductColorCreateWithoutPriceHistoryInput, ProductColorUncheckedCreateWithoutPriceHistoryInput>
+    where?: ProductColorWhereInput
+  }
+
+  export type ProductColorUpdateToOneWithWhereWithoutPriceHistoryInput = {
+    where?: ProductColorWhereInput
+    data: XOR<ProductColorUpdateWithoutPriceHistoryInput, ProductColorUncheckedUpdateWithoutPriceHistoryInput>
+  }
+
+  export type ProductColorUpdateWithoutPriceHistoryInput = {
+    colorId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    hexCode?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    product?: ProductUpdateOneRequiredWithoutColorsNestedInput
+    images?: ProductImageUpdateManyWithoutColorNestedInput
+    sizes?: ProductSizeUpdateManyWithoutColorNestedInput
+    stock?: ProductStockUpdateManyWithoutColorNestedInput
+    stockHistory?: StockHistoryUpdateManyWithoutColorNestedInput
+  }
+
+  export type ProductColorUncheckedUpdateWithoutPriceHistoryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    colorId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    hexCode?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    productId?: IntFieldUpdateOperationsInput | number
+    images?: ProductImageUncheckedUpdateManyWithoutColorNestedInput
+    sizes?: ProductSizeUncheckedUpdateManyWithoutColorNestedInput
+    stock?: ProductStockUncheckedUpdateManyWithoutColorNestedInput
+    stockHistory?: StockHistoryUncheckedUpdateManyWithoutColorNestedInput
+  }
+
+  export type ProductCreateWithoutStockHistoryInput = {
+    productId: number
+    name: string
+    price?: number | null
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    brand: BrandCreateNestedOneWithoutProductsInput
+    colors?: ProductColorCreateNestedManyWithoutProductInput
+    images?: ProductImageCreateNestedManyWithoutProductInput
+    sizes?: ProductSizeCreateNestedManyWithoutProductInput
+    stock?: ProductStockCreateNestedManyWithoutProductInput
+    subCategories?: SubCategoryCreateNestedManyWithoutProductsInput
+    priceHistory?: PriceHistoryCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductUncheckedCreateWithoutStockHistoryInput = {
+    id?: number
+    brandName: string
+    productId: number
+    name: string
+    price?: number | null
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    colors?: ProductColorUncheckedCreateNestedManyWithoutProductInput
+    images?: ProductImageUncheckedCreateNestedManyWithoutProductInput
+    sizes?: ProductSizeUncheckedCreateNestedManyWithoutProductInput
+    stock?: ProductStockUncheckedCreateNestedManyWithoutProductInput
+    subCategories?: SubCategoryUncheckedCreateNestedManyWithoutProductsInput
+    priceHistory?: PriceHistoryUncheckedCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductCreateOrConnectWithoutStockHistoryInput = {
+    where: ProductWhereUniqueInput
+    create: XOR<ProductCreateWithoutStockHistoryInput, ProductUncheckedCreateWithoutStockHistoryInput>
+  }
+
+  export type ProductColorCreateWithoutStockHistoryInput = {
+    colorId: string
+    name: string
+    hexCode?: string | null
+    price?: number | null
+    description?: string | null
+    product: ProductCreateNestedOneWithoutColorsInput
+    images?: ProductImageCreateNestedManyWithoutColorInput
+    sizes?: ProductSizeCreateNestedManyWithoutColorInput
+    stock?: ProductStockCreateNestedManyWithoutColorInput
+    priceHistory?: PriceHistoryCreateNestedManyWithoutColorInput
+  }
+
+  export type ProductColorUncheckedCreateWithoutStockHistoryInput = {
+    id?: number
+    colorId: string
+    name: string
+    hexCode?: string | null
+    price?: number | null
+    description?: string | null
+    productId: number
+    images?: ProductImageUncheckedCreateNestedManyWithoutColorInput
+    sizes?: ProductSizeUncheckedCreateNestedManyWithoutColorInput
+    stock?: ProductStockUncheckedCreateNestedManyWithoutColorInput
+    priceHistory?: PriceHistoryUncheckedCreateNestedManyWithoutColorInput
+  }
+
+  export type ProductColorCreateOrConnectWithoutStockHistoryInput = {
+    where: ProductColorWhereUniqueInput
+    create: XOR<ProductColorCreateWithoutStockHistoryInput, ProductColorUncheckedCreateWithoutStockHistoryInput>
+  }
+
+  export type ProductUpsertWithoutStockHistoryInput = {
+    update: XOR<ProductUpdateWithoutStockHistoryInput, ProductUncheckedUpdateWithoutStockHistoryInput>
+    create: XOR<ProductCreateWithoutStockHistoryInput, ProductUncheckedCreateWithoutStockHistoryInput>
+    where?: ProductWhereInput
+  }
+
+  export type ProductUpdateToOneWithWhereWithoutStockHistoryInput = {
+    where?: ProductWhereInput
+    data: XOR<ProductUpdateWithoutStockHistoryInput, ProductUncheckedUpdateWithoutStockHistoryInput>
+  }
+
+  export type ProductUpdateWithoutStockHistoryInput = {
+    productId?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    price?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    brand?: BrandUpdateOneRequiredWithoutProductsNestedInput
+    colors?: ProductColorUpdateManyWithoutProductNestedInput
+    images?: ProductImageUpdateManyWithoutProductNestedInput
+    sizes?: ProductSizeUpdateManyWithoutProductNestedInput
+    stock?: ProductStockUpdateManyWithoutProductNestedInput
+    subCategories?: SubCategoryUpdateManyWithoutProductsNestedInput
+    priceHistory?: PriceHistoryUpdateManyWithoutProductNestedInput
+  }
+
+  export type ProductUncheckedUpdateWithoutStockHistoryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    brandName?: StringFieldUpdateOperationsInput | string
+    productId?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    price?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    colors?: ProductColorUncheckedUpdateManyWithoutProductNestedInput
+    images?: ProductImageUncheckedUpdateManyWithoutProductNestedInput
+    sizes?: ProductSizeUncheckedUpdateManyWithoutProductNestedInput
+    stock?: ProductStockUncheckedUpdateManyWithoutProductNestedInput
+    subCategories?: SubCategoryUncheckedUpdateManyWithoutProductsNestedInput
+    priceHistory?: PriceHistoryUncheckedUpdateManyWithoutProductNestedInput
+  }
+
+  export type ProductColorUpsertWithoutStockHistoryInput = {
+    update: XOR<ProductColorUpdateWithoutStockHistoryInput, ProductColorUncheckedUpdateWithoutStockHistoryInput>
+    create: XOR<ProductColorCreateWithoutStockHistoryInput, ProductColorUncheckedCreateWithoutStockHistoryInput>
+    where?: ProductColorWhereInput
+  }
+
+  export type ProductColorUpdateToOneWithWhereWithoutStockHistoryInput = {
+    where?: ProductColorWhereInput
+    data: XOR<ProductColorUpdateWithoutStockHistoryInput, ProductColorUncheckedUpdateWithoutStockHistoryInput>
+  }
+
+  export type ProductColorUpdateWithoutStockHistoryInput = {
+    colorId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    hexCode?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    product?: ProductUpdateOneRequiredWithoutColorsNestedInput
+    images?: ProductImageUpdateManyWithoutColorNestedInput
+    sizes?: ProductSizeUpdateManyWithoutColorNestedInput
+    stock?: ProductStockUpdateManyWithoutColorNestedInput
+    priceHistory?: PriceHistoryUpdateManyWithoutColorNestedInput
+  }
+
+  export type ProductColorUncheckedUpdateWithoutStockHistoryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    colorId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    hexCode?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    productId?: IntFieldUpdateOperationsInput | number
+    images?: ProductImageUncheckedUpdateManyWithoutColorNestedInput
+    sizes?: ProductSizeUncheckedUpdateManyWithoutColorNestedInput
+    stock?: ProductStockUncheckedUpdateManyWithoutColorNestedInput
+    priceHistory?: PriceHistoryUncheckedUpdateManyWithoutColorNestedInput
+  }
+
+  export type SubCategoryCreateWithoutHistoryInput = {
+    categoryId: number
+    categoryName: string
+    brand: string
+    gender: string
+    level: number
+    isLeaf?: boolean
+    matchingId?: number | null
+    productCount?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    parentCategory?: MainCategoryCreateNestedOneWithoutSubcategoriesInput
+    parentSubCategory?: SubCategoryCreateNestedOneWithoutSubcategoriesInput
+    subcategories?: SubCategoryCreateNestedManyWithoutParentSubCategoryInput
+    products?: ProductCreateNestedManyWithoutSubCategoriesInput
+  }
+
+  export type SubCategoryUncheckedCreateWithoutHistoryInput = {
+    categoryId: number
+    categoryName: string
+    brand: string
+    gender: string
+    level: number
+    isLeaf?: boolean
+    matchingId?: number | null
+    productCount?: number | null
+    parentCategoryId?: number | null
+    parentSubCategoryId?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    subcategories?: SubCategoryUncheckedCreateNestedManyWithoutParentSubCategoryInput
+    products?: ProductUncheckedCreateNestedManyWithoutSubCategoriesInput
+  }
+
+  export type SubCategoryCreateOrConnectWithoutHistoryInput = {
+    where: SubCategoryWhereUniqueInput
+    create: XOR<SubCategoryCreateWithoutHistoryInput, SubCategoryUncheckedCreateWithoutHistoryInput>
+  }
+
+  export type SubCategoryUpsertWithoutHistoryInput = {
+    update: XOR<SubCategoryUpdateWithoutHistoryInput, SubCategoryUncheckedUpdateWithoutHistoryInput>
+    create: XOR<SubCategoryCreateWithoutHistoryInput, SubCategoryUncheckedCreateWithoutHistoryInput>
+    where?: SubCategoryWhereInput
+  }
+
+  export type SubCategoryUpdateToOneWithWhereWithoutHistoryInput = {
+    where?: SubCategoryWhereInput
+    data: XOR<SubCategoryUpdateWithoutHistoryInput, SubCategoryUncheckedUpdateWithoutHistoryInput>
+  }
+
+  export type SubCategoryUpdateWithoutHistoryInput = {
+    categoryId?: IntFieldUpdateOperationsInput | number
+    categoryName?: StringFieldUpdateOperationsInput | string
+    brand?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    isLeaf?: BoolFieldUpdateOperationsInput | boolean
+    matchingId?: NullableIntFieldUpdateOperationsInput | number | null
+    productCount?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    parentCategory?: MainCategoryUpdateOneWithoutSubcategoriesNestedInput
+    parentSubCategory?: SubCategoryUpdateOneWithoutSubcategoriesNestedInput
+    subcategories?: SubCategoryUpdateManyWithoutParentSubCategoryNestedInput
+    products?: ProductUpdateManyWithoutSubCategoriesNestedInput
+  }
+
+  export type SubCategoryUncheckedUpdateWithoutHistoryInput = {
+    categoryId?: IntFieldUpdateOperationsInput | number
+    categoryName?: StringFieldUpdateOperationsInput | string
+    brand?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    level?: IntFieldUpdateOperationsInput | number
+    isLeaf?: BoolFieldUpdateOperationsInput | boolean
+    matchingId?: NullableIntFieldUpdateOperationsInput | number | null
+    productCount?: NullableIntFieldUpdateOperationsInput | number | null
+    parentCategoryId?: NullableIntFieldUpdateOperationsInput | number | null
+    parentSubCategoryId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subcategories?: SubCategoryUncheckedUpdateManyWithoutParentSubCategoryNestedInput
+    products?: ProductUncheckedUpdateManyWithoutSubCategoriesNestedInput
   }
 
   export type MainCategoryCreateManyBrandInput = {
@@ -16034,6 +22324,8 @@ export namespace Prisma {
     sizes?: ProductSizeUpdateManyWithoutProductNestedInput
     stock?: ProductStockUpdateManyWithoutProductNestedInput
     subCategories?: SubCategoryUpdateManyWithoutProductsNestedInput
+    priceHistory?: PriceHistoryUpdateManyWithoutProductNestedInput
+    stockHistory?: StockHistoryUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutBrandInput = {
@@ -16049,6 +22341,8 @@ export namespace Prisma {
     sizes?: ProductSizeUncheckedUpdateManyWithoutProductNestedInput
     stock?: ProductStockUncheckedUpdateManyWithoutProductNestedInput
     subCategories?: SubCategoryUncheckedUpdateManyWithoutProductsNestedInput
+    priceHistory?: PriceHistoryUncheckedUpdateManyWithoutProductNestedInput
+    stockHistory?: StockHistoryUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateManyWithoutBrandInput = {
@@ -16089,6 +22383,7 @@ export namespace Prisma {
     parentSubCategory?: SubCategoryUpdateOneWithoutSubcategoriesNestedInput
     subcategories?: SubCategoryUpdateManyWithoutParentSubCategoryNestedInput
     products?: ProductUpdateManyWithoutSubCategoriesNestedInput
+    history?: CategoryHistoryUpdateManyWithoutCategoryNestedInput
   }
 
   export type SubCategoryUncheckedUpdateWithoutParentCategoryInput = {
@@ -16105,6 +22400,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subcategories?: SubCategoryUncheckedUpdateManyWithoutParentSubCategoryNestedInput
     products?: ProductUncheckedUpdateManyWithoutSubCategoriesNestedInput
+    history?: CategoryHistoryUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
   export type SubCategoryUncheckedUpdateManyWithoutParentCategoryInput = {
@@ -16135,6 +22431,13 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type CategoryHistoryCreateManyCategoryInput = {
+    id?: number
+    action: string
+    changes?: NullableJsonNullValueInput | InputJsonValue
+    timestamp?: Date | string
+  }
+
   export type SubCategoryUpdateWithoutParentSubCategoryInput = {
     categoryId?: IntFieldUpdateOperationsInput | number
     categoryName?: StringFieldUpdateOperationsInput | string
@@ -16149,6 +22452,7 @@ export namespace Prisma {
     parentCategory?: MainCategoryUpdateOneWithoutSubcategoriesNestedInput
     subcategories?: SubCategoryUpdateManyWithoutParentSubCategoryNestedInput
     products?: ProductUpdateManyWithoutSubCategoriesNestedInput
+    history?: CategoryHistoryUpdateManyWithoutCategoryNestedInput
   }
 
   export type SubCategoryUncheckedUpdateWithoutParentSubCategoryInput = {
@@ -16165,6 +22469,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subcategories?: SubCategoryUncheckedUpdateManyWithoutParentSubCategoryNestedInput
     products?: ProductUncheckedUpdateManyWithoutSubCategoriesNestedInput
+    history?: CategoryHistoryUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
   export type SubCategoryUncheckedUpdateManyWithoutParentSubCategoryInput = {
@@ -16193,6 +22498,8 @@ export namespace Prisma {
     images?: ProductImageUpdateManyWithoutProductNestedInput
     sizes?: ProductSizeUpdateManyWithoutProductNestedInput
     stock?: ProductStockUpdateManyWithoutProductNestedInput
+    priceHistory?: PriceHistoryUpdateManyWithoutProductNestedInput
+    stockHistory?: StockHistoryUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutSubCategoriesInput = {
@@ -16208,6 +22515,8 @@ export namespace Prisma {
     images?: ProductImageUncheckedUpdateManyWithoutProductNestedInput
     sizes?: ProductSizeUncheckedUpdateManyWithoutProductNestedInput
     stock?: ProductStockUncheckedUpdateManyWithoutProductNestedInput
+    priceHistory?: PriceHistoryUncheckedUpdateManyWithoutProductNestedInput
+    stockHistory?: StockHistoryUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateManyWithoutSubCategoriesInput = {
@@ -16219,6 +22528,26 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CategoryHistoryUpdateWithoutCategoryInput = {
+    action?: StringFieldUpdateOperationsInput | string
+    changes?: NullableJsonNullValueInput | InputJsonValue
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CategoryHistoryUncheckedUpdateWithoutCategoryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    action?: StringFieldUpdateOperationsInput | string
+    changes?: NullableJsonNullValueInput | InputJsonValue
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CategoryHistoryUncheckedUpdateManyWithoutCategoryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    action?: StringFieldUpdateOperationsInput | string
+    changes?: NullableJsonNullValueInput | InputJsonValue
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProductColorCreateManyProductInput = {
@@ -16263,6 +22592,21 @@ export namespace Prisma {
     colorName?: string | null
   }
 
+  export type PriceHistoryCreateManyProductInput = {
+    id?: number
+    price: number
+    colorId?: number | null
+    timestamp?: Date | string
+  }
+
+  export type StockHistoryCreateManyProductInput = {
+    id?: number
+    sizeId: number
+    colorId?: number | null
+    available: boolean
+    timestamp?: Date | string
+  }
+
   export type ProductColorUpdateWithoutProductInput = {
     colorId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -16272,6 +22616,8 @@ export namespace Prisma {
     images?: ProductImageUpdateManyWithoutColorNestedInput
     sizes?: ProductSizeUpdateManyWithoutColorNestedInput
     stock?: ProductStockUpdateManyWithoutColorNestedInput
+    priceHistory?: PriceHistoryUpdateManyWithoutColorNestedInput
+    stockHistory?: StockHistoryUpdateManyWithoutColorNestedInput
   }
 
   export type ProductColorUncheckedUpdateWithoutProductInput = {
@@ -16284,6 +22630,8 @@ export namespace Prisma {
     images?: ProductImageUncheckedUpdateManyWithoutColorNestedInput
     sizes?: ProductSizeUncheckedUpdateManyWithoutColorNestedInput
     stock?: ProductStockUncheckedUpdateManyWithoutColorNestedInput
+    priceHistory?: PriceHistoryUncheckedUpdateManyWithoutColorNestedInput
+    stockHistory?: StockHistoryUncheckedUpdateManyWithoutColorNestedInput
   }
 
   export type ProductColorUncheckedUpdateManyWithoutProductInput = {
@@ -16405,6 +22753,7 @@ export namespace Prisma {
     parentCategory?: MainCategoryUpdateOneWithoutSubcategoriesNestedInput
     parentSubCategory?: SubCategoryUpdateOneWithoutSubcategoriesNestedInput
     subcategories?: SubCategoryUpdateManyWithoutParentSubCategoryNestedInput
+    history?: CategoryHistoryUpdateManyWithoutCategoryNestedInput
   }
 
   export type SubCategoryUncheckedUpdateWithoutProductsInput = {
@@ -16421,6 +22770,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subcategories?: SubCategoryUncheckedUpdateManyWithoutParentSubCategoryNestedInput
+    history?: CategoryHistoryUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
   export type SubCategoryUncheckedUpdateManyWithoutProductsInput = {
@@ -16436,6 +22786,49 @@ export namespace Prisma {
     parentSubCategoryId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PriceHistoryUpdateWithoutProductInput = {
+    price?: IntFieldUpdateOperationsInput | number
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    color?: ProductColorUpdateOneWithoutPriceHistoryNestedInput
+  }
+
+  export type PriceHistoryUncheckedUpdateWithoutProductInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    price?: IntFieldUpdateOperationsInput | number
+    colorId?: NullableIntFieldUpdateOperationsInput | number | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PriceHistoryUncheckedUpdateManyWithoutProductInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    price?: IntFieldUpdateOperationsInput | number
+    colorId?: NullableIntFieldUpdateOperationsInput | number | null
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StockHistoryUpdateWithoutProductInput = {
+    sizeId?: IntFieldUpdateOperationsInput | number
+    available?: BoolFieldUpdateOperationsInput | boolean
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    color?: ProductColorUpdateOneWithoutStockHistoryNestedInput
+  }
+
+  export type StockHistoryUncheckedUpdateWithoutProductInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    sizeId?: IntFieldUpdateOperationsInput | number
+    colorId?: NullableIntFieldUpdateOperationsInput | number | null
+    available?: BoolFieldUpdateOperationsInput | boolean
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StockHistoryUncheckedUpdateManyWithoutProductInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    sizeId?: IntFieldUpdateOperationsInput | number
+    colorId?: NullableIntFieldUpdateOperationsInput | number | null
+    available?: BoolFieldUpdateOperationsInput | boolean
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProductImageCreateManyColorInput = {
@@ -16469,6 +22862,21 @@ export namespace Prisma {
     sku?: number | null
     productId: number
     colorName?: string | null
+  }
+
+  export type PriceHistoryCreateManyColorInput = {
+    id?: number
+    productId: number
+    price: number
+    timestamp?: Date | string
+  }
+
+  export type StockHistoryCreateManyColorInput = {
+    id?: number
+    productId: number
+    sizeId: number
+    available: boolean
+    timestamp?: Date | string
   }
 
   export type ProductImageUpdateWithoutColorInput = {
@@ -16565,6 +22973,49 @@ export namespace Prisma {
     sku?: NullableIntFieldUpdateOperationsInput | number | null
     productId?: IntFieldUpdateOperationsInput | number
     colorName?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type PriceHistoryUpdateWithoutColorInput = {
+    price?: IntFieldUpdateOperationsInput | number
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    product?: ProductUpdateOneRequiredWithoutPriceHistoryNestedInput
+  }
+
+  export type PriceHistoryUncheckedUpdateWithoutColorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    productId?: IntFieldUpdateOperationsInput | number
+    price?: IntFieldUpdateOperationsInput | number
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PriceHistoryUncheckedUpdateManyWithoutColorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    productId?: IntFieldUpdateOperationsInput | number
+    price?: IntFieldUpdateOperationsInput | number
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StockHistoryUpdateWithoutColorInput = {
+    sizeId?: IntFieldUpdateOperationsInput | number
+    available?: BoolFieldUpdateOperationsInput | boolean
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    product?: ProductUpdateOneRequiredWithoutStockHistoryNestedInput
+  }
+
+  export type StockHistoryUncheckedUpdateWithoutColorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    productId?: IntFieldUpdateOperationsInput | number
+    sizeId?: IntFieldUpdateOperationsInput | number
+    available?: BoolFieldUpdateOperationsInput | boolean
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StockHistoryUncheckedUpdateManyWithoutColorInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    productId?: IntFieldUpdateOperationsInput | number
+    sizeId?: IntFieldUpdateOperationsInput | number
+    available?: BoolFieldUpdateOperationsInput | boolean
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

@@ -22,11 +22,14 @@ Bu proje, **Zara** ve **Pull&Bear** e-ticaret sitelerinden kategori ve ürün ve
 - Batch operations ve hata yönetimi
 
 ### ✅ **Production Özellikleri**
-- Environment-based configuration
+- Environment-based configuration  
 - Retry mechanisms with exponential backoff
 - Batch processing for better performance
-- Comprehensive error handling
+- Comprehensive error handling with logging
 - Color relation mapping (string→int)
+- Health check system
+- Graceful shutdown handling
+- Structured logging with file output
  
 ## 🏗️ Teknoloji Stack
 

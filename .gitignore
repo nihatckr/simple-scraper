@@ -20,10 +20,41 @@ out/
 *.sqlite
 *.sqlite3
 
+# Prisma
+backend/prisma/.env
+
+# MySQL dumps/backups
+*.sql
+*.dump
+backup/
+
+# Generated files
+backend/src/generated/
+generated/
+
+# Cursor and Kiro
+.cursor/
+.kiro/
+
+# Package manager files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Output/Cache folders
+output/
+backend/output/
+backend/src/scraper/output/
+backend/cache/
+.cache/
+.next/
+.nuxt/
+
 # Logs
 logs
 *.log
 npm-debug.log*
+backend/logs/
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*

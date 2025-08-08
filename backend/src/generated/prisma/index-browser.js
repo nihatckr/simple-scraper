@@ -120,6 +120,16 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.UserScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  passwordHash: 'passwordHash',
+  name: 'name',
+  role: 'role',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.BrandScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -217,9 +227,51 @@ exports.Prisma.DataSyncScalarFieldEnum = {
   timestamp: 'timestamp'
 };
 
+exports.Prisma.PriceHistoryScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  price: 'price',
+  colorId: 'colorId',
+  timestamp: 'timestamp'
+};
+
+exports.Prisma.StockHistoryScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  sizeId: 'sizeId',
+  colorId: 'colorId',
+  available: 'available',
+  timestamp: 'timestamp'
+};
+
+exports.Prisma.CategoryHistoryScalarFieldEnum = {
+  id: 'id',
+  categoryId: 'categoryId',
+  action: 'action',
+  changes: 'changes',
+  timestamp: 'timestamp'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
+exports.Prisma.UserOrderByRelevanceFieldEnum = {
+  email: 'email',
+  passwordHash: 'passwordHash',
+  name: 'name',
+  role: 'role'
 };
 
 exports.Prisma.BrandOrderByRelevanceFieldEnum = {
@@ -231,11 +283,6 @@ exports.Prisma.MainCategoryOrderByRelevanceFieldEnum = {
   name: 'name',
   brandId: 'brandId',
   gender: 'gender'
-};
-
-exports.Prisma.NullsOrder = {
-  first: 'first',
-  last: 'last'
 };
 
 exports.Prisma.SubCategoryOrderByRelevanceFieldEnum = {
@@ -282,8 +329,24 @@ exports.Prisma.DataSyncOrderByRelevanceFieldEnum = {
   errorMessage: 'errorMessage'
 };
 
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+};
+
+exports.Prisma.CategoryHistoryOrderByRelevanceFieldEnum = {
+  action: 'action'
+};
+
 
 exports.Prisma.ModelName = {
+  User: 'User',
   Brand: 'Brand',
   MainCategory: 'MainCategory',
   SubCategory: 'SubCategory',
@@ -292,7 +355,10 @@ exports.Prisma.ModelName = {
   ProductSize: 'ProductSize',
   ProductImage: 'ProductImage',
   ProductStock: 'ProductStock',
-  DataSync: 'DataSync'
+  DataSync: 'DataSync',
+  PriceHistory: 'PriceHistory',
+  StockHistory: 'StockHistory',
+  CategoryHistory: 'CategoryHistory'
 };
 
 /**

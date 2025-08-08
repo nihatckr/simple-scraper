@@ -1,5 +1,8 @@
 import { BRAND_CONFIG } from '../config'
 import prisma from '../lib/prisma'
+import { fetchZaraProductIds, fetchPullBearProductIds } from '../scraper/categories'
+import { fetchWithRetry } from '../lib/retry'
+import { getCache, cacheKeys, CACHE_TTL } from '../lib/redis-cache'
 
 // Normalize edilmiş veri yapısına uyumlu interface
 interface ProductData {
@@ -62,8 +65,8 @@ interface ProductData {
 // Rate limiting için delay fonksiyonu
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
-// Random delay 1-3 saniye arası
-const getRandomDelay = () => Math.floor(Math.random() * 2000) + 1000
+// Random delay 200-500ms arası (çok hızlı)
+const getRandomDelay = () => Math.floor(Math.random() * 300) + 200
 
 // User-Agent rotasyonu
 const userAgents = [
@@ -85,12 +88,72 @@ const chunkArray = <T>(array: T[], size: number): T[][] => {
   return chunks
 }
 
+// Paralel işleme için worker pool
+class WorkerPool {
+  private maxWorkers: number
+  private activeWorkers: number = 0
+  private queue: Array<() => Promise<any>> = []
+  private results: any[] = []
+
+  constructor(maxWorkers: number = 15) {
+    this.maxWorkers = maxWorkers
+  }
+
+  async addTask<T>(task: () => Promise<T>): Promise<T> {
+    return new Promise((resolve, reject) => {
+      this.queue.push(async () => {
+        try {
+          const result = await task()
+          resolve(result)
+          return result
+        } catch (error) {
+          reject(error)
+          throw error
+        }
+      })
+      this.processQueue()
+    })
+  }
+
+  private async processQueue() {
+    if (this.activeWorkers >= this.maxWorkers || this.queue.length === 0) {
+      return
+    }
+
+    this.activeWorkers++
+    const task = this.queue.shift()
+    
+    if (task) {
+      try {
+        await task()
+      } finally {
+        this.activeWorkers--
+        this.processQueue()
+      }
+    }
+  }
+
+  async waitForAll(): Promise<void> {
+    while (this.queue.length > 0 || this.activeWorkers > 0) {
+      await new Promise(resolve => setTimeout(resolve, 100))
+    }
+  }
+}
+
 // ZARA ürün detaylarını çek
 async function fetchZaraProduct(
   productId: number,
   headers: Record<string, string> = {},
 ): Promise<ProductData | null> {
   try {
+    // Cache kontrolü
+    const cache = await getCache()
+    const cacheKey = cacheKeys.productDetails(productId, 'ZARA')
+    const cachedData = await cache.get<ProductData>(cacheKey)
+    if (cachedData) {
+      return cachedData
+    }
+
     const defaultHeaders = {
       'User-Agent': getRandomUserAgent(),
       Accept: 'application/json, text/plain, */*',
@@ -100,9 +163,10 @@ async function fetchZaraProduct(
     }
 
     // Ana ürün bilgilerini çek (Doğru ZARA API endpoint'i)
-    const mainResponse = await fetch(
+    const mainResponse = await fetchWithRetry(
       `https://www.zara.com/tr/tr/products-details?productIds=${productId}&ajax=true`,
       { headers: defaultHeaders as any },
+      { maxRetries: 3 }
     )
 
     if (!mainResponse.ok) {
@@ -208,6 +272,9 @@ async function fetchZaraProduct(
       }
     }
 
+    // Cache'e kaydet
+    await cache.set(cacheKey, normalizedProduct, CACHE_TTL)
+    
     return normalizedProduct
   } catch (error: any) {
     console.error(`ZARA ürün çekme hatası (${productId}):`, error.message)
@@ -221,6 +288,14 @@ async function fetchPullBearProduct(
   headers: Record<string, string> = {},
 ): Promise<ProductData | null> {
   try {
+    // Cache kontrolü
+    const cache = await getCache()
+    const cacheKey = cacheKeys.productDetails(productId, 'PULL&BEAR')
+    const cachedData = await cache.get<ProductData>(cacheKey)
+    if (cachedData) {
+      return cachedData
+    }
+
     const defaultHeaders = {
       'User-Agent': getRandomUserAgent(),
       Accept: 'application/json, text/plain, */*',
@@ -229,9 +304,10 @@ async function fetchPullBearProduct(
       ...headers,
     }
 
-    const response = await fetch(
+    const response = await fetchWithRetry(
       `https://www.pullandbear.com/itxrest/2/catalog/store/25009521/20309457/category/0/product/${productId}/detail?languageId=-43&appId=1`,
       { headers: defaultHeaders as any },
+      { maxRetries: 3 }
     )
 
     if (!response.ok) {
@@ -356,6 +432,9 @@ async function fetchPullBearProduct(
       }
     }
 
+    // Cache'e kaydet
+    await cache.set(cacheKey, normalizedProduct, CACHE_TTL)
+    
     return normalizedProduct
   } catch (error: any) {
     console.error(`Pull&Bear ürün çekme hatası (${productId}):`, error.message)
@@ -373,8 +452,8 @@ async function processProduct(
   try {
     console.log(`   📦 Ürün işleniyor: ${productId} (${brand})`)
 
-    // Random delay ekle
-    await delay(getRandomDelay())
+    // Random delay ekle (daha kısa)
+    await delay(Math.floor(Math.random() * 500) + 200) // 200-700ms arası
 
     // Ürün zaten var mı kontrol et
     const existingProduct = await prisma.product.findUnique({
@@ -621,6 +700,41 @@ async function saveProductToDatabase(
   }
 }
 
+// Batch işleme - Optimized with Worker Pool
+async function processBatch(
+  productIds: number[],
+  categoryId: number,
+  brand: string,
+  batchIndex: number,
+  totalBatches: number
+): Promise<{ success: number; failure: number }> {
+  console.log(`   🔄 Batch ${batchIndex + 1}/${totalBatches} işleniyor (${productIds.length} ürün)`)
+
+             // Worker pool ile paralel işleme (20 paralel worker)
+           const workerPool = new WorkerPool(20)
+  
+  const promises = productIds.map(async (productId) => {
+    return workerPool.addTask(async () => {
+      try {
+        const result = await processProduct(productId, categoryId, brand)
+        return result ? 'success' : 'failure'
+      } catch (error) {
+        console.error(`   ❌ Ürün işleme hatası (${productId}):`, error)
+        return 'failure'
+      }
+    })
+  })
+
+  const results = await Promise.allSettled(promises)
+  await workerPool.waitForAll()
+  
+  const success = results.filter(r => r.status === 'fulfilled' && r.value === 'success').length
+  const failure = results.filter(r => r.status === 'rejected' || (r.status === 'fulfilled' && r.value === 'failure')).length
+
+  console.log(`   ✅ Batch ${batchIndex + 1} tamamlandı: ${success} başarılı, ${failure} başarısız`)
+  return { success, failure }
+}
+
 // Kategorideki ürünleri işle
 async function processCategoryProducts(
   categoryId: number,
@@ -639,43 +753,27 @@ async function processCategoryProducts(
       return
     }
 
-    // JSON dosyasından bu kategorinin ürün ID'lerini al
-    const fs = require('fs')
-    const path = require('path')
+    // Cache kontrolü - ürün ID'leri
+    const cache = await getCache()
+    const productIdsCacheKey = cacheKeys.productIds(categoryId, brand)
+    let productIds: number[] = await cache.get<number[]>(productIdsCacheKey) || []
 
-    const jsonPath = path.join(
-      __dirname,
-      '../scraper/output/combined-brands-categories.json',
-    )
-    const jsonData = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'))
-
-    let productIds: number[] = []
-
-    // JSON'da bu kategoriyi bul
-    for (const brandData of jsonData.brands) {
-      if (brandData.brand === brand) {
-        for (const mainCategory of brandData.mainCategories) {
-          // Recursive olarak tüm kategorilerde ara
-          const findCategory = (categories: any[]): any => {
-            for (const cat of categories) {
-              if (cat.categoryId === categoryId && cat.productIds) {
-                return cat.productIds
-              }
-              if (cat.subcategories) {
-                const found = findCategory(cat.subcategories)
-                if (found) return found
-              }
-            }
-            return null
-          }
-
-          const found = findCategory(mainCategory.subcategories || [])
-          if (found) {
-            productIds = found
-            break
-          }
-        }
+    if (productIds.length === 0) {
+      console.log(`   🔍 ${brand} API'den ürün ID'leri çekiliyor...`)
+      
+      if (brand === 'ZARA') {
+        productIds = await fetchZaraProductIds(categoryId, BRAND_CONFIG.ZARA.headers)
+      } else if (brand === 'PULL&BEAR') {
+        productIds = await fetchPullBearProductIds(categoryId, BRAND_CONFIG.PULLANDBEAR.headers)
       }
+
+      // Cache'e kaydet
+      if (productIds.length > 0) {
+        await cache.set(productIdsCacheKey, productIds, CACHE_TTL)
+        console.log(`   💾 Ürün ID'leri cache'e kaydedildi`)
+      }
+    } else {
+      console.log(`   📋 Cache'den ${productIds.length} ürün ID'si alındı`)
     }
 
     if (productIds.length === 0) {
@@ -685,49 +783,43 @@ async function processCategoryProducts(
 
     console.log(`   📋 ${productIds.length} ürün bulundu`)
 
-    // TEST SINIRI: Production için daha fazla ürün test edilebilir
-    const isProduction = process.env.NODE_ENV === 'production'
-    const productLimit = isProduction ? Math.min(productIds.length, 50) : 3 // Production'da 50, test'te 3
-    const limitedProductIds = productIds.slice(0, productLimit)
+    // Tüm ürünleri işle - LIMITSIZ
+    const limitedProductIds = productIds // Tüm ürünleri al
     console.log(
-      `   ${isProduction ? '🚀 PRODUCTION' : '🔬 TEST'}: ${
-        limitedProductIds.length
-      }/${productIds.length} ürün ${
-        isProduction ? 'işlenecek' : 'ile test ediliyor'
-      }`,
+      `   🚀 TÜM ÜRÜNLER: ${limitedProductIds.length}/${productIds.length} ürün işlenecek`,
     )
 
-    // Ürünleri tek tek işle (batch'e gerek yok, sadece 3 ürün)
-    let successCount = 0
-    let failureCount = 0
+    // Batch boyutu: 50 (çok büyük batch'ler)
+    const batchSize = 50
+    const batches = chunkArray(limitedProductIds, batchSize)
 
-    for (let i = 0; i < limitedProductIds.length; i++) {
-      const productId = limitedProductIds[i]
-      if (!productId) continue // undefined ise atla
+    let totalSuccess = 0
+    let totalFailure = 0
 
-      console.log(
-        `   📦 [${i + 1}/${limitedProductIds.length}] Ürün işleniyor...`,
-      )
+    for (let i = 0; i < batches.length; i++) {
+      const batch = batches[i]
+      if (!batch) continue
 
-      const success = await processProduct(
-        productId,
+      const { success, failure } = await processBatch(
+        batch,
         category.categoryId,
         category.brand,
+        i,
+        batches.length
       )
-      if (success) {
-        successCount++
-      } else {
-        failureCount++
-      }
 
-      // Ürünler arası bekleme (daha kısa - sadece test)
-      if (i < limitedProductIds.length - 1) {
-        await delay(1000 + Math.random() * 1000) // 1-2 saniye
+      totalSuccess += success
+      totalFailure += failure
+
+      // Batch'ler arası bekleme (çok kısa)
+      if (i < batches.length - 1) {
+        const waitTime = 500
+        await delay(waitTime + Math.random() * 500)
       }
     }
 
     console.log(
-      `   ✅ Kategori tamamlandı: ${successCount} başarılı, ${failureCount} başarısız`,
+      `   ✅ Kategori tamamlandı: ${totalSuccess} başarılı, ${totalFailure} başarısız`,
     )
   } catch (error: any) {
     console.error(`Kategori işleme hatası (${categoryId}):`, error.message)
@@ -748,60 +840,86 @@ export async function saveProductsToDatabase(): Promise<void> {
       return
     }
 
-    // Production için daha fazla kategori
-    const isProduction = process.env.NODE_ENV === 'production'
-    const categoryLimit = isProduction ? 10 : 1 // Production'da her markadan 10, test'te 1
-
-    // Test için: Her markadan kategoriler al
-    const zaraCategories = await prisma.subCategory.findMany({
-      where: {
-        brand: 'ZARA',
-        isLeaf: true,
-        productCount: { gte: 3, lte: isProduction ? 100 : 10 }, // Production'da daha büyük kategoriler
-      },
-      orderBy: { productCount: 'asc' },
-      take: categoryLimit,
-    })
-
-    const pullBearCategories = await prisma.subCategory.findMany({
-      where: {
-        brand: 'PULL&BEAR',
-        isLeaf: true,
-        productCount: { gte: 3, lte: isProduction ? 100 : 10 },
-      },
-      orderBy: { productCount: 'asc' },
-      take: categoryLimit,
-    })
+    // Tüm kategorileri işle - LIMITSIZ
+    const [zaraCategories, pullBearCategories] = await Promise.all([
+      prisma.subCategory.findMany({
+        where: {
+          brand: 'ZARA',
+          isLeaf: true,
+        },
+        orderBy: [
+          { productCount: 'desc' }, // En büyük kategorilerden başla
+          { categoryName: 'asc' }
+        ],
+      }),
+      prisma.subCategory.findMany({
+        where: {
+          brand: 'PULL&BEAR',
+          isLeaf: true,
+        },
+        orderBy: [
+          { productCount: 'desc' }, // En büyük kategorilerden başla
+          { categoryName: 'asc' }
+        ],
+      })
+    ])
 
     const leafCategories = [...zaraCategories, ...pullBearCategories]
 
     console.log(
-      `📊 ${leafCategories.length} leaf kategori seçildi (${
-        isProduction ? 'PRODUCTION' : 'TEST'
-      } - her kategoriden ${isProduction ? 'max 50' : '3'} ürün)\n`,
+      `📊 ${leafCategories.length} leaf kategori seçildi (TÜM KATEGORİLER - her kategoriden TÜM ÜRÜNLER)\n`,
     )
 
-    let categoryIndex = 0
-    for (const category of leafCategories) {
-      categoryIndex++
-      console.log(
-        `\n[${categoryIndex}/${leafCategories.length}] 🎯 Kategori: ${category.categoryName} (${category.brand})`,
-      )
-      console.log(`   📦 Ürün sayısı: ${category.productCount}`)
-
-      await processCategoryProducts(category.categoryId, category.brand)
-
-      // Kategoriler arası bekleme
-      if (categoryIndex < leafCategories.length) {
-        console.log(`   ⏱️  Sonraki kategori için bekleniyor...`)
-        await delay(5000 + Math.random() * 3000) // 5-8 saniye
+    // Kategorileri marka bazında grupla
+    const categoriesByBrand = leafCategories.reduce((acc, category) => {
+      if (!acc[category.brand]) {
+        acc[category.brand] = []
       }
-    }
+      acc[category.brand]!.push(category)
+      return acc
+    }, {} as Record<string, typeof leafCategories>)
+
+    // Her marka için paralel işlem başlat
+    const brandPromises = Object.entries(categoriesByBrand).map(async ([brand, categories]) => {
+      console.log(`\n🏪 ${brand} markası işleniyor...`)
+      
+      let brandSuccess = 0
+      let brandFailure = 0
+
+      // Her marka için kategorileri sırayla işle
+      for (let i = 0; i < categories.length; i++) {
+        const category = categories[i]
+        if (!category) continue
+        
+        console.log(
+          `\n[${i + 1}/${categories.length}] 🎯 Kategori: ${category.categoryName}`,
+        )
+        console.log(`   📦 Ürün sayısı: ${category.productCount}`)
+
+        await processCategoryProducts(category.categoryId, category.brand)
+
+        // Kategoriler arası bekleme (marka içinde)
+        if (i < categories.length - 1) {
+          console.log(`   ⏱️  Sonraki kategori için bekleniyor...`)
+          await delay(1000) // Çok kısa bekleme
+        }
+      }
+
+      return { brand, success: brandSuccess, failure: brandFailure }
+    })
+
+    // Tüm markaların işlemlerini bekle
+    const results = await Promise.all(brandPromises)
 
     // Özet bilgi
     const totalProducts = await prisma.product.count()
     console.log(`\n🎉 Ürün aktarımı tamamlandı!`)
     console.log(`📊 Toplam database'deki ürün sayısı: ${totalProducts}`)
+
+    // Marka bazında özet
+    results.forEach(({ brand, success, failure }) => {
+      console.log(`   • ${brand}: ${success} başarılı, ${failure} başarısız`)
+    })
   } catch (error: any) {
     console.error('Ürün aktarım hatası:', error.message)
     throw error

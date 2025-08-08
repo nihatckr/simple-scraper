@@ -11,6 +11,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// User model (Auth)
+model User {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  passwordHash String
+  name         String?
+  role         String   @default("user") // user, admin
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("users")
+}
+
 // Brand model
 model Brand {
   id             String         @id
@@ -62,6 +75,9 @@ model SubCategory {
   // Relation to products via join table
   products Product[] @relation("SubCategoryProducts")
 
+  // History relation
+  history CategoryHistory[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -86,6 +102,10 @@ model Product {
   // Relation to subcategories via join table
   subCategories SubCategory[] @relation("SubCategoryProducts")
 
+  // History relations
+  priceHistory PriceHistory[]
+  stockHistory StockHistory[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -108,6 +128,10 @@ model ProductColor {
   images ProductImage[]
   sizes  ProductSize[]
   stock  ProductStock[] // Stock relation eklendi
+
+  // History relations
+  priceHistory PriceHistory[]
+  stockHistory StockHistory[]
 
   // Aynı ürün için aynı colorId tekrarlanamaz
   @@unique([productId, colorId])
@@ -183,4 +207,46 @@ model DataSync {
   timestamp    DateTime @default(now())
 
   @@map("data_syncs")
+}
+
+// Price History Tracking
+model PriceHistory {
+  id        Int           @id @default(autoincrement())
+  productId Int
+  product   Product       @relation(fields: [productId], references: [id], onDelete: Cascade)
+  price     Int // Kuruş cinsinden
+  colorId   Int? // Hangi renk varyantı
+  color     ProductColor? @relation(fields: [colorId], references: [id])
+  timestamp DateTime      @default(now())
+
+  @@index([productId, timestamp])
+  @@map("price_history")
+}
+
+// Stock History Tracking
+model StockHistory {
+  id        Int           @id @default(autoincrement())
+  productId Int
+  product   Product       @relation(fields: [productId], references: [id], onDelete: Cascade)
+  sizeId    Int
+  colorId   Int?
+  color     ProductColor? @relation(fields: [colorId], references: [id])
+  available Boolean
+  timestamp DateTime      @default(now())
+
+  @@index([productId, timestamp])
+  @@map("stock_history")
+}
+
+// Category History Tracking
+model CategoryHistory {
+  id         Int         @id @default(autoincrement())
+  categoryId Int
+  category   SubCategory @relation(fields: [categoryId], references: [categoryId], onDelete: Cascade)
+  action     String // 'added', 'removed', 'modified'
+  changes    Json? // Değişiklik detayları
+  timestamp  DateTime    @default(now())
+
+  @@index([categoryId, timestamp])
+  @@map("category_history")
 }
